@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lucovica.ru'
-const PHONE = process.env.NEXT_PUBLIC_PHONE ?? '+7-961-XXX-XX-XX'
+const PHONE = '+7 (977) 016-97-75'
 
 export default function PrivacyPage() {
   const today = new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
             <h2 className="text-lg font-bold text-navy mb-3">2. Сведения об операторе</h2>
             <div className="bg-white rounded-2xl border border-beige p-5 space-y-1.5">
               <p><span className="font-semibold">Наименование:</span> Студия эпиляции LUCOVICA</p>
-              <p><span className="font-semibold">Адрес:</span> Ростов-на-Дону, центр [укажите точный адрес]</p>
+              <p><span className="font-semibold">Адрес:</span> Ростов-на-Дону, просп. Соколова, 68/118Вс1, этаж 1</p>
               <p><span className="font-semibold">Телефон:</span>{' '}
                 <a href={`tel:${PHONE}`} className="text-rose-dark">{PHONE}</a>
               </p>
@@ -256,7 +256,7 @@ export default function PrivacyPage() {
             </p>
             <div className="bg-white rounded-2xl border border-beige p-5 space-y-2">
               <p>📞 Телефон: <a href={`tel:${PHONE}`} className="text-rose-dark font-semibold">{PHONE}</a></p>
-              <p>📍 Адрес: Ростов-на-Дону, центр [укажите точный адрес]</p>
+              <p>📍 Адрес: Ростов-на-Дону, просп. Соколова, 68/118Вс1, этаж 1</p>
               <p className="text-navy/50 text-xs">
                 Ответ на обращение предоставляется в срок не позднее 30 рабочих дней
                 со дня получения запроса (ст. 20 ФЗ № 152-ФЗ).

@@ -117,8 +117,9 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
 
   if (!isOpen) return null
 
-  const PHONE = process.env.NEXT_PUBLIC_PHONE ?? '+7-961-XXX-XX-XX'
-  const WA = process.env.NEXT_PUBLIC_WHATSAPP ?? '79610000000'
+  const PHONE = '+7 (977) 016-97-75'
+  const PHONE_HREF = '+79770169775'
+  const TG = 'lucovica_pro_epil'
   const currentProgress = progressStep(step)
 
   return (
@@ -303,20 +304,20 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
               <p className="text-sm text-navy/60 mb-2">Также вы можете написать нам напрямую:</p>
               <div className="flex flex-col gap-2">
                 <a
-                  href={`tel:${PHONE}`}
+                  href={`tel:${PHONE_HREF}`}
                   onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_phone') }}
                   className="btn-outline text-sm py-2.5"
                 >
                   📞 {PHONE}
                 </a>
                 <a
-                  href={`https://wa.me/${WA}`}
+                  href={`https://t.me/${TG}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_whatsapp') }}
+                  onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_telegram') }}
                   className="btn-primary text-sm py-2.5"
                 >
-                  💬 WhatsApp
+                  ✈️ Написать в Telegram
                 </a>
               </div>
               <button onClick={onClose} className="mt-4 text-sm text-navy/50 hover:text-navy underline">

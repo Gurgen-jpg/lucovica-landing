@@ -3,10 +3,29 @@
 import { useState } from 'react'
 import LeadForm from './LeadForm'
 
+const PHONE = '+7 (977) 016-97-75'
+const PHONE_HREF = '+79770169775'
+const TG_USERNAME = 'lucovica_pro_epil'
+const ADDRESS = 'просп. Соколова, 68/118Вс1, этаж 1'
+const CITY = 'Ростов-на-Дону'
+const MAP_SRC = 'https://yandex.ru/map-widget/v1/org/lucovica/72594546932/?ll=39.718390,47.231276&z=16'
+
+const HOURS = [
+  { day: 'Пн', time: '10:00–21:00' },
+  { day: 'Вт', time: '10:00–21:00' },
+  { day: 'Ср', time: '10:00–21:00' },
+  { day: 'Чт', time: '10:00–21:00' },
+  { day: 'Пт', time: '10:00–21:00' },
+  { day: 'Сб', time: '10:00–21:00' },
+  { day: 'Вс', time: '10:00–21:00' },
+]
+
+const today = new Date().getDay() // 0=Sun, 1=Mon...
+// map JS day index to our array index (Mon=0..Sun=6)
+const todayIdx = today === 0 ? 6 : today - 1
+
 export default function Contacts() {
   const [open, setOpen] = useState(false)
-  const PHONE = process.env.NEXT_PUBLIC_PHONE ?? '+7-961-XXX-XX-XX'
-  const WA = process.env.NEXT_PUBLIC_WHATSAPP ?? '79610000000'
 
   return (
     <>
@@ -19,15 +38,24 @@ export default function Contacts() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Info */}
-            <div className="space-y-5">
+            <div className="space-y-4">
+
               {/* Address */}
               <div className="card">
                 <div className="flex items-start gap-3">
                   <span className="text-2xl mt-0.5">📍</span>
                   <div>
                     <p className="font-bold text-navy mb-1">Адрес</p>
-                    <p className="text-navy/70 text-sm">Ростов-на-Дону, центр</p>
-                    <p className="text-navy/50 text-xs mt-1">[Укажите точный адрес]</p>
+                    <p className="text-navy/80 text-sm font-medium">{CITY}</p>
+                    <p className="text-navy/70 text-sm">{ADDRESS}</p>
+                    <a
+                      href={`https://yandex.com/maps/org/lucovica/72594546932/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-rose-dark text-xs font-semibold mt-1.5 inline-block hover:text-rose-deep transition"
+                    >
+                      Открыть на Яндекс Картах →
+                    </a>
                   </div>
                 </div>
               </div>
@@ -39,9 +67,12 @@ export default function Contacts() {
                   <div>
                     <p className="font-bold text-navy mb-1">Телефон</p>
                     <a
-                      href={`tel:${PHONE}`}
-                      className="text-rose-dark font-semibold hover:text-rose-deep transition"
-                      onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_phone') }}
+                      href={`tel:${PHONE_HREF}`}
+                      className="text-rose-dark font-semibold hover:text-rose-deep transition text-base"
+                      onClick={() => {
+                        if (typeof window !== 'undefined' && (window as any).ym)
+                          (window as any).ym(undefined, 'reachGoal', 'click_phone')
+                      }}
                     >
                       {PHONE}
                     </a>
@@ -49,20 +80,23 @@ export default function Contacts() {
                 </div>
               </div>
 
-              {/* WhatsApp */}
+              {/* Telegram */}
               <div className="card">
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl mt-0.5">💬</span>
+                  <span className="text-2xl mt-0.5">✈️</span>
                   <div>
-                    <p className="font-bold text-navy mb-1">WhatsApp</p>
+                    <p className="font-bold text-navy mb-1">Telegram</p>
                     <a
-                      href={`https://wa.me/${WA}`}
+                      href={`https://t.me/${TG_USERNAME}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-rose-dark font-semibold hover:text-rose-deep transition"
-                      onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_whatsapp') }}
+                      onClick={() => {
+                        if (typeof window !== 'undefined' && (window as any).ym)
+                          (window as any).ym(undefined, 'reachGoal', 'click_telegram')
+                      }}
                     >
-                      Написать в WhatsApp →
+                      @{TG_USERNAME}
                     </a>
                   </div>
                 </div>
@@ -72,18 +106,26 @@ export default function Contacts() {
               <div className="card">
                 <div className="flex items-start gap-3">
                   <span className="text-2xl mt-0.5">🕐</span>
-                  <div>
+                  <div className="flex-1">
                     <p className="font-bold text-navy mb-2">Режим работы</p>
-                    <div className="space-y-1 text-sm">
-                      <div className="flex justify-between text-navy/70">
-                        <span>Понедельник — Пятница</span>
-                        <span className="font-semibold">10:00–20:00</span>
-                      </div>
-                      <div className="flex justify-between text-navy/70">
-                        <span>Суббота — Воскресенье</span>
-                        <span className="font-semibold">10:00–18:00</span>
-                      </div>
+                    <div className="grid grid-cols-7 gap-1">
+                      {HOURS.map((h, i) => (
+                        <div
+                          key={h.day}
+                          className={`flex flex-col items-center rounded-lg py-1.5 px-1 ${
+                            i === todayIdx
+                              ? 'bg-rose-dark text-white'
+                              : 'bg-beige/50 text-navy/70'
+                          }`}
+                        >
+                          <span className="text-xs font-bold">{h.day}</span>
+                          <span className="text-[10px] mt-0.5 leading-tight text-center">
+                            {h.time.replace('–', '–\n')}
+                          </span>
+                        </div>
+                      ))}
                     </div>
+                    <p className="text-navy/50 text-xs mt-2">Ежедневно 10:00–21:00</p>
                   </div>
                 </div>
               </div>
@@ -98,16 +140,15 @@ export default function Contacts() {
             </div>
 
             {/* Map */}
-            <div className="rounded-3xl overflow-hidden shadow-md border border-beige min-h-[300px] bg-beige flex items-center justify-center">
-              {/* Replace src with your actual Yandex Maps embed URL */}
+            <div className="rounded-3xl overflow-hidden shadow-md border border-beige min-h-[400px]">
               <iframe
-                src="https://yandex.ru/map-widget/v1/?um=constructor%3Aplaceholder&amp;source=constructor"
+                src={MAP_SRC}
                 width="100%"
                 height="100%"
-                className="w-full h-full min-h-[350px]"
+                className="w-full h-full min-h-[400px]"
                 frameBorder="0"
                 allowFullScreen
-                title="Карта студии LUCOVICA"
+                title="Студия LUCOVICA на карте — просп. Соколова, 68/118Вс1, Ростов-на-Дону"
               />
             </div>
           </div>

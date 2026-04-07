@@ -1,10 +1,8 @@
 import Image from 'next/image'
 
 const team = [
-  { name: 'Екатерина', role: 'Руководитель студии', exp: '8 лет опыта', avatar: '👩', color: 'from-rose-light to-beige' },
-  { name: 'Анастасия', role: 'Мастер лазерной эпиляции', exp: '4 года опыта', avatar: '👩', color: 'from-cream-300 to-beige' },
-  { name: 'Мария', role: 'Мастер шугаринга', exp: '5 лет опыта', avatar: '👩', color: 'from-beige to-rose-light/40' },
-  { name: 'Ольга', role: 'Мастер всех видов эпиляции', exp: '3 года опыта', avatar: '👩', color: 'from-rose/20 to-cream-200' },
+  { name: 'Екатерина', role: 'Топ-мастер', exp: '8 лет опыта', color: 'from-rose-light to-beige', badge: '⭐ Топ-мастер' },
+  { name: 'Татьяна', role: 'Ведущий мастер', exp: '5 лет опыта', color: 'from-cream-300 to-beige', badge: '✦ Ведущий мастер' },
 ]
 
 const values = [
@@ -41,26 +39,29 @@ export default function About() {
 
         {/* Team */}
         <div className="text-center mb-8">
-          <h3 className="text-xl font-bold text-navy">Наша команда</h3>
-          <p className="text-navy/60 text-sm mt-1">Опытные мастера, которым вы доверяете</p>
+          <h3 className="text-xl font-bold text-navy">Наши мастера</h3>
+          <p className="text-navy/60 text-sm mt-1">Профессионалы, которым вы доверяете</p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+        <div className="flex flex-col sm:flex-row gap-5 justify-center max-w-xl mx-auto">
           {team.map((member) => (
-            <div key={member.name} className="card text-center hover:shadow-md transition-shadow">
+            <div key={member.name} className="card text-center hover:shadow-md transition-shadow flex-1">
               <div
-                className={`w-20 h-20 rounded-full bg-gradient-to-br ${member.color} mx-auto mb-3 flex items-center justify-center overflow-hidden border-4 border-beige`}
+                className={`w-24 h-24 rounded-full bg-gradient-to-br ${member.color} mx-auto mb-4 flex items-center justify-center overflow-hidden border-4 border-beige`}
               >
                 <Image
                   src={`/team-${member.name.toLowerCase()}.jpg`}
                   alt={`Мастер ${member.name} — студия LUCOVICA`}
-                  width={80}
-                  height={80}
+                  width={96}
+                  height={96}
                   className="object-cover w-full h-full"
                 />
               </div>
-              <h4 className="font-bold text-navy">{member.name}</h4>
-              <p className="text-navy/60 text-xs mt-0.5">{member.role}</p>
+              <span className="inline-block bg-rose-light/50 text-rose-deep text-xs font-bold px-3 py-1 rounded-full mb-2">
+                {member.badge}
+              </span>
+              <h4 className="font-bold text-navy text-lg mt-1">{member.name}</h4>
+              <p className="text-navy/60 text-sm mt-0.5">{member.role}</p>
               <p className="text-rose-dark text-xs font-semibold mt-1">{member.exp}</p>
             </div>
           ))}

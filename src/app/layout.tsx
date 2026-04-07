@@ -57,14 +57,14 @@ const jsonLd = {
       name: 'LUCOVICA',
       description: 'Студия лазерной эпиляции и шугаринга в центре Ростова-на-Дону',
       url: SITE_URL,
-      telephone: process.env.NEXT_PUBLIC_PHONE ?? '+7-961-XXX-XX-XX',
+      telephone: '+79770169775',
       image: `${SITE_URL}/logo.png`,
       priceRange: '₽₽',
       currenciesAccepted: 'RUB',
       paymentAccepted: 'Cash, Credit Card',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: '[АДРЕС]',
+        streetAddress: 'просп. Соколова, 68/118Вс1, этаж 1',
         addressLocality: 'Ростов-на-Дону',
         addressRegion: 'Ростовская область',
         postalCode: '344000',
@@ -76,8 +76,7 @@ const jsonLd = {
         longitude: '39.7189',
       },
       openingHoursSpecification: [
-        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
-        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday','Sunday'], opens: '10:00', closes: '18:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '10:00', closes: '21:00' },
       ],
       sameAs: [],
       hasOfferCatalog: {
