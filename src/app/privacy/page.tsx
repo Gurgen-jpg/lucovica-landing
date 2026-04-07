@@ -1,0 +1,281 @@
+import type { Metadata } from 'next'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Политика конфиденциальности',
+  description: 'Политика обработки персональных данных студии LUCOVICA',
+  robots: { index: false, follow: false },
+}
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lucovica.ru'
+const PHONE = process.env.NEXT_PUBLIC_PHONE ?? '+7-961-XXX-XX-XX'
+
+export default function PrivacyPage() {
+  const today = new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
+
+  return (
+    <div className="min-h-screen bg-cream-100">
+      {/* Header */}
+      <header className="bg-white border-b border-beige px-5 md:px-12 py-4 flex items-center justify-between">
+        <Link href="/" className="text-rose-dark font-bold text-lg tracking-wide">
+          LUCOVICA
+        </Link>
+        <Link href="/" className="text-sm text-navy/60 hover:text-rose-dark transition">
+          ← На главную
+        </Link>
+      </header>
+
+      <main className="max-w-3xl mx-auto px-5 md:px-8 py-12">
+        <h1 className="text-3xl font-extrabold text-navy mb-2">
+          Политика конфиденциальности
+        </h1>
+        <p className="text-navy/50 text-sm mb-10">
+          Последнее обновление: {today}
+        </p>
+
+        <div className="space-y-8 text-navy/80 text-sm leading-relaxed">
+
+          {/* 1 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">1. Общие положения</h2>
+            <p className="mb-3">
+              Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок
+              обработки и защиты персональных данных физических лиц (далее — «Пользователи»),
+              которые используют сайт <a href={SITE_URL} className="text-rose-dark underline">{SITE_URL}</a>
+              {' '}(далее — «Сайт»), принадлежащий студии эпиляции LUCOVICA
+              (далее — «Оператор»).
+            </p>
+            <p className="mb-3">
+              Настоящая Политика разработана в соответствии с требованиями
+              Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных»
+              и иными нормативными правовыми актами Российской Федерации.
+            </p>
+            <p>
+              Используя Сайт и оставляя свои данные через форму записи,
+              Пользователь даёт согласие на обработку персональных данных на условиях
+              настоящей Политики.
+            </p>
+          </section>
+
+          {/* 2 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">2. Сведения об операторе</h2>
+            <div className="bg-white rounded-2xl border border-beige p-5 space-y-1.5">
+              <p><span className="font-semibold">Наименование:</span> Студия эпиляции LUCOVICA</p>
+              <p><span className="font-semibold">Адрес:</span> Ростов-на-Дону, центр [укажите точный адрес]</p>
+              <p><span className="font-semibold">Телефон:</span>{' '}
+                <a href={`tel:${PHONE}`} className="text-rose-dark">{PHONE}</a>
+              </p>
+              <p><span className="font-semibold">Сайт:</span>{' '}
+                <a href={SITE_URL} className="text-rose-dark">{SITE_URL}</a>
+              </p>
+            </div>
+          </section>
+
+          {/* 3 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">3. Состав собираемых персональных данных</h2>
+            <p className="mb-3">
+              При заполнении формы записи или обратной связи на Сайте Оператор собирает
+              следующие персональные данные:
+            </p>
+            <ul className="list-disc pl-5 space-y-1.5">
+              <li>Имя (имя и фамилия) Пользователя;</li>
+              <li>Номер контактного телефона;</li>
+              <li>Запрашиваемая услуга и удобное время записи;</li>
+              <li>Технические данные: IP-адрес, параметры браузера, UTM-метки (источник перехода).</li>
+            </ul>
+            <p className="mt-3">
+              Оператор не собирает специальные категории персональных данных (о расовой
+              принадлежности, состоянии здоровья, биометрические данные и др.).
+            </p>
+          </section>
+
+          {/* 4 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">4. Цели обработки персональных данных</h2>
+            <p className="mb-3">Персональные данные обрабатываются в целях:</p>
+            <ul className="list-disc pl-5 space-y-1.5">
+              <li>подтверждения и ведения записи Пользователя на процедуру;</li>
+              <li>обратной связи с Пользователем по вопросам предоставления услуг;</li>
+              <li>информирования об акциях, специальных предложениях (при наличии согласия);</li>
+              <li>улучшения качества работы Сайта и анализа пользовательского поведения;</li>
+              <li>соблюдения требований законодательства РФ.</li>
+            </ul>
+          </section>
+
+          {/* 5 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">5. Правовые основания обработки</h2>
+            <p className="mb-3">
+              Обработка персональных данных осуществляется на следующих основаниях
+              (ст. 6 Федерального закона № 152-ФЗ):
+            </p>
+            <ul className="list-disc pl-5 space-y-1.5">
+              <li>
+                <span className="font-semibold">Согласие субъекта</span> — Пользователь добровольно
+                заполняет форму и нажимает кнопку «Записаться» / «Отправить»;
+              </li>
+              <li>
+                <span className="font-semibold">Исполнение договора</span> — обработка необходима
+                для предоставления услуги, на которую записывается Пользователь;
+              </li>
+              <li>
+                <span className="font-semibold">Законный интерес</span> — аналитика и улучшение
+                работы Сайта в рамках разумных ожиданий Пользователей.
+              </li>
+            </ul>
+          </section>
+
+          {/* 6 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">6. Порядок обработки и хранения данных</h2>
+            <p className="mb-3">
+              Обработка персональных данных осуществляется смешанным способом (с использованием
+              средств автоматизации и без таковых) сотрудниками Оператора.
+            </p>
+            <p className="mb-3">
+              Данные, полученные через форму записи, передаются Оператору посредством
+              защищённого API-запроса (HTTPS) и доставляются в корпоративный мессенджер.
+              Данные не хранятся в открытых базах данных на стороне Сайта.
+            </p>
+            <p className="mb-3">
+              Срок хранения персональных данных — не более <span className="font-semibold">3 лет</span>
+              {' '}с момента последнего взаимодействия с Пользователем, если иное не предусмотрено
+              применимым законодательством.
+            </p>
+            <p>
+              По истечении срока хранения либо при отзыве согласия данные уничтожаются
+              в порядке, предусмотренном внутренними процедурами Оператора.
+            </p>
+          </section>
+
+          {/* 7 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">7. Передача персональных данных третьим лицам</h2>
+            <p className="mb-3">
+              Оператор не передаёт персональные данные третьим лицам без согласия
+              Пользователя, за исключением случаев, предусмотренных законодательством РФ.
+            </p>
+            <p className="mb-3">
+              В целях обеспечения работы Сайта Оператор использует следующие сервисы-обработчики:
+            </p>
+            <ul className="list-disc pl-5 space-y-1.5">
+              <li>
+                <span className="font-semibold">Яндекс.Метрика</span> (АО «Яндекс», Россия) —
+                анализ посещаемости Сайта. Политика конфиденциальности:{' '}
+                <a href="https://yandex.ru/legal/confidential/" target="_blank"
+                   rel="noopener noreferrer" className="text-rose-dark underline">
+                  yandex.ru/legal/confidential
+                </a>;
+              </li>
+              <li>
+                <span className="font-semibold">Telegram</span> (Telegram FZ-LLC) —
+                доставка уведомлений о заявках операторам студии.
+              </li>
+            </ul>
+            <p className="mt-3">
+              Указанные сервисы действуют в соответствии со своими политиками
+              конфиденциальности и не вправе использовать данные в собственных целях.
+            </p>
+          </section>
+
+          {/* 8 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">8. Права субъекта персональных данных</h2>
+            <p className="mb-3">
+              В соответствии со ст. 14–17 Федерального закона № 152-ФЗ Пользователь вправе:
+            </p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>получить информацию об обработке своих персональных данных;</li>
+              <li>потребовать уточнения, блокирования или уничтожения неточных данных;</li>
+              <li>
+                отозвать согласие на обработку — направив письменный запрос на контактный
+                телефон или адрес Оператора; после отзыва данные будут удалены в течение
+                <span className="font-semibold"> 30 рабочих дней</span>;
+              </li>
+              <li>
+                обжаловать действия или бездействие Оператора в уполномоченный орган —
+                Роскомнадзор (<a href="https://rkn.gov.ru" target="_blank" rel="noopener noreferrer"
+                  className="text-rose-dark underline">rkn.gov.ru</a>).
+              </li>
+            </ul>
+          </section>
+
+          {/* 9 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">9. Файлы cookie</h2>
+            <p className="mb-3">
+              Сайт использует файлы cookie — небольшие текстовые файлы, сохраняемые в браузере
+              Пользователя. Cookie применяются для:
+            </p>
+            <ul className="list-disc pl-5 space-y-1.5">
+              <li>обеспечения работоспособности Сайта;</li>
+              <li>сбора статистики посещаемости (Яндекс.Метрика);</li>
+              <li>сохранения пользовательских предпочтений.</li>
+            </ul>
+            <p className="mt-3">
+              Пользователь вправе настроить браузер таким образом, чтобы отказаться от приёма
+              cookie или получать уведомления об их отправке. Отключение cookie может привести
+              к ограничению функциональности Сайта.
+            </p>
+          </section>
+
+          {/* 10 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">10. Защита персональных данных</h2>
+            <p>
+              Оператор принимает организационные и технические меры для защиты персональных
+              данных от несанкционированного доступа, уничтожения, изменения, блокирования,
+              копирования, предоставления, распространения, а также от иных неправомерных
+              действий в отношении персональных данных. Передача данных осуществляется
+              по защищённому протоколу HTTPS (TLS 1.2 и выше).
+            </p>
+          </section>
+
+          {/* 11 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">11. Изменение Политики</h2>
+            <p>
+              Оператор вправе вносить изменения в настоящую Политику в одностороннем порядке.
+              Новая редакция вступает в силу с момента её публикации на Сайте. Актуальная
+              версия Политики всегда доступна по адресу{' '}
+              <a href={`${SITE_URL}/privacy`} className="text-rose-dark underline">
+                {SITE_URL}/privacy
+              </a>.
+              Продолжение использования Сайта после публикации изменений означает согласие
+              с обновлённой Политикой.
+            </p>
+          </section>
+
+          {/* 12 */}
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">12. Контакты</h2>
+            <p className="mb-3">
+              По всем вопросам, связанным с обработкой персональных данных, вы можете обратиться:
+            </p>
+            <div className="bg-white rounded-2xl border border-beige p-5 space-y-2">
+              <p>📞 Телефон: <a href={`tel:${PHONE}`} className="text-rose-dark font-semibold">{PHONE}</a></p>
+              <p>📍 Адрес: Ростов-на-Дону, центр [укажите точный адрес]</p>
+              <p className="text-navy/50 text-xs">
+                Ответ на обращение предоставляется в срок не позднее 30 рабочих дней
+                со дня получения запроса (ст. 20 ФЗ № 152-ФЗ).
+              </p>
+            </div>
+          </section>
+
+        </div>
+
+        {/* Footer nav */}
+        <div className="mt-12 pt-8 border-t border-beige flex flex-col sm:flex-row items-center justify-between gap-4">
+          <Link href="/" className="btn-outline text-sm">
+            ← Вернуться на главную
+          </Link>
+          <p className="text-xs text-navy/40">
+            © 2026 LUCOVICA · ФЗ-152 «О персональных данных»
+          </p>
+        </div>
+      </main>
+    </div>
+  )
+}
