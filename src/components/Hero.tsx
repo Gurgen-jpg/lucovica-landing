@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import LeadForm from './LeadForm'
+import LogoDivider from './LogoDivider'
 
 export default function Hero() {
   const [open, setOpen] = useState(false)
@@ -17,18 +18,26 @@ export default function Hero() {
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between px-5 md:px-12 py-5">
           <div className="flex items-center gap-3">
-            <Image
-              src="/logo-white.png"
-              alt="LUCOVICA — студия эпиляции"
-              width={160}
-              height={56}
-              priority
-              className="h-10 w-auto object-contain"
+            <LogoDivider
+              sourse="/Logo_main_white.png"
+              // alt="LUCOVICA"
+              width={120}
+              height={80}
+            // priority
+            // className="h-10 w-auto object-contain"
             />
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-white/70">
             <a href="#services" className="hover:text-cream transition">Услуги</a>
             <a href="#pricing" className="hover:text-cream transition">Цены</a>
+            <LogoDivider
+              sourse="/Symbol_white.png"
+              // alt="LUCOVICA"
+              width={48}
+              height={48}
+            // priority
+            // className="h-10 w-auto object-contain"
+            />
             <a href="#reviews" className="hover:text-cream transition">Отзывы</a>
             <a href="#contacts" className="hover:text-cream transition">Контакты</a>
           </div>
@@ -49,7 +58,7 @@ export default function Hero() {
               Первый визит — скидка 20%
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white leading-tight mb-4">
               Студия<br />
               <span className="text-cream">лазерной эпиляции</span><br />
               и шугаринга

@@ -95,7 +95,7 @@ export default function About() {
                 { label: 'Рейтинг Яндекс', value: '4.9' },
               ].map((stat) => (
                 <div key={stat.label} className="bg-white/10 rounded-2xl p-4 text-center border border-white/10">
-                  <p className="text-2xl font-extrabold text-cream">{stat.value}</p>
+                  <p className="text-2xl font-normal text-cream">{stat.value}</p>
                   <p className="text-white/60 text-xs mt-1">{stat.label}</p>
                 </div>
               ))}

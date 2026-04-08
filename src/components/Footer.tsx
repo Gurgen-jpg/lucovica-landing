@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import LogoDivider from './LogoDivider'
 
 const nav = [
   { href: '#services', label: 'Услуги' },
@@ -21,12 +22,12 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="sm:col-span-2 md:col-span-1">
-            <Image
-              src="/logo-white.png"
-              alt="LUCOVICA"
-              width={140}
+            <LogoDivider
+              sourse="/Logo, symbol and 2 taglines_white.png"
+              // alt="LUCOVICA"
+              width={60}
               height={50}
-              className="h-8 w-auto object-contain mb-4"
+            // className="h-8 w-auto object-contain mb-4"
             />
             <p className="text-sm leading-relaxed text-white/50">
               Студия лазерной эпиляции и шугаринга в центре Ростова-на-Дону.

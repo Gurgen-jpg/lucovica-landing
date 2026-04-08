@@ -19,7 +19,7 @@ export default function Home() {
       <Trust />
       <Services />
       <Pricing />
-      <LogoDivider />
+      {/* <LogoDivider /> */}
       <Reviews />
       <Promos />
       <FAQ />

@@ -1,14 +1,6 @@
 import type { Metadata } from 'next'
-import { Nunito } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
-
-const nunito = Nunito({
-  subsets: ['latin', 'cyrillic'],
-  variable: '--font-nunito',
-  weight: ['400', '500', '600', '700', '800'],
-  display: 'swap',
-})
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lucovica.ru'
 const YM_ID = process.env.NEXT_PUBLIC_YM_ID ?? '00000000'
@@ -58,7 +50,7 @@ const jsonLd = {
       description: 'Студия лазерной эпиляции и шугаринга в центре Ростова-на-Дону',
       url: SITE_URL,
       telephone: '+79770169775',
-      image: `${SITE_URL}/logo.png`,
+      image: `${SITE_URL}/Symbol_white.png`,
       priceRange: '₽₽',
       currenciesAccepted: 'RUB',
       paymentAccepted: 'Cash, Credit Card',
@@ -98,7 +90,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={nunito.variable}>
+    <html lang="ru">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script

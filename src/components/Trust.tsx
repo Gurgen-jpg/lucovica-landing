@@ -12,7 +12,7 @@ export default function Trust() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-4xl md:text-5xl font-extrabold text-white mb-1">{s.value}</div>
+              <div className="text-4xl md:text-5xl font-normal text-white mb-1">{s.value}</div>
               <div className="text-cream/80 text-sm font-medium">{s.label}</div>
             </div>
           ))}

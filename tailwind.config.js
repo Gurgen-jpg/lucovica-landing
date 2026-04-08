@@ -10,7 +10,7 @@ module.exports = {
         white: '#FFFFFF',
       },
       fontFamily: {
-        sans: ['var(--font-nunito)', 'sans-serif'],
+        sans: ['SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       animation: {
         'fade-up': 'fadeUp 0.6s ease-out forwards',
