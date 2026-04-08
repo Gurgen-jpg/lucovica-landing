@@ -3,11 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --rose: #E8A0B4;
-  --rose-dark: #C4637E;
-  --cream: #FDF6F0;
-  --beige: #F0E0D0;
-  --navy: #1E2D4E;
+  --dark:  #25272C;
+  --cream: #F5F0C6;
+  --mist:  #D9E4EB;
 }
 
 html {
@@ -15,24 +13,27 @@ html {
 }
 
 body {
-  background-color: var(--cream);
-  color: #2A2A2A;
+  background-color: #FFFFFF;
+  color: #25272C;
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-rose-dark hover:bg-rose-deep text-white font-semibold px-6 py-3 rounded-full transition-all duration-200 shadow-md hover:shadow-lg active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 bg-cream text-dark font-semibold px-6 py-3 rounded-full transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 hover:bg-cream/80;
   }
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-rose-dark text-rose-dark hover:bg-rose-dark hover:text-white font-semibold px-6 py-3 rounded-full transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 border-2 border-dark text-dark hover:bg-dark hover:text-white font-semibold px-6 py-3 rounded-full transition-all duration-200;
+  }
+  .btn-outline-light {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white hover:text-dark font-semibold px-6 py-3 rounded-full transition-all duration-200;
   }
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-navy mb-3;
+    @apply text-3xl md:text-4xl font-bold text-dark mb-3;
   }
   .section-sub {
-    @apply text-rose-dark font-semibold text-sm uppercase tracking-widest mb-2;
+    @apply text-dark/50 font-semibold text-sm uppercase tracking-widest mb-2;
   }
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-beige p-5;
+    @apply bg-white rounded-2xl shadow-sm border border-mist p-5;
   }
 }

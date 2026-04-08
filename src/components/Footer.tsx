@@ -15,7 +15,7 @@ const TG_USERNAME = 'lucovica_pro_epil'
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-white/70 py-12 px-5 md:px-12">
+    <footer className="bg-dark text-white/70 py-12 px-5 md:px-12">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
 
@@ -39,7 +39,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {nav.map((n) => (
                 <li key={n.href}>
-                  <a href={n.href} className="text-sm hover:text-rose transition">
+                  <a href={n.href} className="text-sm hover:text-cream transition">
                     {n.label}
                   </a>
                 </li>
@@ -51,12 +51,12 @@ export default function Footer() {
           <div>
             <p className="text-white font-semibold mb-4 text-sm">Услуги</p>
             <ul className="space-y-2 text-sm">
-              <li><a href="#pricing" className="hover:text-rose transition">Лазерная эпиляция</a></li>
-              <li><a href="#pricing" className="hover:text-rose transition">Шугаринг</a></li>
-              <li><a href="#pricing" className="hover:text-rose transition">Мужская эпиляция</a></li>
-              <li><a href="#pricing" className="hover:text-rose transition">Подростки</a></li>
-              <li><a href="#pricing" className="hover:text-rose transition">Электроэпиляция</a></li>
-              <li><a href="#pricing" className="hover:text-rose transition">Сертификаты</a></li>
+              <li><a href="#pricing" className="hover:text-cream transition">Лазерная эпиляция</a></li>
+              <li><a href="#pricing" className="hover:text-cream transition">Шугаринг</a></li>
+              <li><a href="#pricing" className="hover:text-cream transition">Мужская эпиляция</a></li>
+              <li><a href="#pricing" className="hover:text-cream transition">Подростки</a></li>
+              <li><a href="#pricing" className="hover:text-cream transition">Электроэпиляция</a></li>
+              <li><a href="#pricing" className="hover:text-cream transition">Сертификаты</a></li>
             </ul>
           </div>
 
@@ -64,22 +64,26 @@ export default function Footer() {
           <div>
             <p className="text-white font-semibold mb-4 text-sm">Контакты</p>
             <div className="space-y-3 text-sm">
-              <p className="text-white/60">
-                📍 Ростов-на-Дону<br />
-                <span className="text-white/40 text-xs">просп. Соколова, 68/118Вс1, эт. 1</span>
-              </p>
-              <a href={`tel:${PHONE_HREF}`} className="block hover:text-rose transition">
-                📞 {PHONE}
-              </a>
-              <a
-                href={`https://t.me/${TG_USERNAME}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block hover:text-rose transition"
-              >
-                ✈️ @{TG_USERNAME}
-              </a>
-              <p className="text-xs text-white/40 pt-1">Ежедневно 10:00–21:00</p>
+              <div>
+                <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Адрес</p>
+                <p className="text-white/60 text-xs">Ростов-на-Дону,<br />просп. Соколова, 68/118Вс1, эт. 1</p>
+              </div>
+              <div>
+                <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Телефон</p>
+                <a href={`tel:${PHONE_HREF}`} className="hover:text-cream transition">{PHONE}</a>
+              </div>
+              <div>
+                <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Telegram</p>
+                <a
+                  href={`https://t.me/${TG_USERNAME}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cream transition"
+                >
+                  @{TG_USERNAME}
+                </a>
+              </div>
+              <p className="text-xs text-white/30">Ежедневно 10:00–21:00</p>
             </div>
           </div>
         </div>

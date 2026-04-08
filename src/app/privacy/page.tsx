@@ -14,34 +14,34 @@ export default function PrivacyPage() {
   const today = new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
 
   return (
-    <div className="min-h-screen bg-cream-100">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-white border-b border-beige px-5 md:px-12 py-4 flex items-center justify-between">
-        <Link href="/" className="text-rose-dark font-bold text-lg tracking-wide">
+      <header className="bg-white border-b border-mist px-5 md:px-12 py-4 flex items-center justify-between">
+        <Link href="/" className="text-dark font-bold text-lg tracking-wide">
           LUCOVICA
         </Link>
-        <Link href="/" className="text-sm text-navy/60 hover:text-rose-dark transition">
+        <Link href="/" className="text-sm text-dark/60 hover:text-dark transition">
           ← На главную
         </Link>
       </header>
 
       <main className="max-w-3xl mx-auto px-5 md:px-8 py-12">
-        <h1 className="text-3xl font-extrabold text-navy mb-2">
+        <h1 className="text-3xl font-extrabold text-dark mb-2">
           Политика конфиденциальности
         </h1>
-        <p className="text-navy/50 text-sm mb-10">
+        <p className="text-dark/50 text-sm mb-10">
           Последнее обновление: {today}
         </p>
 
-        <div className="space-y-8 text-navy/80 text-sm leading-relaxed">
+        <div className="space-y-8 text-dark/80 text-sm leading-relaxed">
 
           {/* 1 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">1. Общие положения</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">1. Общие положения</h2>
             <p className="mb-3">
               Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок
               обработки и защиты персональных данных физических лиц (далее — «Пользователи»),
-              которые используют сайт <a href={SITE_URL} className="text-rose-dark underline">{SITE_URL}</a>
+              которые используют сайт <a href={SITE_URL} className="text-dark underline">{SITE_URL}</a>
               {' '}(далее — «Сайт»), принадлежащий студии эпиляции LUCOVICA
               (далее — «Оператор»).
             </p>
@@ -59,22 +59,22 @@ export default function PrivacyPage() {
 
           {/* 2 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">2. Сведения об операторе</h2>
-            <div className="bg-white rounded-2xl border border-beige p-5 space-y-1.5">
+            <h2 className="text-lg font-bold text-dark mb-3">2. Сведения об операторе</h2>
+            <div className="bg-white rounded-2xl border border-mist p-5 space-y-1.5">
               <p><span className="font-semibold">Наименование:</span> Студия эпиляции LUCOVICA</p>
               <p><span className="font-semibold">Адрес:</span> Ростов-на-Дону, просп. Соколова, 68/118Вс1, этаж 1</p>
               <p><span className="font-semibold">Телефон:</span>{' '}
-                <a href={`tel:${PHONE}`} className="text-rose-dark">{PHONE}</a>
+                <a href={`tel:${PHONE}`} className="text-dark">{PHONE}</a>
               </p>
               <p><span className="font-semibold">Сайт:</span>{' '}
-                <a href={SITE_URL} className="text-rose-dark">{SITE_URL}</a>
+                <a href={SITE_URL} className="text-dark">{SITE_URL}</a>
               </p>
             </div>
           </section>
 
           {/* 3 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">3. Состав собираемых персональных данных</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">3. Состав собираемых персональных данных</h2>
             <p className="mb-3">
               При заполнении формы записи или обратной связи на Сайте Оператор собирает
               следующие персональные данные:
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
 
           {/* 4 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">4. Цели обработки персональных данных</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">4. Цели обработки персональных данных</h2>
             <p className="mb-3">Персональные данные обрабатываются в целях:</p>
             <ul className="list-disc pl-5 space-y-1.5">
               <li>подтверждения и ведения записи Пользователя на процедуру;</li>
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
 
           {/* 5 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">5. Правовые основания обработки</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">5. Правовые основания обработки</h2>
             <p className="mb-3">
               Обработка персональных данных осуществляется на следующих основаниях
               (ст. 6 Федерального закона № 152-ФЗ):
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
 
           {/* 6 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">6. Порядок обработки и хранения данных</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">6. Порядок обработки и хранения данных</h2>
             <p className="mb-3">
               Обработка персональных данных осуществляется смешанным способом (с использованием
               средств автоматизации и без таковых) сотрудниками Оператора.
@@ -152,7 +152,7 @@ export default function PrivacyPage() {
 
           {/* 7 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">7. Передача персональных данных третьим лицам</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">7. Передача персональных данных третьим лицам</h2>
             <p className="mb-3">
               Оператор не передаёт персональные данные третьим лицам без согласия
               Пользователя, за исключением случаев, предусмотренных законодательством РФ.
@@ -165,7 +165,7 @@ export default function PrivacyPage() {
                 <span className="font-semibold">Яндекс.Метрика</span> (АО «Яндекс», Россия) —
                 анализ посещаемости Сайта. Политика конфиденциальности:{' '}
                 <a href="https://yandex.ru/legal/confidential/" target="_blank"
-                   rel="noopener noreferrer" className="text-rose-dark underline">
+                   rel="noopener noreferrer" className="text-dark underline">
                   yandex.ru/legal/confidential
                 </a>;
               </li>
@@ -182,7 +182,7 @@ export default function PrivacyPage() {
 
           {/* 8 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">8. Права субъекта персональных данных</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">8. Права субъекта персональных данных</h2>
             <p className="mb-3">
               В соответствии со ст. 14–17 Федерального закона № 152-ФЗ Пользователь вправе:
             </p>
@@ -197,14 +197,14 @@ export default function PrivacyPage() {
               <li>
                 обжаловать действия или бездействие Оператора в уполномоченный орган —
                 Роскомнадзор (<a href="https://rkn.gov.ru" target="_blank" rel="noopener noreferrer"
-                  className="text-rose-dark underline">rkn.gov.ru</a>).
+                  className="text-dark underline">rkn.gov.ru</a>).
               </li>
             </ul>
           </section>
 
           {/* 9 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">9. Файлы cookie</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">9. Файлы cookie</h2>
             <p className="mb-3">
               Сайт использует файлы cookie — небольшие текстовые файлы, сохраняемые в браузере
               Пользователя. Cookie применяются для:
@@ -223,7 +223,7 @@ export default function PrivacyPage() {
 
           {/* 10 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">10. Защита персональных данных</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">10. Защита персональных данных</h2>
             <p>
               Оператор принимает организационные и технические меры для защиты персональных
               данных от несанкционированного доступа, уничтожения, изменения, блокирования,
@@ -235,12 +235,12 @@ export default function PrivacyPage() {
 
           {/* 11 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">11. Изменение Политики</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">11. Изменение Политики</h2>
             <p>
               Оператор вправе вносить изменения в настоящую Политику в одностороннем порядке.
               Новая редакция вступает в силу с момента её публикации на Сайте. Актуальная
               версия Политики всегда доступна по адресу{' '}
-              <a href={`${SITE_URL}/privacy`} className="text-rose-dark underline">
+              <a href={`${SITE_URL}/privacy`} className="text-dark underline">
                 {SITE_URL}/privacy
               </a>.
               Продолжение использования Сайта после публикации изменений означает согласие
@@ -250,14 +250,14 @@ export default function PrivacyPage() {
 
           {/* 12 */}
           <section>
-            <h2 className="text-lg font-bold text-navy mb-3">12. Контакты</h2>
+            <h2 className="text-lg font-bold text-dark mb-3">12. Контакты</h2>
             <p className="mb-3">
               По всем вопросам, связанным с обработкой персональных данных, вы можете обратиться:
             </p>
-            <div className="bg-white rounded-2xl border border-beige p-5 space-y-2">
-              <p>📞 Телефон: <a href={`tel:${PHONE}`} className="text-rose-dark font-semibold">{PHONE}</a></p>
-              <p>📍 Адрес: Ростов-на-Дону, просп. Соколова, 68/118Вс1, этаж 1</p>
-              <p className="text-navy/50 text-xs">
+            <div className="bg-white rounded-2xl border border-mist p-5 space-y-2">
+              <p>Телефон: <a href={`tel:${PHONE}`} className="text-dark font-semibold">{PHONE}</a></p>
+              <p>Адрес: Ростов-на-Дону, просп. Соколова, 68/118Вс1, этаж 1</p>
+              <p className="text-dark/50 text-xs">
                 Ответ на обращение предоставляется в срок не позднее 30 рабочих дней
                 со дня получения запроса (ст. 20 ФЗ № 152-ФЗ).
               </p>
@@ -267,11 +267,11 @@ export default function PrivacyPage() {
         </div>
 
         {/* Footer nav */}
-        <div className="mt-12 pt-8 border-t border-beige flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-8 border-t border-mist flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link href="/" className="btn-outline text-sm">
             ← Вернуться на главную
           </Link>
-          <p className="text-xs text-navy/40">
+          <p className="text-xs text-dark/40">
             © 2026 LUCOVICA · ФЗ-152 «О персональных данных»
           </p>
         </div>

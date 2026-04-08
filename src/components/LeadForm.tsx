@@ -39,8 +39,8 @@ function buildTimeString(slot: string, date: string) {
 export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
   const [step, setStep] = useState<Step>(1)
   const [service, setService] = useState(defaultService ?? '')
-  const [timeSlot, setTimeSlot] = useState('')   // 'Утро (9–12)' | 'День (12–16)' | 'Вечер (16–20)'
-  const [dateInput, setDateInput] = useState('') // 'YYYY-MM-DD'
+  const [timeSlot, setTimeSlot] = useState('')
+  const [dateInput, setDateInput] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
@@ -51,7 +51,6 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
   const totalSteps = isCertificate ? 2 : 3
   const timeSelected = !!(timeSlot || dateInput)
 
-  // Шаги с учётом сертификата
   const goNext = (from: Step) => {
     if (from === 1) setStep(isCertificate ? 3 : 2)
     if (from === 2) setStep(3)
@@ -61,7 +60,6 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
     if (from === 2) setStep(1)
   }
 
-  // Визуальный индикатор прогресса
   const progressStep = (s: Step): number => {
     if (s === 'success') return totalSteps
     if (s === 3) return isCertificate ? 2 : 3
@@ -128,19 +126,19 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
       onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
     >
-      <div className="absolute inset-0 bg-navy/40 backdrop-blur-sm" />
-      <div className="relative w-full sm:max-w-md bg-cream-100 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden">
+      <div className="absolute inset-0 bg-dark/40 backdrop-blur-sm" />
+      <div className="relative w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden">
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-rose-medium to-rose-dark px-6 pt-6 pb-8 text-white">
+        <div className="bg-dark px-6 pt-6 pb-8 text-white">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition"
+            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition text-sm"
             aria-label="Закрыть"
           >
             ✕
           </button>
-          <p className="text-rose-light text-sm font-medium mb-1">LUCOVICA</p>
+          <p className="text-cream/70 text-xs font-semibold uppercase tracking-widest mb-1">LUCOVICA</p>
           <h2 className="text-xl font-bold">
             {isCertificate ? 'Оформление сертификата' : 'Запись на процедуру'}
           </h2>
@@ -149,8 +147,8 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
               {Array.from({ length: totalSteps }).map((_, i) => (
                 <div
                   key={i}
-                  className={`h-1 flex-1 rounded-full transition-all ${
-                    currentProgress > i ? 'bg-white' : 'bg-white/30'
+                  className={`h-0.5 flex-1 rounded-full transition-all ${
+                    currentProgress > i ? 'bg-cream' : 'bg-white/20'
                   }`}
                 />
               ))}
@@ -163,7 +161,7 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
           {/* ── Шаг 1: Выбор услуги ── */}
           {step === 1 && (
             <div>
-              <p className="font-semibold text-navy mb-4">Выберите услугу</p>
+              <p className="font-semibold text-dark mb-4">Выберите услугу</p>
               <div className="grid grid-cols-1 gap-2 max-h-64 overflow-y-auto pr-1">
                 {SERVICE_NAMES_FOR_FORM.map((s) => (
                   <button
@@ -171,11 +169,11 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
                     onClick={() => setService(s)}
                     className={`text-left px-4 py-3 rounded-xl border-2 text-sm font-medium transition-all ${
                       service === s
-                        ? 'border-rose-dark bg-rose-light/40 text-rose-deep'
-                        : 'border-beige hover:border-rose text-navy'
+                        ? 'border-dark bg-dark text-white'
+                        : 'border-mist hover:border-dark text-dark'
                     }`}
                   >
-                    {s === 'Подарочный сертификат' ? '🎁 ' : ''}{s}
+                    {s}
                   </button>
                 ))}
               </div>
@@ -192,8 +190,8 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
           {/* ── Шаг 2: Время (только не сертификат) ── */}
           {step === 2 && (
             <div>
-              <p className="font-semibold text-navy mb-1">Удобное время</p>
-              <p className="text-navy/50 text-xs mb-4">Можно выбрать слот, дату или и то и другое</p>
+              <p className="font-semibold text-dark mb-1">Удобное время</p>
+              <p className="text-dark/50 text-xs mb-4">Можно выбрать слот, дату или и то и другое</p>
 
               {/* Слоты */}
               <div className="grid grid-cols-3 gap-2 mb-4">
@@ -203,8 +201,8 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
                     onClick={() => setTimeSlot(timeSlot === t ? '' : t)}
                     className={`py-3 px-2 rounded-xl border-2 text-sm font-medium transition-all ${
                       timeSlot === t
-                        ? 'border-rose-dark bg-rose-light/40 text-rose-deep'
-                        : 'border-beige hover:border-rose text-navy'
+                        ? 'border-dark bg-dark text-white'
+                        : 'border-mist hover:border-dark text-dark'
                     }`}
                   >
                     {t}
@@ -212,22 +210,21 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
                 ))}
               </div>
 
-              {/* Дата — независима от слота */}
-              <label className="block text-sm font-medium text-navy/70 mb-1">
+              {/* Дата */}
+              <label className="block text-sm font-medium text-dark/70 mb-1">
                 Желаемая дата{dateInput ? ` · ${formatDate(dateInput)}` : ''}
               </label>
               <input
                 type="date"
                 value={dateInput}
                 onChange={(e) => setDateInput(e.target.value)}
-                className="w-full border-2 border-beige rounded-xl px-4 py-2.5 text-navy text-sm focus:border-rose-dark focus:outline-none mb-4"
+                className="w-full border-2 border-mist rounded-xl px-4 py-2.5 text-dark text-sm focus:border-dark focus:outline-none mb-4"
                 min={new Date().toISOString().split('T')[0]}
               />
 
-              {/* Итог выбора */}
               {timeSelected && (
-                <p className="text-xs text-rose-dark font-medium mb-3">
-                  ✓ Выбрано: {buildTimeString(timeSlot, dateInput)}
+                <p className="text-xs text-dark font-medium mb-3">
+                  Выбрано: {buildTimeString(timeSlot, dateInput)}
                 </p>
               )}
 
@@ -247,10 +244,10 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
           {/* ── Шаг 3: Контакты ── */}
           {step === 3 && (
             <div>
-              <p className="font-semibold text-navy mb-4">Ваши контакты</p>
+              <p className="font-semibold text-dark mb-4">Ваши контакты</p>
 
               {/* Краткое резюме заказа */}
-              <div className="bg-rose-light/30 rounded-xl px-4 py-3 mb-4 text-xs text-navy/70 space-y-0.5">
+              <div className="bg-mist/30 rounded-xl px-4 py-3 mb-4 text-xs text-dark/70 space-y-0.5">
                 <p><span className="font-semibold">Услуга:</span> {service}</p>
                 {!isCertificate && (
                   <p><span className="font-semibold">Время:</span> {buildTimeString(timeSlot, dateInput)}</p>
@@ -262,19 +259,19 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
                 placeholder="Ваше имя"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full border-2 border-beige rounded-xl px-4 py-3 text-navy text-sm focus:border-rose-dark focus:outline-none mb-3"
+                className="w-full border-2 border-mist rounded-xl px-4 py-3 text-dark text-sm focus:border-dark focus:outline-none mb-3"
               />
               <input
                 type="tel"
                 placeholder="+7 (___) ___-__-__"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full border-2 border-beige rounded-xl px-4 py-3 text-navy text-sm focus:border-rose-dark focus:outline-none mb-2"
+                className="w-full border-2 border-mist rounded-xl px-4 py-3 text-dark text-sm focus:border-dark focus:outline-none mb-2"
               />
-              {error && <p className="text-rose-deep text-xs mb-2">{error}</p>}
-              <p className="text-xs text-navy/50 mb-4">
+              {error && <p className="text-dark text-xs mb-2">{error}</p>}
+              <p className="text-xs text-dark/50 mb-4">
                 Нажимая кнопку, вы соглашаетесь с{' '}
-                <a href="/privacy" target="_blank" className="underline hover:text-navy/70">
+                <a href="/privacy" target="_blank" className="underline hover:text-dark/70">
                   политикой конфиденциальности
                 </a>
               </p>
@@ -294,21 +291,23 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
           {/* ── Успех ── */}
           {step === 'success' && (
             <div className="text-center py-4">
-              <div className="text-4xl mb-3">{isCertificate ? '🎁' : '🌸'}</div>
-              <h3 className="text-xl font-bold text-navy mb-2">
+              <div className="w-12 h-12 rounded-full bg-dark mx-auto mb-4 flex items-center justify-center">
+                <span className="text-cream text-lg font-bold">✓</span>
+              </div>
+              <h3 className="text-xl font-bold text-dark mb-2">
                 {isCertificate ? 'Заявка на сертификат принята!' : 'Заявка принята!'}
               </h3>
-              <p className="text-navy/70 text-sm mb-6">
+              <p className="text-dark/70 text-sm mb-6">
                 Мы свяжемся с вами в ближайшее время{isCertificate ? ' для оформления сертификата' : ' для подтверждения записи'}.
               </p>
-              <p className="text-sm text-navy/60 mb-2">Также вы можете написать нам напрямую:</p>
+              <p className="text-sm text-dark/60 mb-2">Также вы можете написать нам напрямую:</p>
               <div className="flex flex-col gap-2">
                 <a
                   href={`tel:${PHONE_HREF}`}
                   onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_phone') }}
                   className="btn-outline text-sm py-2.5"
                 >
-                  📞 {PHONE}
+                  {PHONE}
                 </a>
                 <a
                   href={`https://t.me/${TG}`}
@@ -317,10 +316,10 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
                   onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_telegram') }}
                   className="btn-primary text-sm py-2.5"
                 >
-                  ✈️ Написать в Telegram
+                  Написать в Telegram
                 </a>
               </div>
-              <button onClick={onClose} className="mt-4 text-sm text-navy/50 hover:text-navy underline">
+              <button onClick={onClose} className="mt-4 text-sm text-dark/50 hover:text-dark underline">
                 Закрыть
               </button>
             </div>

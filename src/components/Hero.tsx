@@ -9,16 +9,16 @@ export default function Hero() {
 
   return (
     <>
-      <header className="relative min-h-screen flex flex-col bg-gradient-to-br from-cream-200 via-cream-100 to-rose-light/20 overflow-hidden">
+      <header className="relative min-h-screen flex flex-col bg-dark overflow-hidden">
         {/* Decorative blobs */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-rose/20 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-beige/60 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-cream/5 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-mist/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between px-5 md:px-12 py-5">
           <div className="flex items-center gap-3">
             <Image
-              src="/logo.png"
+              src="/logo-white.png"
               alt="LUCOVICA — студия эпиляции"
               width={160}
               height={56}
@@ -26,17 +26,17 @@ export default function Hero() {
               className="h-10 w-auto object-contain"
             />
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-navy/70">
-            <a href="#services" className="hover:text-rose-dark transition">Услуги</a>
-            <a href="#pricing" className="hover:text-rose-dark transition">Цены</a>
-            <a href="#reviews" className="hover:text-rose-dark transition">Отзывы</a>
-            <a href="#contacts" className="hover:text-rose-dark transition">Контакты</a>
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-white/70">
+            <a href="#services" className="hover:text-cream transition">Услуги</a>
+            <a href="#pricing" className="hover:text-cream transition">Цены</a>
+            <a href="#reviews" className="hover:text-cream transition">Отзывы</a>
+            <a href="#contacts" className="hover:text-cream transition">Контакты</a>
           </div>
           <a
             href={`tel:${process.env.NEXT_PUBLIC_PHONE ?? '+7-961-XXX-XX-XX'}`}
-            className="hidden md:flex items-center gap-2 text-rose-dark font-semibold text-sm hover:text-rose-deep transition"
+            className="hidden md:flex items-center gap-2 text-cream font-semibold text-sm hover:text-cream/80 transition"
           >
-            📞 Позвонить
+            Позвонить
           </a>
         </nav>
 
@@ -45,21 +45,21 @@ export default function Hero() {
           {/* Text */}
           <div className="flex-1 max-w-xl text-center md:text-left">
             {/* Promo badge */}
-            <div className="inline-flex items-center gap-2 bg-rose-light/60 border border-rose/40 text-rose-deep text-xs font-semibold px-4 py-1.5 rounded-full mb-5">
-              🎁 Первый визит — скидка 20%
+            <div className="inline-flex items-center gap-2 bg-cream/10 border border-cream/30 text-cream text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-widest uppercase">
+              Первый визит — скидка 20%
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-navy leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4">
               Студия<br />
-              <span className="text-rose-dark">лазерной эпиляции</span><br />
+              <span className="text-cream">лазерной эпиляции</span><br />
               и шугаринга
             </h1>
 
-            <p className="text-base md:text-lg text-navy/70 mb-2 font-medium">
+            <p className="text-base md:text-lg text-white/70 mb-2 font-medium">
               В центре Ростова-на-Дону
             </p>
 
-            <p className="text-navy/60 text-sm md:text-base mb-8 max-w-sm mx-auto md:mx-0">
+            <p className="text-white/60 text-sm md:text-base mb-8 max-w-sm mx-auto md:mx-0">
               Гладкая кожа без боли и забот. Опытные мастера, сертифицированное оборудование,
               стерильность и уютная атмосфера — всё для вашего комфорта.
             </p>
@@ -71,7 +71,7 @@ export default function Hero() {
               >
                 Записаться онлайн
               </button>
-              <a href="#services" className="btn-outline text-base px-8 py-4">
+              <a href="#services" className="btn-outline-light text-base px-8 py-4">
                 Услуги и цены
               </a>
             </div>
@@ -81,7 +81,7 @@ export default function Hero() {
               {['Лазерная эпиляция', 'Шугаринг', 'Мужская эпиляция', 'Подростки'].map((tag) => (
                 <span
                   key={tag}
-                  className="bg-white/70 border border-beige text-navy/70 text-xs px-3 py-1 rounded-full font-medium"
+                  className="bg-white/10 border border-white/20 text-white/70 text-xs px-3 py-1 rounded-full font-medium"
                 >
                   {tag}
                 </span>
@@ -92,7 +92,7 @@ export default function Hero() {
           {/* Hero image */}
           <div className="flex-1 flex justify-center md:justify-end max-w-sm md:max-w-md w-full">
             <div className="relative w-full aspect-[3/4] max-w-xs md:max-w-sm">
-              <div className="absolute inset-0 bg-gradient-to-br from-rose/30 to-beige rounded-[2.5rem] rotate-3" />
+              <div className="absolute inset-0 bg-gradient-to-br from-cream/30 to-mist rounded-[2.5rem] rotate-3" />
               <div className="absolute inset-0 bg-white rounded-[2.5rem] overflow-hidden shadow-2xl">
                 <Image
                   src="/hero-photo.jpg"
@@ -103,19 +103,21 @@ export default function Hero() {
                   priority
                 />
                 {/* Fallback gradient when no photo */}
-                <div className="absolute inset-0 bg-gradient-to-br from-rose-light via-cream-200 to-beige flex items-center justify-center">
-                  <div className="text-center text-navy/40">
-                    <div className="text-6xl mb-2">🌸</div>
-                    <p className="text-sm">Фото студии</p>
+                <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark/80 to-dark/60 flex items-center justify-center">
+                  <div className="text-center text-white/30">
+                    <div className="text-5xl font-thin tracking-widest mb-2">L</div>
+                    <p className="text-xs tracking-widest uppercase">Lucovica</p>
                   </div>
                 </div>
               </div>
               {/* Floating card */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 border border-beige">
-                <div className="w-10 h-10 rounded-full bg-rose-light flex items-center justify-center text-xl">⭐</div>
+              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 border border-mist">
+                <div className="w-10 h-10 rounded-full bg-cream/50 flex items-center justify-center text-sm font-bold text-dark">
+                  4.9
+                </div>
                 <div>
-                  <p className="text-xs text-navy/50">Рейтинг</p>
-                  <p className="font-bold text-navy text-sm">4.9 / 500+ отзывов</p>
+                  <p className="text-xs text-dark/50">Рейтинг</p>
+                  <p className="font-bold text-dark text-sm">500+ отзывов</p>
                 </div>
               </div>
             </div>
@@ -124,7 +126,7 @@ export default function Hero() {
 
         {/* Scroll hint */}
         <div className="relative z-10 flex justify-center pb-6 animate-bounce">
-          <a href="#trust" className="text-rose-dark/50 text-xl">↓</a>
+          <a href="#trust" className="text-cream/50 text-xl">↓</a>
         </div>
       </header>
 

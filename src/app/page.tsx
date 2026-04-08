@@ -10,6 +10,7 @@ import About from '@/components/About'
 import Contacts from '@/components/Contacts'
 import Footer from '@/components/Footer'
 import FloatingCTA from '@/components/FloatingCTA'
+import LogoDivider from '@/components/LogoDivider'
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
       <Trust />
       <Services />
       <Pricing />
-      <Process />
+      <LogoDivider />
       <Reviews />
       <Promos />
       <FAQ />
