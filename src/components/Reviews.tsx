@@ -99,7 +99,7 @@ export default function Reviews() {
 
         <div className="text-center mt-8">
           <a
-            href="https://yandex.ru/maps/org/lucovica"
+            href="https://yandex.ru/maps/org/lucovica/72594546932/reviews"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline text-sm"
