@@ -67,10 +67,10 @@ export default function About() {
         </div>
 
         {/* Studio features */}
-        <div className="mt-14 bg-dark rounded-3xl p-8 md:p-10">
+        <div className="mt-14 bg-mist/20 border border-mist rounded-3xl p-8 md:p-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-4">Почему выбирают нас</h3>
+              <h3 className="text-2xl font-bold text-dark mb-4">Почему выбирают нас</h3>
               <ul className="space-y-3">
                 {[
                   'Центральное расположение — удобно добираться',
@@ -80,8 +80,8 @@ export default function About() {
                   'Индивидуальный подход к каждому клиенту',
                   'Гибкое расписание — работаем 7 дней в неделю',
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-white/70 text-sm">
-                    <span className="text-cream/60 mt-0.5 flex-shrink-0">—</span>
+                  <li key={item} className="flex items-start gap-3 text-dark/70 text-sm">
+                    <span className="text-dark/40 mt-0.5 flex-shrink-0">—</span>
                     {item}
                   </li>
                 ))}
@@ -94,9 +94,9 @@ export default function About() {
                 { label: 'Мастеров в команде', value: '8' },
                 { label: 'Рейтинг Яндекс', value: '4.9' },
               ].map((stat) => (
-                <div key={stat.label} className="bg-white/10 rounded-2xl p-4 text-center border border-white/10">
-                  <p className="text-2xl font-normal text-cream">{stat.value}</p>
-                  <p className="text-white/60 text-xs mt-1">{stat.label}</p>
+                <div key={stat.label} className="bg-white rounded-2xl p-4 text-center border border-mist">
+                  <p className="text-2xl font-normal text-dark">{stat.value}</p>
+                  <p className="text-dark/50 text-xs mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>

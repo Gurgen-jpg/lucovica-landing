@@ -8,12 +8,12 @@ export default function Promos() {
 
   return (
     <>
-      <section id="promos" className="py-20 px-5 md:px-12 bg-dark">
+      <section id="promos" className="py-20 px-5 md:px-12 bg-cream/20">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-cream font-semibold text-sm uppercase tracking-widest mb-2">Выгодные предложения</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Акции студии</h2>
-            <p className="text-white/60 text-sm md:text-base">Успейте воспользоваться специальным предложением</p>
+            <p className="text-dark/50 font-semibold text-sm uppercase tracking-widest mb-2">Выгодные предложения</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-dark mb-3">Акции студии</h2>
+            <p className="text-dark/60 text-sm md:text-base">Успейте воспользоваться специальным предложением</p>
           </div>
 
           {/* Единственная акция */}

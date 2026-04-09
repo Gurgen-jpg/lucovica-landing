@@ -114,15 +114,15 @@ export default function Pricing() {
           )}
 
           {/* Certificates teaser */}
-          <div className="mt-8 bg-dark rounded-3xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-8 bg-mist/20 border border-mist rounded-3xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <p className="text-cream text-sm font-semibold mb-1 tracking-widest uppercase">Подарки близким</p>
-              <h3 className="text-white font-bold text-lg">Подарочные сертификаты</h3>
-              <p className="text-white/60 text-sm mt-1">500₽ · 1000₽ · 2000₽ · 3000₽ — на любые услуги</p>
+              <p className="text-dark/50 text-sm font-semibold mb-1 tracking-widest uppercase">Подарки близким</p>
+              <h3 className="text-dark font-bold text-lg">Подарочные сертификаты</h3>
+              <p className="text-dark/60 text-sm mt-1">500₽ · 1000₽ · 2000₽ · 3000₽ — на любые услуги</p>
             </div>
             <button
               onClick={() => handleBook('Подарочный сертификат')}
-              className="bg-cream text-dark hover:bg-cream/80 font-semibold px-6 py-3 rounded-full transition whitespace-nowrap"
+              className="bg-dark text-white hover:bg-dark/80 font-semibold px-6 py-3 rounded-full transition whitespace-nowrap"
             >
               Оформить сертификат
             </button>

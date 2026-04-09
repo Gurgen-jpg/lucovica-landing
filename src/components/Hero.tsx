@@ -10,16 +10,16 @@ export default function Hero() {
 
   return (
     <>
-      <header className="relative min-h-screen flex flex-col bg-dark overflow-hidden">
+      <header className="relative min-h-screen flex flex-col bg-white overflow-hidden">
         {/* Decorative blobs */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-cream/5 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-mist/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-mist/40 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-cream/30 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between px-5 md:px-12 py-5">
           <div className="flex items-center gap-3">
             <LogoDivider
-              sourse="/Logo_main_white.png"
+              sourse="/Logo_main_black_no background.png"
               // alt="LUCOVICA"
               width={120}
               height={80}
@@ -27,23 +27,23 @@ export default function Hero() {
             // className="h-10 w-auto object-contain"
             />
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-white/70">
-            <a href="#services" className="hover:text-cream transition">Услуги</a>
-            <a href="#pricing" className="hover:text-cream transition">Цены</a>
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-dark/60">
+            <a href="#services" className="hover:text-dark transition">Услуги</a>
+            <a href="#pricing" className="hover:text-dark transition">Цены</a>
             <LogoDivider
-              sourse="/Symbol_white.png"
+              sourse="/Symbol_black_no background.png"
               // alt="LUCOVICA"
               width={48}
               height={48}
             // priority
             // className="h-10 w-auto object-contain"
             />
-            <a href="#reviews" className="hover:text-cream transition">Отзывы</a>
-            <a href="#contacts" className="hover:text-cream transition">Контакты</a>
+            <a href="#reviews" className="hover:text-dark transition">Отзывы</a>
+            <a href="#contacts" className="hover:text-dark transition">Контакты</a>
           </div>
           <a
             href={`tel:${process.env.NEXT_PUBLIC_PHONE ?? '+7-961-XXX-XX-XX'}`}
-            className="hidden md:flex items-center gap-2 text-cream font-semibold text-sm hover:text-cream/80 transition"
+            className="hidden md:flex items-center gap-2 text-dark/70 font-semibold text-sm hover:text-dark transition"
           >
             Позвонить
           </a>
@@ -54,21 +54,21 @@ export default function Hero() {
           {/* Text */}
           <div className="flex-1 max-w-xl text-center md:text-left">
             {/* Promo badge */}
-            <div className="inline-flex items-center gap-2 bg-cream/10 border border-cream/30 text-cream text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-widest uppercase">
+            <div className="inline-flex items-center gap-2 bg-dark/5 border border-dark/15 text-dark/50 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-widest uppercase">
               Первый визит — скидка 20%
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-dark leading-tight mb-4">
               Студия<br />
-              <span className="text-cream">лазерной эпиляции</span><br />
+              <span className="text-dark/40">лазерной эпиляции</span><br />
               и шугаринга
             </h1>
 
-            <p className="text-base md:text-lg text-white/70 mb-2 font-medium">
+            <p className="text-base md:text-lg text-dark/50 mb-2 font-medium">
               В центре Ростова-на-Дону
             </p>
 
-            <p className="text-white/60 text-sm md:text-base mb-8 max-w-sm mx-auto md:mx-0">
+            <p className="text-dark/40 text-sm md:text-base mb-8 max-w-sm mx-auto md:mx-0">
               Гладкая кожа без боли и забот. Опытные мастера, сертифицированное оборудование,
               стерильность и уютная атмосфера — всё для вашего комфорта.
             </p>
@@ -80,7 +80,7 @@ export default function Hero() {
               >
                 Записаться онлайн
               </button>
-              <a href="#services" className="btn-outline-light text-base px-8 py-4">
+              <a href="#services" className="btn-outline text-base px-8 py-4">
                 Услуги и цены
               </a>
             </div>
@@ -90,7 +90,7 @@ export default function Hero() {
               {['Лазерная эпиляция', 'Шугаринг', 'Мужская эпиляция', 'Подростки'].map((tag) => (
                 <span
                   key={tag}
-                  className="bg-white/10 border border-white/20 text-white/70 text-xs px-3 py-1 rounded-full font-medium"
+                  className="bg-dark/5 border border-dark/10 text-dark/50 text-xs px-3 py-1 rounded-full font-medium"
                 >
                   {tag}
                 </span>
@@ -112,8 +112,8 @@ export default function Hero() {
                   priority
                 />
                 {/* Fallback gradient when no photo */}
-                <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark/80 to-dark/60 flex items-center justify-center">
-                  <div className="text-center text-white/30">
+                <div className="absolute inset-0 bg-gradient-to-br from-mist/60 to-cream/40 flex items-center justify-center">
+                  <div className="text-center text-dark/20">
                     <div className="text-5xl font-thin tracking-widest mb-2">L</div>
                     <p className="text-xs tracking-widest uppercase">Lucovica</p>
                   </div>
@@ -135,7 +135,7 @@ export default function Hero() {
 
         {/* Scroll hint */}
         <div className="relative z-10 flex justify-center pb-6 animate-bounce">
-          <a href="#trust" className="text-cream/50 text-xl">↓</a>
+          <a href="#trust" className="text-dark/20 text-xl">↓</a>
         </div>
       </header>
 
