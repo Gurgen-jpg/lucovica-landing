@@ -1,8 +1,8 @@
 const stats = [
-  { value: '5+', label: 'лет работы' },
-  { value: '3000+', label: 'довольных клиентов' },
-  { value: '8', label: 'опытных мастеров' },
-  { value: '4.9', label: 'рейтинг на картах' },
+  { value: '12+', label: 'лет работы' },
+  { value: '2000+', label: 'довольных клиентов' },
+  { value: '5', label: 'опытных мастеров' },
+  { value: '5.0', label: 'рейтинг на картах' },
 ]
 
 export default function Trust() {

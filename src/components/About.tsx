@@ -49,7 +49,7 @@ export default function About() {
                 className={`w-24 h-24 rounded-full bg-gradient-to-br ${member.color} mx-auto mb-4 flex items-center justify-center overflow-hidden border border-mist`}
               >
                 <Image
-                  src={`/team-${member.name.toLowerCase()}.jpg`}
+                  src={`/team-${member.name.toLowerCase()}.webp`}
                   alt={`Мастер ${member.name} — студия LUCOVICA`}
                   width={96}
                   height={96}
@@ -73,12 +73,12 @@ export default function About() {
               <h3 className="text-2xl font-bold text-dark mb-4">Почему выбирают нас</h3>
               <ul className="space-y-3">
                 {[
-                  'Центральное расположение — удобно добираться',
+                  'Камерная студия — 2 мастера, запись строго по времени, без очередей',
+                  'Каждый мастер знает своих клиентов лично',
+                  'Опыт 5+ лет у каждого специалиста — индивидуальный подход гарантирован',
                   'Сертифицированное оборудование последнего поколения',
                   'Косметика премиум-класса без вредных компонентов',
-                  'Зона ожидания с кофе и чаем',
-                  'Индивидуальный подход к каждому клиенту',
-                  'Гибкое расписание — работаем 7 дней в неделю',
+                  'Центральное расположение — удобно добираться',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-dark/70 text-sm">
                     <span className="text-dark/40 mt-0.5 flex-shrink-0">—</span>
@@ -89,10 +89,10 @@ export default function About() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: 'Год основания', value: '2019' },
+                { label: 'Год основания', value: '2014' },
                 { label: 'Сеансов проведено', value: '10 000+' },
-                { label: 'Мастеров в команде', value: '8' },
-                { label: 'Рейтинг Яндекс', value: '4.9' },
+                { label: 'Мастеров в команде', value: '2' },
+                { label: 'Рейтинг Яндекс', value: '5.0' },
               ].map((stat) => (
                 <div key={stat.label} className="bg-white rounded-2xl p-4 text-center border border-mist">
                   <p className="text-2xl font-normal text-dark">{stat.value}</p>

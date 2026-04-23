@@ -39,7 +39,7 @@ export default function Pricing() {
             <p className="section-sub">Прейскурант</p>
             <h2 className="section-title">Цены на услуги</h2>
             <p className="text-dark/60 text-sm md:text-base">
-              Все цены указаны за один сеанс. На первый визит — скидка 20%.
+              Все цены указаны за один сеанс. Первый визит — подмышки бесплатно.
             </p>
           </div>
 
@@ -49,11 +49,10 @@ export default function Pricing() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`text-xs sm:text-sm font-semibold px-4 py-2 rounded-full border-2 transition-all ${
-                  activeTab === tab.id
+                className={`text-xs sm:text-sm font-semibold px-4 py-2 rounded-full border-2 transition-all ${activeTab === tab.id
                     ? 'bg-dark border-dark text-white'
                     : 'border-mist text-dark/60 hover:border-dark'
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>
@@ -66,6 +65,7 @@ export default function Pricing() {
               <div className="bg-dark px-6 py-4 flex items-center justify-between">
                 <div>
                   <span className="text-white font-bold">{category.title}</span>
+                  <span className="ml-3 text-cream/70 text-xs font-normal tracking-wide">результат с первой процедуры</span>
                 </div>
                 <button
                   onClick={() => handleBook(category.title)}

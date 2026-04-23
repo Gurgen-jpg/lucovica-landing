@@ -55,7 +55,7 @@ export default function Hero() {
           <div className="flex-1 max-w-xl text-center md:text-left">
             {/* Promo badge */}
             <div className="inline-flex items-center gap-2 bg-dark/5 border border-dark/15 text-dark/50 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-widest uppercase">
-              Первый визит — скидка 20%
+              Первый визит — подмышки бесплатно
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-dark leading-tight mb-4">
@@ -66,6 +66,10 @@ export default function Hero() {
 
             <p className="text-base md:text-lg text-dark/50 mb-2 font-medium">
               В центре Ростова-на-Дону
+            </p>
+
+            <p className="text-sm text-dark font-medium tracking-wide mb-6 border-l-2 border-dark/20 pl-3">
+              Результат — с первой процедуры
             </p>
 
             <p className="text-dark/40 text-sm md:text-base mb-8 max-w-sm mx-auto md:mx-0">
@@ -104,7 +108,7 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-br from-cream/30 to-mist rounded-[2.5rem] rotate-3" />
               <div className="absolute inset-0 bg-white rounded-[2.5rem] overflow-hidden shadow-2xl">
                 <Image
-                  src="/hero-photo.jpg"
+                  src="/hero-photo.webp"
                   alt="Студия эпиляции LUCOVICA — лазерная эпиляция и шугаринг в Ростове-на-Дону"
                   fill
                   sizes="(max-width: 768px) 280px, 380px"
@@ -112,17 +116,17 @@ export default function Hero() {
                   priority
                 />
                 {/* Fallback gradient when no photo */}
-                <div className="absolute inset-0 bg-gradient-to-br from-mist/60 to-cream/40 flex items-center justify-center">
+                {/* <div className="absolute inset-0 bg-gradient-to-br from-mist/60 to-cream/40 flex items-center justify-center">
                   <div className="text-center text-dark/20">
                     <div className="text-5xl font-thin tracking-widest mb-2">L</div>
                     <p className="text-xs tracking-widest uppercase">Lucovica</p>
                   </div>
-                </div>
+                </div> */}
               </div>
               {/* Floating card */}
               <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 border border-mist">
                 <div className="w-10 h-10 rounded-full bg-cream/50 flex items-center justify-center text-sm font-bold text-dark">
-                  4.9
+                  5.0
                 </div>
                 <div>
                   <p className="text-xs text-dark/50">Рейтинг</p>

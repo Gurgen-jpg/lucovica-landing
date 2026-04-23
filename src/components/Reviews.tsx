@@ -64,8 +64,8 @@ export default function Reviews() {
           <h2 className="section-title">Отзывы</h2>
           <div className="flex items-center justify-center gap-2 mt-2">
             <div className="flex text-dark text-xl">{'★'.repeat(5)}</div>
-            <span className="font-bold text-dark">4.9</span>
-            <span className="text-dark/50 text-sm">· 500+ отзывов на Яндекс Картах</span>
+            <span className="font-bold text-dark">5.0</span>
+            <span className="text-dark/50 text-sm">· 500+ отзывов на Яндекс Картах и сервисах</span>
           </div>
         </div>
 
