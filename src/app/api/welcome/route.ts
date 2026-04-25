@@ -27,14 +27,14 @@ function isValidPhone(phone: string): boolean {
 
 export async function POST(req: NextRequest) {
   if (isRateLimited(getIp(req))) {
-    return NextResponse.json({ ok: false, error: 'Too many requests' }, { status: 429 })
+    return NextResponse.json({ ok: false, error: 'Слишком много запросов. Попробуй чуть позже.' }, { status: 429 })
   }
 
   let body: Record<string, unknown>
   try {
     body = await req.json()
   } catch {
-    return NextResponse.json({ ok: false, error: 'Invalid JSON' }, { status: 400 })
+    return NextResponse.json({ ok: false, error: 'Ошибка запроса. Попробуй ещё раз.' }, { status: 400 })
   }
 
   // Honeypot check
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
   const privacy_consent = body.privacy_consent === true
 
   if (!name || !isValidPhone(phone) || !privacy_consent) {
-    return NextResponse.json({ ok: false, error: 'Missing required fields' }, { status: 422 })
+    return NextResponse.json({ ok: false, error: 'Заполни все обязательные поля.' }, { status: 422 })
   }
 
   const data: WelcomeData = {
@@ -129,7 +129,7 @@ export async function POST(req: NextRequest) {
 
   // If Telegram (critical channel) failed — return error
   if (errors.includes('telegram')) {
-    return NextResponse.json({ ok: false, error: 'Delivery failed' }, { status: 500 })
+    return NextResponse.json({ ok: false, error: 'Не удалось отправить данные. Попробуй ещё раз или напиши нам в WhatsApp.' }, { status: 500 })
   }
 
   return NextResponse.json({ ok: true })
