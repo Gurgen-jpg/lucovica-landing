@@ -110,10 +110,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
             (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
             ym(${YM_ID}, "init", {
+              ssr: true,
               clickmap: true,
               trackLinks: true,
               accurateTrackBounce: true,
-              webvisor: true
+              webvisor: true,
+              referrer: document.referrer,
+              url: location.href
             });
           `}
         </Script>
