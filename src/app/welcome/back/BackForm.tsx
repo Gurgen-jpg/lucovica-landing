@@ -530,6 +530,28 @@ export default function BackForm() {
                 >
                   💬 Написать в WhatsApp
                 </a>
+                <a
+                  href="https://t.me/+79770169775"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline w-full flex items-center justify-center gap-2 py-4"
+                >
+                  ✈️ Написать в Telegram
+                </a>
+                <a
+                  href={process.env.NEXT_PUBLIC_MAX_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline w-full flex items-center justify-center gap-2 py-4"
+                >
+                  💬 Написать в Max
+                </a>
+                <a
+                  href={`tel:${process.env.NEXT_PUBLIC_PHONE}`}
+                  className="btn-outline w-full flex items-center justify-center gap-2 py-4"
+                >
+                  📞 Позвонить
+                </a>
               </div>
             </div>
           )}
