@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendLeadToTelegram, type LeadData } from '@/lib/sendLead'
+import { sendLeadEmail } from '@/lib/sendEmail'
 
 export async function POST(req: NextRequest) {
   let body: Partial<LeadData>
@@ -25,11 +26,21 @@ export async function POST(req: NextRequest) {
     utm_campaign: body.utm_campaign ? String(body.utm_campaign).slice(0, 100) : undefined,
   }
 
-  try {
-    await sendLeadToTelegram(lead)
-    return NextResponse.json({ ok: true })
-  } catch (err) {
-    console.error('[lead] Telegram error:', err)
+  const [tgResult, emailResult] = await Promise.allSettled([
+    sendLeadToTelegram(lead),
+    sendLeadEmail(lead),
+  ])
+
+  if (tgResult.status === 'rejected') {
+    console.error('[lead] Telegram error:', tgResult.reason)
+  }
+  if (emailResult.status === 'rejected') {
+    console.error('[lead] Email error:', emailResult.reason)
+  }
+
+  if (tgResult.status === 'rejected' && emailResult.status === 'rejected') {
     return NextResponse.json({ error: 'Delivery failed' }, { status: 500 })
   }
+
+  return NextResponse.json({ ok: true })
 }
