@@ -129,17 +129,19 @@ export async function sendWelcomeToTelegram(data: WelcomeData): Promise<void> {
       : '')
 
   await withRetry(async () => {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 10_000)
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      signal: AbortSignal.timeout(10_000),
+      signal: controller.signal,
       body: JSON.stringify({
         chat_id: chatId,
         text,
         parse_mode: 'HTML',
         disable_web_page_preview: true,
       }),
-    })
+    }).finally(() => clearTimeout(timer))
     if (!res.ok) {
       const body = await res.text()
       throw new Error(`Telegram API error ${res.status}: ${body}`)
