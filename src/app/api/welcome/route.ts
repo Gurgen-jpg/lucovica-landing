@@ -89,24 +89,21 @@ export async function POST(req: NextRequest) {
     privacy_consent: true,
   }
 
-  const [tgResult, emailResult] = await Promise.allSettled([
-    withTimeout(sendWelcomeToTelegram(data), 25_000),
-    withTimeout(sendWelcomeEmail(data), 25_000),
-  ])
-
-  if (tgResult.status === 'rejected') {
-    console.error('[welcome] Telegram error:', tgResult.reason)
-  }
-  if (emailResult.status === 'rejected') {
-    console.error('[welcome] Email error:', emailResult.reason)
-  }
-
-  if (tgResult.status === 'rejected' && emailResult.status === 'rejected') {
+  // 1. Email — синхронно: клиент ждёт результат
+  try {
+    await withTimeout(sendWelcomeEmail(data), 25_000)
+  } catch (err) {
+    console.error('[welcome] Email error:', err)
     return NextResponse.json(
       { ok: false, error: 'Не удалось отправить данные. Попробуй ещё раз или напиши нам в WhatsApp.' },
       { status: 500 },
     )
   }
+
+  // 2. Telegram — fire-and-forget: клиент не ждёт, ошибки только в логи
+  withTimeout(sendWelcomeToTelegram(data), 25_000).catch(err => {
+    console.error('[welcome] Telegram error (background):', err)
+  })
 
   return NextResponse.json({ ok: true })
 }

@@ -2,23 +2,71 @@ import nodemailer from 'nodemailer'
 import type { LeadData } from './sendLead'
 import type { WelcomeData } from './sendWelcome'
 
-function createTransport() {
+const SMTP_HOST = 'smtp.timeweb.ru'
+
+// Порты пробуем по очереди: если первый упал — идём на следующий
+const SMTP_CONFIGS = [
+  { port: 587, secure: false, requireTLS: true, label: 'STARTTLS:587' },
+  { port: 465, secure: true, requireTLS: false, label: 'SMTPS:465' },
+  { port: 2525, secure: false, requireTLS: true, label: 'STARTTLS:2525' },
+]
+
+function createTransport(config: typeof SMTP_CONFIGS[number]) {
   const user = process.env.SMTP_USER
   const pass = process.env.SMTP_PASS
   if (!user || !pass) throw new Error('SMTP credentials not configured')
 
   return nodemailer.createTransport({
-    host: 'smtp.timeweb.ru',
-    port: 465,
-    secure: true,
+    host: SMTP_HOST,
+    port: config.port,
+    secure: config.secure,
+    requireTLS: config.requireTLS,
     auth: { user, pass },
-    connectionTimeout: 15_000,
-    greetingTimeout: 10_000,
-    socketTimeout: 20_000,
+    connectionTimeout: 7_000,
+    greetingTimeout: 7_000,
+    socketTimeout: 15_000,
   })
 }
 
 const TO = () => process.env.NOTIFY_EMAIL ?? process.env.SMTP_USER ?? ''
+
+async function sendMailWithFallback(mail: nodemailer.SendMailOptions, tag: string): Promise<void> {
+  let lastError: unknown
+  for (const config of SMTP_CONFIGS) {
+    const startedAt = Date.now()
+    console.log(`[email:${tag}] → trying ${config.label}`, {
+      host: SMTP_HOST,
+      port: config.port,
+      to: mail.to,
+    })
+    try {
+      const transport = createTransport(config)
+      const info = await transport.sendMail(mail)
+      console.log(`[email:${tag}] ✓ SUCCESS via ${config.label}`, {
+        durationMs: Date.now() - startedAt,
+        messageId: info.messageId,
+        accepted: info.accepted,
+        rejected: info.rejected,
+        response: info.response,
+      })
+      return
+    } catch (err) {
+      const e = err as NodeJS.ErrnoException & { command?: string; responseCode?: number }
+      console.error(`[email:${tag}] ✗ FAILED via ${config.label}`, {
+        durationMs: Date.now() - startedAt,
+        message: e.message,
+        code: e.code,
+        errno: e.errno,
+        syscall: e.syscall,
+        command: e.command,
+        responseCode: e.responseCode,
+      })
+      lastError = err
+    }
+  }
+  console.error(`[email:${tag}] ✗✗ ALL PORTS FAILED`)
+  throw lastError
+}
 
 function row(label: string, value: string | null | undefined) {
   if (!value) return ''
@@ -26,8 +74,6 @@ function row(label: string, value: string | null | undefined) {
 }
 
 export async function sendLeadEmail(data: LeadData): Promise<void> {
-  const transport = createTransport()
-
   const isCert = data.service === 'Подарочный сертификат'
   const subject = isCert
     ? `🎁 Новый заказ сертификата — ${data.name}`
@@ -49,17 +95,15 @@ export async function sendLeadEmail(data: LeadData): Promise<void> {
       </table>
     </div>`
 
-  await transport.sendMail({
+  await sendMailWithFallback({
     from: `"LUCOVICA" <${process.env.SMTP_USER}>`,
     to: TO(),
     subject,
     html,
-  })
+  }, 'lead')
 }
 
 export async function sendWelcomeEmail(data: WelcomeData): Promise<void> {
-  const transport = createTransport()
-
   const isNew = data.visit_type === 'new'
   const subject = isNew
     ? `🌿 Welcome-анкета (новый) — ${data.name}`
@@ -118,10 +162,10 @@ export async function sendWelcomeEmail(data: WelcomeData): Promise<void> {
       </table>
     </div>`
 
-  await transport.sendMail({
+  await sendMailWithFallback({
     from: `"LUCOVICA" <${process.env.SMTP_USER}>`,
     to: TO(),
     subject,
     html,
-  })
+  }, 'welcome')
 }

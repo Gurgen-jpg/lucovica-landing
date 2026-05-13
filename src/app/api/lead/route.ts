@@ -35,21 +35,18 @@ export async function POST(req: NextRequest) {
     utm_campaign: body.utm_campaign ? String(body.utm_campaign).slice(0, 100) : undefined,
   }
 
-  const [tgResult, emailResult] = await Promise.allSettled([
-    withTimeout(sendLeadToTelegram(lead), 25_000),
-    withTimeout(sendLeadEmail(lead), 25_000),
-  ])
-
-  if (tgResult.status === 'rejected') {
-    console.error('[lead] Telegram error:', tgResult.reason)
-  }
-  if (emailResult.status === 'rejected') {
-    console.error('[lead] Email error:', emailResult.reason)
-  }
-
-  if (tgResult.status === 'rejected' && emailResult.status === 'rejected') {
+  // 1. Email — синхронно: клиент ждёт результат
+  try {
+    await withTimeout(sendLeadEmail(lead), 25_000)
+  } catch (err) {
+    console.error('[lead] Email error:', err)
     return NextResponse.json({ error: 'Delivery failed' }, { status: 500 })
   }
+
+  // 2. Telegram — fire-and-forget: клиент не ждёт, ошибки только в логи
+  withTimeout(sendLeadToTelegram(lead), 25_000).catch(err => {
+    console.error('[lead] Telegram error (background):', err)
+  })
 
   return NextResponse.json({ ok: true })
 }
