@@ -12,9 +12,9 @@ function createTransport() {
     port: 465,
     secure: true,
     auth: { user, pass },
-    connectionTimeout: 10_000,
+    connectionTimeout: 15_000,
     greetingTimeout: 10_000,
-    socketTimeout: 15_000,
+    socketTimeout: 20_000,
   })
 }
 

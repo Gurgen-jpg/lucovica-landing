@@ -36,8 +36,8 @@ export async function POST(req: NextRequest) {
   }
 
   const [tgResult, emailResult] = await Promise.allSettled([
-    withTimeout(sendLeadToTelegram(lead), 12_000),
-    withTimeout(sendLeadEmail(lead), 12_000),
+    withTimeout(sendLeadToTelegram(lead), 25_000),
+    withTimeout(sendLeadEmail(lead), 25_000),
   ])
 
   if (tgResult.status === 'rejected') {
