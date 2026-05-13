@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sendWelcomeToTelegram, type WelcomeData } from '@/lib/sendWelcome'
 import { sendWelcomeEmail } from '@/lib/sendEmail'
 
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms)
+    ),
+  ])
+}
+
 // In-memory rate limiter: 3 requests per minute per IP
 const ipLog = new Map<string, number[]>()
 
@@ -81,8 +90,8 @@ export async function POST(req: NextRequest) {
   }
 
   const [tgResult, emailResult] = await Promise.allSettled([
-    sendWelcomeToTelegram(data),
-    sendWelcomeEmail(data),
+    withTimeout(sendWelcomeToTelegram(data), 12_000),
+    withTimeout(sendWelcomeEmail(data), 12_000),
   ])
 
   if (tgResult.status === 'rejected') {
