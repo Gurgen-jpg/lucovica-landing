@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendWelcomeToTelegram, type WelcomeData } from '@/lib/sendWelcome'
+import { sendWelcomeEmail } from '@/lib/sendEmail'
 
 // In-memory rate limiter: 3 requests per minute per IP
 const ipLog = new Map<string, number[]>()
@@ -79,57 +80,23 @@ export async function POST(req: NextRequest) {
     privacy_consent: true,
   }
 
-  const errors: string[] = []
+  const [tgResult, emailResult] = await Promise.allSettled([
+    sendWelcomeToTelegram(data),
+    sendWelcomeEmail(data),
+  ])
 
-  // Telegram
-  try {
-    await sendWelcomeToTelegram(data)
-  } catch (err) {
-    console.error('[welcome] Telegram error:', err)
-    errors.push('telegram')
+  if (tgResult.status === 'rejected') {
+    console.error('[welcome] Telegram error:', tgResult.reason)
+  }
+  if (emailResult.status === 'rejected') {
+    console.error('[welcome] Email error:', emailResult.reason)
   }
 
-  // Google Sheets webhook
-  const sheetWebhook = process.env.WELCOME_SHEET_WEBHOOK
-  if (sheetWebhook) {
-    try {
-      await fetch(sheetWebhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          timestamp: new Date().toISOString(),
-          visit_type: data.visit_type,
-          name: data.name,
-          phone: data.phone,
-          address_form: data.address_form,
-          drink: data.drink,
-          milk: data.milk,
-          sugar: data.sugar,
-          cream: data.cream,
-          extra_drink_wish: data.extra_drink_wish,
-          car: data.car,
-          car_number: data.car_number,
-          talk_mode: data.talk_mode,
-          with_kid: data.with_kid,
-          kid_age: data.kid_age,
-          kid_needs: data.kid_needs.join(', '),
-          contraindications: data.contraindications.join(', '),
-          tan: data.tan,
-          skin_notes: data.skin_notes,
-          source: data.source,
-          extra_notes: data.extra_notes,
-          privacy_consent: data.privacy_consent,
-        }),
-      })
-    } catch (err) {
-      console.error('[welcome] Sheets error:', err)
-      errors.push('sheets')
-    }
-  }
-
-  // If Telegram (critical channel) failed — return error
-  if (errors.includes('telegram')) {
-    return NextResponse.json({ ok: false, error: 'Не удалось отправить данные. Попробуй ещё раз или напиши нам в WhatsApp.' }, { status: 500 })
+  if (tgResult.status === 'rejected' && emailResult.status === 'rejected') {
+    return NextResponse.json(
+      { ok: false, error: 'Не удалось отправить данные. Попробуй ещё раз или напиши нам в WhatsApp.' },
+      { status: 500 },
+    )
   }
 
   return NextResponse.json({ ok: true })
