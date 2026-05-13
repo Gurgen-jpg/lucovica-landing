@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sendLeadToTelegram, type LeadData } from '@/lib/sendLead'
 import { sendLeadEmail } from '@/lib/sendEmail'
 
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms)
+    ),
+  ])
+}
+
 export async function POST(req: NextRequest) {
   let body: Partial<LeadData>
   try {
@@ -27,8 +36,8 @@ export async function POST(req: NextRequest) {
   }
 
   const [tgResult, emailResult] = await Promise.allSettled([
-    sendLeadToTelegram(lead),
-    sendLeadEmail(lead),
+    withTimeout(sendLeadToTelegram(lead), 12_000),
+    withTimeout(sendLeadEmail(lead), 12_000),
   ])
 
   if (tgResult.status === 'rejected') {
