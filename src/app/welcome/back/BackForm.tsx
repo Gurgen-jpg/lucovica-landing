@@ -18,7 +18,9 @@ const DRINKS = [
 
 const MILK_OPTIONS = [
   { id: 'regular', label: 'Обычное', emoji: '🥛' },
-  { id: 'coconut', label: 'Кокосовое (Banana)', emoji: '🥥' },
+  { id: 'coconut', label: 'Кокосовое', emoji: '🥥' },
+  { id: 'banana', label: 'Банановое', emoji: '🍌' },
+  { id: 'almond', label: 'Миндальное', emoji: '🌰' },
   { id: 'pistachio', label: 'Фисташковое', emoji: '🌰' },
   { id: 'none', label: 'Без молока', emoji: '🚫' },
 ]
@@ -111,11 +113,10 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
-      className={`w-full flex items-center gap-3 px-4 py-4 rounded-2xl border text-left text-sm transition-all duration-150 active:scale-[0.98] ${
-        selected
+      className={`w-full flex items-center gap-3 px-4 py-4 rounded-2xl border text-left text-sm transition-all duration-150 active:scale-[0.98] ${selected
           ? 'bg-dark text-white border-dark'
           : 'bg-white text-dark border-mist hover:border-dark/40'
-      }`}
+        }`}
     >
       {children}
     </button>
@@ -140,11 +141,10 @@ function YesNo({
           key={String(v)}
           type="button"
           onClick={() => onChange(v)}
-          className={`flex-1 py-4 rounded-2xl border text-sm transition-all duration-150 active:scale-[0.98] ${
-            value === v
+          className={`flex-1 py-4 rounded-2xl border text-sm transition-all duration-150 active:scale-[0.98] ${value === v
               ? 'bg-dark text-white border-dark'
               : 'bg-white text-dark border-mist hover:border-dark/40'
-          }`}
+            }`}
         >
           {v ? labelYes : labelNo}
         </button>
@@ -450,9 +450,8 @@ export default function BackForm() {
                   className="flex items-start gap-3 text-left w-full"
                 >
                   <div
-                    className={`mt-0.5 w-5 h-5 shrink-0 rounded border-2 flex items-center justify-center transition-all ${
-                      data.privacy_consent ? 'bg-dark border-dark' : 'bg-white border-mist'
-                    }`}
+                    className={`mt-0.5 w-5 h-5 shrink-0 rounded border-2 flex items-center justify-center transition-all ${data.privacy_consent ? 'bg-dark border-dark' : 'bg-white border-mist'
+                      }`}
                   >
                     {data.privacy_consent && (
                       <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
