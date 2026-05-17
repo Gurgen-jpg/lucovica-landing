@@ -42,8 +42,15 @@ function mockFetchOk() {
   }))
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   vi.restoreAllMocks()
+  // vi.restoreAllMocks() не сбрасывает vi.fn() из vi.mock() factory,
+  // поэтому явно восстанавливаем мок nodemailer после тестов, которые его переопределяют
+  const nm = await import('nodemailer')
+  vi.mocked(nm.default.createTransport).mockReset()
+  vi.mocked(nm.default.createTransport).mockImplementation(() => ({
+    sendMail: vi.fn().mockResolvedValue({ messageId: 'test-id', accepted: [], rejected: [], response: '' }),
+  }))
 })
 
 describe('POST /api/welcome', () => {

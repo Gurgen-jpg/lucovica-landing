@@ -1,6 +1,11 @@
 import nodemailer from 'nodemailer'
 import type { LeadData } from './sendLead'
 import type { WelcomeData } from './sendWelcome'
+import {
+  CRITICAL_CONTRAINDICATIONS,
+  DRINK_LABELS,
+  MILK_LABELS,
+} from './welcome-labels'
 
 const SMTP_HOST = 'smtp.timeweb.ru'
 
@@ -109,13 +114,6 @@ export async function sendWelcomeEmail(data: WelcomeData): Promise<void> {
     ? `🌿 Welcome-анкета (новый) — ${data.name}`
     : `🌿 Welcome-анкета (повторный) — ${data.name}`
 
-  const DRINK_LABELS: Record<string, string> = {
-    cappuccino: 'Капучино', americano: 'Американо', black_tea: 'Чай чёрный',
-    green_tea: 'Чай зелёный', matcha: 'Матча', water: 'Просто воду', nothing: 'Ничего',
-  }
-  const MILK_LABELS: Record<string, string> = {
-    regular: 'Обычное', coconut: 'Кокосовое', pistachio: 'Фисташковое', none: 'Без молока',
-  }
   const yn = (v: boolean | null | undefined) => v === true ? 'Да' : v === false ? 'Нет' : '—'
 
   const drinkParts = [
@@ -129,10 +127,7 @@ export async function sendWelcomeEmail(data: WelcomeData): Promise<void> {
     ? 'Нет'
     : data.contraindications.join(', ')
 
-  const flagWarning = data.contraindications.some(c => [
-    'Беременность','Период лактации','Онкология (текущая или в анамнезе)',
-    'Эпилепсия','Приём ретиноидов / Роаккутана (последние 6 месяцев)',
-  ].includes(c))
+  const flagWarning = data.contraindications.some(c => CRITICAL_CONTRAINDICATIONS.has(c))
     ? `<p style="color:#c00;font-weight:bold;padding:8px 12px;background:#fff3f3;border-radius:6px">⚠️ ФЛАГИ БЕЗОПАСНОСТИ: ${contraStr}</p>`
     : ''
 

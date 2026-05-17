@@ -21,17 +21,17 @@ const steps = [
   },
 ]
 
+import { SectionHeader } from '@/components/ui'
+
 export default function Process() {
   return (
     <section className="py-20 px-5 md:px-12 bg-mist/20">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <p className="section-sub">Как это работает</p>
-          <h2 className="section-title">Как проходит процедура</h2>
-          <p className="text-dark/60 text-sm md:text-base max-w-xl mx-auto">
-            Каждый визит в LUCOVICA — это не просто процедура, а маленький ритуал заботы о себе.
-          </p>
-        </div>
+        <SectionHeader
+          sub="Как это работает"
+          title="Как проходит процедура"
+          description="Каждый визит в LUCOVICA — это не просто процедура, а маленький ритуал заботы о себе."
+        />
 
         <div className="relative">
           {/* Connector line for md+ */}

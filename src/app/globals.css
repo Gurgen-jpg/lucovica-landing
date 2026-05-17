@@ -53,4 +53,10 @@ body {
   .card {
     @apply bg-white rounded-2xl shadow-sm border border-mist p-5;
   }
+  .form-input {
+    @apply w-full px-4 py-4 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30;
+  }
+  .form-textarea {
+    @apply w-full px-4 py-3 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30 resize-none;
+  }
 }

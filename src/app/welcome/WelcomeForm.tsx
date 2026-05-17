@@ -3,46 +3,18 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-
-// ─── Constants ───────────────────────────────────────────────────────────────
-
-const DRINKS = [
-  { id: 'cappuccino', label: 'Капучино', emoji: '☕' },
-  { id: 'americano', label: 'Американо', emoji: '☕' },
-  { id: 'black_tea', label: 'Чай чёрный', emoji: '🍵' },
-  { id: 'green_tea', label: 'Чай зелёный', emoji: '🍵' },
-  { id: 'matcha', label: 'Матча', emoji: '🍵' },
-  { id: 'water', label: 'Просто воду', emoji: '💧' },
-  { id: 'nothing', label: 'Спасибо, ничего не нужно', emoji: '🚫' },
-]
-
-const MILK_OPTIONS = [
-  { id: 'regular', label: 'Обычное', emoji: '🥛' },
-  { id: 'coconut', label: 'Кокосовое', emoji: '🥥' },
-  { id: 'banana', label: 'Банановое', emoji: '🍌' },
-  { id: 'almond', label: 'Миндальное', emoji: '🌰' },
-  { id: 'pistachio', label: 'Фисташковое', emoji: '🌰' },
-  { id: 'none', label: 'Без молока', emoji: '🚫' },
-]
-
-const CONTRAINDICATIONS = [
-  'Беременность',
-  'Период лактации',
-  'Онкология (текущая или в анамнезе)',
-  'Сахарный диабет',
-  'Эпилепсия',
-  'Приём антибиотиков (последние 2 недели)',
-  'Приём ретиноидов / Роаккутана (последние 6 месяцев)',
-  'Фотодерматит / повышенная чувствительность к свету',
-  'Острые инфекции, ОРВИ, температура',
-  'Ничего из перечисленного',
-]
-
-const KID_NEEDS = ['Мультик', 'Раскраски', 'Напиток', 'Ничего не надо']
-const SOURCES = ['Яндекс Карты', 'Instagram', 'Подруга', 'Реклама', 'Другое']
-
-const COFFEE_IDS = new Set(['cappuccino', 'americano'])
-const MILK_TRIGGER = new Set(['cappuccino', 'americano', 'matcha'])
+import { Chip, YesNo, NavButtons, Checkbox } from '@/components/ui'
+import { isValidPhone, formatPhone } from '@/lib/validation'
+import { track } from '@/lib/analytics'
+import {
+  DRINKS,
+  MILK_OPTIONS,
+  COFFEE_IDS,
+  MILK_TRIGGER,
+  KID_NEEDS,
+  SOURCES,
+  CONTRAINDICATIONS_NEW,
+} from '@/lib/welcome-options'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -92,128 +64,6 @@ const INITIAL: FormData = {
   source: '',
   extra_notes: '',
   privacy_consent: false,
-}
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function formatPhone(raw: string): string {
-  const digits = raw.replace(/\D/g, '')
-  const d = (digits.startsWith('8') ? '7' + digits.slice(1) : digits).slice(0, 11)
-  if (!d) return ''
-  if (d[0] !== '7') return `+${d}`
-  const local = d.slice(1)
-  if (local.length === 0) return '+7'
-  if (local.length <= 3) return `+7 (${local}`
-  if (local.length <= 6) return `+7 (${local.slice(0, 3)}) ${local.slice(3)}`
-  if (local.length <= 8) return `+7 (${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6)}`
-  return `+7 (${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6, 8)}-${local.slice(8, 10)}`
-}
-
-function isValidPhone(phone: string): boolean {
-  return phone.replace(/\D/g, '').length === 11
-}
-
-function track(goal: string) {
-  if (typeof window === 'undefined') return
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ym = (window as any).ym
-  if (typeof ym !== 'function') return
-  const id = process.env.NEXT_PUBLIC_YM_ID
-  if (id) ym(Number(id), 'reachGoal', goal)
-}
-
-// ─── UI Primitives ────────────────────────────────────────────────────────────
-
-function Chip({
-  selected,
-  onClick,
-  children,
-}: {
-  selected: boolean
-  onClick: () => void
-  children: React.ReactNode
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`w-full flex items-center gap-3 px-4 py-4 rounded-2xl border text-left text-sm transition-all duration-150 active:scale-[0.98] ${selected
-        ? 'bg-dark text-white border-dark'
-        : 'bg-white text-dark border-mist hover:border-dark/40'
-        }`}
-    >
-      {children}
-    </button>
-  )
-}
-
-function YesNo({
-  value,
-  onChange,
-  labelYes = 'Да',
-  labelNo = 'Нет',
-}: {
-  value: boolean | null
-  onChange: (v: boolean) => void
-  labelYes?: string
-  labelNo?: string
-}) {
-  return (
-    <div className="flex gap-3">
-      {[
-        { v: true, label: labelYes },
-        { v: false, label: labelNo },
-      ].map(({ v, label }) => (
-        <button
-          key={String(v)}
-          type="button"
-          onClick={() => onChange(v)}
-          className={`flex-1 py-4 rounded-2xl border text-sm transition-all duration-150 active:scale-[0.98] ${value === v
-            ? 'bg-dark text-white border-dark'
-            : 'bg-white text-dark border-mist hover:border-dark/40'
-            }`}
-        >
-          {label}
-        </button>
-      ))}
-    </div>
-  )
-}
-
-function NavButtons({
-  onNext,
-  onBack,
-  canNext,
-  showBack = true,
-  nextLabel = 'Продолжить',
-}: {
-  onNext: () => void
-  onBack: () => void
-  canNext: boolean
-  showBack?: boolean
-  nextLabel?: string
-}) {
-  return (
-    <div className="mt-8 space-y-3 shrink-0">
-      <button
-        type="button"
-        onClick={onNext}
-        disabled={!canNext}
-        className="btn-primary w-full text-base py-4 disabled:opacity-40 disabled:cursor-not-allowed"
-      >
-        {nextLabel}
-      </button>
-      {showBack && (
-        <button
-          type="button"
-          onClick={onBack}
-          className="w-full py-3 text-sm text-dark/40 hover:text-dark transition"
-        >
-          ← Назад
-        </button>
-      )}
-    </div>
-  )
 }
 
 // ─── Main component ───────────────────────────────────────────────────────────
@@ -376,7 +226,7 @@ export default function WelcomeForm() {
                     value={data.name}
                     onChange={e => set('name', e.target.value)}
                     placeholder="Например, Рита"
-                    className="w-full px-4 py-4 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30"
+                    className="form-input"
                   />
                 </div>
                 <div>
@@ -409,7 +259,7 @@ export default function WelcomeForm() {
                     value={data.phone}
                     onChange={e => set('phone', formatPhone(e.target.value))}
                     placeholder="+7 (___) ___-__-__"
-                    className="w-full px-4 py-4 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30"
+                    className="form-input"
                   />
                   {data.phone.length > 2 && !isValidPhone(data.phone) && (
                     <p className="mt-1.5 text-xs text-red-500">Введи полный номер телефона</p>
@@ -479,7 +329,7 @@ export default function WelcomeForm() {
                     onChange={e => set('extra_drink_wish', e.target.value)}
                     placeholder="Опционально"
                     rows={2}
-                    className="mt-2 w-full px-4 py-3 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30 resize-none"
+                    className="mt-2 form-textarea"
                   />
                 </div>
               </div>
@@ -508,7 +358,7 @@ export default function WelcomeForm() {
                       value={data.car_number}
                       onChange={e => set('car_number', e.target.value)}
                       placeholder="А123БВ 161"
-                      className="w-full px-4 py-4 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30"
+                      className="form-input"
                     />
                     <p className="mt-1.5 text-xs text-dark/40">
                       Предупредим, чтобы у входа было свободно
@@ -566,7 +416,7 @@ export default function WelcomeForm() {
                           value={data.kid_age}
                           onChange={e => set('kid_age', e.target.value)}
                           placeholder="Возраст"
-                          className="w-full px-4 py-4 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30"
+                          className="form-input"
                         />
                       </div>
                       <div>
@@ -601,7 +451,7 @@ export default function WelcomeForm() {
               </p>
               <div className="space-y-5 flex-1">
                 <div className="space-y-2">
-                  {CONTRAINDICATIONS.map(item => (
+                  {CONTRAINDICATIONS_NEW.map(item => (
                     <Chip
                       key={item}
                       selected={data.contraindications.includes(item)}
@@ -626,7 +476,7 @@ export default function WelcomeForm() {
                     onChange={e => set('skin_notes', e.target.value)}
                     placeholder="Опционально — если есть, что нам важно знать"
                     rows={3}
-                    className="w-full px-4 py-3 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30 resize-none"
+                    className="form-textarea"
                   />
                 </div>
               </div>
@@ -660,31 +510,11 @@ export default function WelcomeForm() {
                     onChange={e => set('extra_notes', e.target.value)}
                     placeholder="Опционально"
                     rows={3}
-                    className="w-full px-4 py-3 rounded-2xl border border-mist text-dark text-sm bg-white focus:outline-none focus:border-dark/40 transition placeholder:text-dark/30 resize-none"
+                    className="form-textarea"
                   />
                 </div>
                 {/* Consent */}
-                <button
-                  type="button"
-                  onClick={() => set('privacy_consent', !data.privacy_consent)}
-                  className="flex items-start gap-3 text-left w-full"
-                >
-                  <div
-                    className={`mt-0.5 w-5 h-5 shrink-0 rounded border-2 flex items-center justify-center transition-all ${data.privacy_consent ? 'bg-dark border-dark' : 'bg-white border-mist'
-                      }`}
-                  >
-                    {data.privacy_consent && (
-                      <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
-                        <path
-                          d="M1 4.5L4.5 8L11 1"
-                          stroke="white"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </div>
+                <Checkbox checked={data.privacy_consent} onChange={v => set('privacy_consent', v)}>
                   <p className="text-xs text-dark/60 leading-relaxed">
                     Я ознакомлена с{' '}
                     <Link
@@ -697,30 +527,19 @@ export default function WelcomeForm() {
                     </Link>{' '}
                     и согласна на обработку персональных данных, включая сведения о состоянии здоровья, в целях подготовки и проведения процедуры.
                   </p>
-                </button>
+                </Checkbox>
               </div>
 
               {submitError && (
                 <p className="mt-4 text-sm text-red-500 text-center">{submitError}</p>
               )}
 
-              <div className="mt-8 space-y-3 shrink-0">
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={!canProceed() || submitting}
-                  className="btn-primary w-full text-base py-4 disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  {submitting ? 'Отправляем...' : 'Отправить'}
-                </button>
-                <button
-                  type="button"
-                  onClick={goBack}
-                  className="w-full py-3 text-sm text-dark/40 hover:text-dark transition"
-                >
-                  ← Назад
-                </button>
-              </div>
+              <NavButtons
+                onNext={handleSubmit}
+                onBack={goBack}
+                canNext={canProceed() && !submitting}
+                nextLabel={submitting ? 'Отправляем...' : 'Отправить'}
+              />
             </>
           )}
 
