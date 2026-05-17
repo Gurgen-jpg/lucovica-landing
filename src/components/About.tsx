@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { SectionHeader, Badge } from '@/components/ui'
 
 const team = [
   { name: 'Екатерина', role: 'Топ-мастер', exp: '8 лет опыта', color: 'from-mist to-mist/50', badge: 'Топ-мастер' },
@@ -16,15 +17,11 @@ export default function About() {
   return (
     <section id="about" className="py-20 px-5 md:px-12 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <p className="section-sub">Кто мы</p>
-          <h2 className="section-title">О студии LUCOVICA</h2>
-          <p className="text-dark/60 max-w-2xl mx-auto text-sm md:text-base">
-            LUCOVICA — это студия эпиляции в самом сердце Ростова-на-Дону. Мы создаём пространство,
-            где каждая процедура становится моментом заботы о себе: уютная атмосфера, топ-мастера
-            и вкусный кофе в ожидании.
-          </p>
-        </div>
+        <SectionHeader
+          sub="Кто мы"
+          title="О студии LUCOVICA"
+          description="LUCOVICA — это студия эпиляции в самом сердце Ростова-на-Дону. Мы создаём пространство, где каждая процедура становится моментом заботы о себе: уютная атмосфера, топ-мастера и вкусный кофе в ожидании."
+        />
 
         {/* Values */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
@@ -56,9 +53,7 @@ export default function About() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <span className="inline-block bg-dark text-cream text-xs font-bold px-3 py-1 rounded-full mb-2 tracking-widest uppercase">
-                {member.badge}
-              </span>
+              <Badge className="mb-2">{member.badge}</Badge>
               <h4 className="font-bold text-dark text-lg mt-1">{member.name}</h4>
               <p className="text-dark/60 text-sm mt-0.5">{member.role}</p>
               <p className="text-dark/40 text-xs font-semibold mt-1">{member.exp}</p>

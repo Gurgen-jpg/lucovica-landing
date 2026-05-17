@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { SERVICES, type ServiceCategory } from '@/lib/services-data'
 import LeadForm from './LeadForm'
+import { SectionHeader } from '@/components/ui'
 
 const TABS = [
   { id: 'laser-women', label: 'Лазер — Девушки' },
@@ -35,13 +36,12 @@ export default function Pricing() {
     <>
       <section id="pricing" className="py-20 px-5 md:px-12 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="section-sub">Прейскурант</p>
-            <h2 className="section-title">Цены на услуги</h2>
-            <p className="text-dark/60 text-sm md:text-base">
-              Все цены указаны за один сеанс. Первый визит — подмышки бесплатно.
-            </p>
-          </div>
+          <SectionHeader
+            sub="Прейскурант"
+            title="Цены на услуги"
+            description="Все цены указаны за один сеанс. Первый визит — подмышки бесплатно."
+            spacing="sm"
+          />
 
           {/* Tabs */}
           <div className="flex flex-wrap gap-2 mb-8 justify-center">

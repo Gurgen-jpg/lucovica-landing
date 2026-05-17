@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { SERVICE_NAMES_FOR_FORM } from '@/lib/services-data'
+import { PHONE, PHONE_HREF, TG_USERNAME } from '@/lib/site-config'
+import { formatDate, buildTimeString, getUtm } from './LeadForm.helpers'
 
 type Step = 1 | 2 | 3 | 'success'
 
@@ -12,29 +14,6 @@ type Props = {
 }
 
 const TIME_SLOTS = ['Утро (9–12)', 'День (12–16)', 'Вечер (16–20)']
-
-function getUtm() {
-  if (typeof window === 'undefined') return {}
-  const p = new URLSearchParams(window.location.search)
-  return {
-    utm_source: p.get('utm_source') ?? undefined,
-    utm_medium: p.get('utm_medium') ?? undefined,
-    utm_campaign: p.get('utm_campaign') ?? undefined,
-  }
-}
-
-function formatDate(iso: string) {
-  if (!iso) return ''
-  const [y, m, d] = iso.split('-')
-  return `${d}.${m}.${y}`
-}
-
-function buildTimeString(slot: string, date: string) {
-  if (slot && date) return `${slot}, ${formatDate(date)}`
-  if (slot) return slot
-  if (date) return formatDate(date)
-  return ''
-}
 
 export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
   const [step, setStep] = useState<Step>(1)
@@ -115,9 +94,6 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
 
   if (!isOpen) return null
 
-  const PHONE = '+7 (977) 016-97-75'
-  const PHONE_HREF = '+79770169775'
-  const TG = 'lucovica_pro_epil'
   const currentProgress = progressStep(step)
 
   return (
@@ -310,7 +286,7 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
                   {PHONE}
                 </a>
                 <a
-                  href={`https://t.me/${TG}`}
+                  href={`https://t.me/${TG_USERNAME}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_telegram') }}

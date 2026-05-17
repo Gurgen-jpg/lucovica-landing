@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { SectionHeader } from '@/components/ui'
 
 const faqs = [
   {
@@ -43,10 +44,7 @@ export default function FAQ() {
   return (
     <section id="faq" className="py-20 px-5 md:px-12 bg-white">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <p className="section-sub">Вопросы и ответы</p>
-          <h2 className="section-title">Часто спрашивают</h2>
-        </div>
+        <SectionHeader sub="Вопросы и ответы" title="Часто спрашивают" />
 
         <div className="space-y-3">
           {faqs.map((faq, i) => (

@@ -1,39 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendWelcomeToTelegram, type WelcomeData } from '@/lib/sendWelcome'
 import { sendWelcomeEmail } from '@/lib/sendEmail'
-
-function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  return Promise.race([
-    promise,
-    new Promise<never>((_, reject) =>
-      setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms)
-    ),
-  ])
-}
-
-// In-memory rate limiter: 3 requests per minute per IP
-const ipLog = new Map<string, number[]>()
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now()
-  const window = 60_000
-  const prev = (ipLog.get(ip) ?? []).filter(t => now - t < window)
-  if (prev.length >= 3) return true
-  ipLog.set(ip, [...prev, now])
-  return false
-}
-
-function getIp(req: NextRequest): string {
-  return (
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-    req.headers.get('x-real-ip') ??
-    'unknown'
-  )
-}
-
-function isValidPhone(phone: string): boolean {
-  return phone.replace(/\D/g, '').length === 11
-}
+import { withTimeout } from '@/lib/timeout'
+import { isRateLimited, getIp } from '@/lib/rateLimit'
+import { isValidPhone } from '@/lib/validation'
 
 export async function POST(req: NextRequest) {
   if (isRateLimited(getIp(req))) {

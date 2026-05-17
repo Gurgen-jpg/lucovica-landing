@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendLeadToTelegram, type LeadData } from '@/lib/sendLead'
 import { sendLeadEmail } from '@/lib/sendEmail'
-
-function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  return Promise.race([
-    promise,
-    new Promise<never>((_, reject) =>
-      setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms)
-    ),
-  ])
-}
+import { withTimeout } from '@/lib/timeout'
 
 export async function POST(req: NextRequest) {
   let body: Partial<LeadData>

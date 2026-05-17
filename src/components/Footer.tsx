@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import LogoDivider from './LogoDivider'
+import { PHONE, PHONE_HREF, TG_USERNAME } from '@/lib/site-config'
 
 const nav = [
   { href: '#services', label: 'Услуги' },
@@ -9,10 +10,6 @@ const nav = [
   { href: '#contacts', label: 'Контакты' },
   { href: '#faq', label: 'FAQ' },
 ]
-
-const PHONE = '+7 (977) 016-97-75'
-const PHONE_HREF = '+79770169775'
-const TG_USERNAME = 'lucovica_pro_epil'
 
 export default function Footer() {
   return (

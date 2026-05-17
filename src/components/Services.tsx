@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import LeadForm from './LeadForm'
+import { SectionHeader, TagPill } from '@/components/ui'
 
 const categories = [
   {
@@ -59,14 +60,11 @@ export default function Services() {
     <>
       <section id="services" className="py-20 px-5 md:px-12 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="section-sub">Что мы делаем</p>
-            <h2 className="section-title">Услуги студии</h2>
-            <p className="text-dark/60 max-w-xl mx-auto text-sm md:text-base">
-              Шугаринг, лазерная и электроэпиляция — для женщин, мужчин и подростков.
-              Все процедуры проводятся с соблюдением строгих стандартов гигиены.
-            </p>
-          </div>
+          <SectionHeader
+            sub="Что мы делаем"
+            title="Услуги студии"
+            description="Шугаринг, лазерная и электроэпиляция — для женщин, мужчин и подростков. Все процедуры проводятся с соблюдением строгих стандартов гигиены."
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {categories.map((cat) => (
@@ -83,12 +81,7 @@ export default function Services() {
                 <p className="text-dark/60 text-sm mb-4">{cat.desc}</p>
                 <div className="flex flex-wrap gap-1.5 mb-5">
                   {cat.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="bg-white/60 text-dark/70 text-xs px-2.5 py-1 rounded-full font-medium border border-mist/50"
-                    >
-                      {t}
-                    </span>
+                    <TagPill key={t}>{t}</TagPill>
                   ))}
                 </div>
                 <button

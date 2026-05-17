@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import LeadForm from './LeadForm'
+import { SectionHeader } from '@/components/ui'
 
-const PHONE = '+7 (977) 016-97-75'
-const PHONE_HREF = '+79770169775'
-const TG_USERNAME = 'lucovica_pro_epil'
+import { PHONE, PHONE_HREF, TG_USERNAME } from '@/lib/site-config'
+
 const ADDRESS = 'просп. Соколова, 68/118Вс1, этаж 1'
 const CITY = 'Ростов-на-Дону'
 const MAP_SRC = 'https://yandex.ru/map-widget/v1/org/lucovica/72594546932/?ll=39.718390,47.231276&z=16'
@@ -30,10 +30,7 @@ export default function Contacts() {
     <>
       <section id="contacts" className="py-20 px-5 md:px-12 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="section-sub">Как нас найти</p>
-            <h2 className="section-title">Контакты</h2>
-          </div>
+          <SectionHeader sub="Как нас найти" title="Контакты" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Info */}
