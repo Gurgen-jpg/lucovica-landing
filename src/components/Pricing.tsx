@@ -101,7 +101,7 @@ export default function Pricing() {
               {/* CTA at bottom */}
               <div className="px-6 py-5 bg-white/50 text-center">
                 <p className="text-xs text-dark/50 mb-3">
-                  Первый визит со скидкой 20% · Абонементы для максимальной экономии
+                  Видимый результат уже после первой процедуры
                 </p>
                 <button
                   onClick={() => handleBook(category.title)}

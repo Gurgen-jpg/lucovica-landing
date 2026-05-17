@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { SectionHeader, Badge } from '@/components/ui'
 
 const team = [
-  { name: 'Екатерина', role: 'Топ-мастер', exp: '8 лет опыта', color: 'from-mist to-mist/50', badge: 'Топ-мастер' },
+  { name: 'Екатерина', role: 'Топ-мастер', exp: '15 лет опыта', color: 'from-mist to-mist/50', badge: 'Топ-мастер' },
   { name: 'Татьяна', role: 'Ведущий мастер', exp: '5 лет опыта', color: 'from-cream/30 to-mist', badge: 'Ведущий мастер' },
 ]
 
