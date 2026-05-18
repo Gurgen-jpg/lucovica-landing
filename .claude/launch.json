@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "landing",
+      "name": "LUCOVICA Landing (Next.js dev)",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": ["run", "dev", "--", "--no-turbopack"],
       "port": 3000
     }
   ]
