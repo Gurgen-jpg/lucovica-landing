@@ -9,15 +9,19 @@
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
-    "next": "14.2.5",
+    "next": "^15.5.16",
     "nodemailer": "^8.0.7",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@types/node": "^20",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^18",

@@ -10,6 +10,7 @@ import About from '@/components/About'
 import Contacts from '@/components/Contacts'
 import Footer from '@/components/Footer'
 import FloatingCTA from '@/components/FloatingCTA'
+import MessengerWidgets from '@/components/MessengerWidgets'
 import LogoDivider from '@/components/LogoDivider'
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
       <Contacts />
       <Footer />
       <FloatingCTA />
+      <MessengerWidgets />
     </>
   )
 }

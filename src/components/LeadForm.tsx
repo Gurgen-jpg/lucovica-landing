@@ -103,7 +103,12 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
       onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
     >
       <div className="absolute inset-0 bg-dark/40 backdrop-blur-sm" />
-      <div className="relative w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={isCertificate ? 'Оформление сертификата' : 'Запись на процедуру'}
+        className="relative w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden"
+      >
 
         {/* Header */}
         <div className="bg-dark px-6 pt-6 pb-8 text-white">
