@@ -19,7 +19,7 @@ export default function Hero() {
         <nav className="relative z-10 flex items-center justify-between px-5 md:px-12 py-5">
           <div className="flex items-center gap-3">
             <LogoDivider
-              sourse="/Logo_main_black_no background.png"
+              sourse="/Logo_main_black.png"
               // alt="LUCOVICA"
               width={120}
               height={80}
@@ -31,7 +31,7 @@ export default function Hero() {
             <a href="#services" className="hover:text-dark transition">Услуги</a>
             <a href="#pricing" className="hover:text-dark transition">Цены</a>
             <LogoDivider
-              sourse="/Symbol_black_no background.png"
+              sourse="/Symbol_black.png"
               // alt="LUCOVICA"
               width={48}
               height={48}

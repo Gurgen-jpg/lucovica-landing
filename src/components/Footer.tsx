@@ -20,7 +20,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 md:col-span-1">
             <LogoDivider
-              sourse="/Logo, symbol and tagline_black_no background.png"
+              sourse="/Logo_symbol_and_tagline_black.png"
               // alt="LUCOVICA"
               width={60}
               height={50}
