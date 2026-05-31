@@ -84,12 +84,22 @@ export default function Services() {
                     <TagPill key={t}>{t}</TagPill>
                   ))}
                 </div>
-                <button
-                  onClick={() => handleBook(cat.title)}
-                  className="text-dark font-semibold text-sm hover:text-dark/60 transition flex items-center gap-1"
-                >
-                  Записаться →
-                </button>
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => handleBook(cat.title)}
+                    className="text-dark font-semibold text-sm hover:text-dark/60 transition flex items-center gap-1"
+                  >
+                    Записаться →
+                  </button>
+                  {cat.id === 'laser' && (
+                    <a
+                      href="/laser-epil"
+                      className="text-dark/40 text-sm hover:text-dark/70 transition flex items-center gap-1"
+                    >
+                      Подробнее
+                    </a>
+                  )}
+                </div>
               </div>
             ))}
           </div>
