@@ -4,6 +4,7 @@ import { useState } from 'react'
 import LeadForm from '@/components/LeadForm'
 import { SectionHeader } from '@/components/ui'
 import { SERVICES } from '@/lib/services-data'
+import { track } from '@/lib/analytics'
 
 const LASER_TABS = [
   { id: 'laser-women', label: 'Девушки' },
@@ -16,9 +17,6 @@ function fmt(n: number) {
   return n.toLocaleString('ru-RU') + ' ₽'
 }
 
-declare const ym: (id: number, action: string, goal: string) => void
-const YM_ID = Number(process.env.NEXT_PUBLIC_YM_ID)
-
 export default function LaserEpilPricing() {
   const [activeTab, setActiveTab] = useState('laser-women')
   const [open, setOpen] = useState(false)
@@ -28,7 +26,7 @@ export default function LaserEpilPricing() {
 
   const handleBook = (name: string) => {
     setService(name)
-    try { ym(YM_ID, 'reachGoal', 'laser_epil_cta_click') } catch {}
+    track('laser_epil_cta_click')
     setOpen(true)
   }
 

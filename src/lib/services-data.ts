@@ -128,6 +128,13 @@ export const SERVICES: ServiceCategory[] = [
   },
 ]
 
+export const ELECTRO_PRICES = [
+  { name: '15 минут', short: 'Единичные волоски, небольшая зона', price: 700 },
+  { name: '30 минут', short: 'Верхняя губа, подбородок, брови', price: 1200 },
+  { name: '45 минут', short: 'Коррекция после лазера', price: 1700 },
+  { name: '60 минут', short: 'Большая зона или несколько участков', price: 2200 },
+]
+
 export const CERTIFICATES = [
   { amount: 500, desc: 'Небольшой, но приятный старт' },
   { amount: 1000, desc: 'На одну-две зоны шугаринга' },

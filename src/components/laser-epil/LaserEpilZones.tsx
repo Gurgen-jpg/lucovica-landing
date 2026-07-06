@@ -1,4 +1,9 @@
+'use client'
+
+import { useState } from 'react'
+import LeadForm from '@/components/LeadForm'
 import { SectionHeader } from '@/components/ui'
+import { track } from '@/lib/analytics'
 
 const zonesWomen = [
   { name: 'Ноги полностью', price: 'от 4 490 ₽', popular: true },
@@ -28,14 +33,15 @@ const zonesMen = [
   { name: 'Зоны мини', price: 'от 1 490 ₽', popular: false },
 ]
 
-function ZoneGrid({ zones }: { zones: typeof zonesWomen }) {
+function ZoneGrid({ zones, onSelect }: { zones: typeof zonesWomen; onSelect: (name: string) => void }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
       {zones.map((z) => (
-        <div
+        <button
           key={z.name}
-          className={`rounded-2xl border p-4 flex flex-col gap-1 ${
-            z.popular ? 'bg-dark text-white border-dark' : 'bg-white border-mist'
+          onClick={() => onSelect(z.name)}
+          className={`rounded-2xl border p-4 flex flex-col gap-1 text-left transition-all hover:shadow-md hover:-translate-y-0.5 ${
+            z.popular ? 'bg-dark text-white border-dark' : 'bg-white border-mist hover:border-dark'
           }`}
         >
           <div className="flex items-start justify-between gap-1">
@@ -51,37 +57,53 @@ function ZoneGrid({ zones }: { zones: typeof zonesWomen }) {
           <span className={`text-xs font-bold mt-auto ${z.popular ? 'text-cream' : 'text-dark/60'}`}>
             {z.price}
           </span>
-        </div>
+          <span className={`text-[10px] font-medium underline underline-offset-2 ${z.popular ? 'text-white/60' : 'text-dark/40'}`}>
+            Записаться
+          </span>
+        </button>
       ))}
     </div>
   )
 }
 
 export default function LaserEpilZones() {
+  const [open, setOpen] = useState(false)
+  const [service, setService] = useState('')
+
+  const handleSelect = (audience: string) => (name: string) => {
+    setService(`Лазерная эпиляция (${audience}) — ${name}`)
+    track('laser_epil_zone_click')
+    setOpen(true)
+  }
+
   return (
-    <section id="zones" className="py-20 px-5 md:px-12 bg-mist/20">
-      <div className="max-w-5xl mx-auto">
-        <SectionHeader
-          sub="Зоны лазерной эпиляции"
-          title="Все зоны — в одной студии"
-          description="Лазерная эпиляция лица, тела, деликатных зон. Для женщин и мужчин."
-        />
+    <>
+      <section id="zones" className="py-20 px-5 md:px-12 bg-mist/20">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader
+            sub="Зоны лазерной эпиляции"
+            title="Все зоны — в одной студии"
+            description="Лазерная эпиляция лица, тела, деликатных зон. Для женщин и мужчин. Нажмите на зону, чтобы записаться."
+          />
 
-        <div className="space-y-10">
-          <div>
-            <h3 className="text-dark font-bold text-sm uppercase tracking-widest mb-4">Женщинам</h3>
-            <ZoneGrid zones={zonesWomen} />
+          <div className="space-y-10">
+            <div>
+              <h3 className="text-dark font-bold text-sm uppercase tracking-widest mb-4">Женщинам</h3>
+              <ZoneGrid zones={zonesWomen} onSelect={handleSelect('жен.')} />
+            </div>
+            <div>
+              <h3 className="text-dark font-bold text-sm uppercase tracking-widest mb-4">Мужчинам</h3>
+              <ZoneGrid zones={zonesMen} onSelect={handleSelect('муж.')} />
+            </div>
           </div>
-          <div>
-            <h3 className="text-dark font-bold text-sm uppercase tracking-widest mb-4">Мужчинам</h3>
-            <ZoneGrid zones={zonesMen} />
-          </div>
+
+          <p className="text-center text-dark/40 text-xs mt-6">
+            Цены указаны за один сеанс. Точная стоимость — на консультации у мастера.
+          </p>
         </div>
+      </section>
 
-        <p className="text-center text-dark/40 text-xs mt-6">
-          Цены указаны за один сеанс. Точная стоимость — на консультации у мастера.
-        </p>
-      </div>
-    </section>
+      <LeadForm isOpen={open} onClose={() => setOpen(false)} defaultService={service} />
+    </>
   )
 }

@@ -8,10 +8,6 @@ import Promos from '@/components/Promos'
 import FAQ from '@/components/FAQ'
 import About from '@/components/About'
 import Contacts from '@/components/Contacts'
-import Footer from '@/components/Footer'
-import FloatingCTA from '@/components/FloatingCTA'
-import MessengerWidgets from '@/components/MessengerWidgets'
-import LogoDivider from '@/components/LogoDivider'
 
 export default function Home() {
   return (
@@ -20,15 +16,11 @@ export default function Home() {
       <Trust />
       <Services />
       <Pricing />
-      {/* <LogoDivider /> */}
       <Reviews />
       <Promos />
       <FAQ />
       <About />
       <Contacts />
-      <Footer />
-      <FloatingCTA />
-      <MessengerWidgets />
     </>
   )
 }

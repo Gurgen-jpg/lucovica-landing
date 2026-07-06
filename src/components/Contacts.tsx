@@ -5,6 +5,7 @@ import LeadForm from './LeadForm'
 import { SectionHeader } from '@/components/ui'
 
 import { PHONE, PHONE_HREF, TG_USERNAME } from '@/lib/site-config'
+import { track } from '@/lib/analytics'
 
 const ADDRESS = 'просп. Соколова, 68/118Вс1, этаж 1'
 const CITY = 'Ростов-на-Дону'
@@ -57,10 +58,7 @@ export default function Contacts() {
                 <a
                   href={`tel:${PHONE_HREF}`}
                   className="text-dark font-semibold hover:text-dark/70 transition text-base"
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && (window as any).ym)
-                      (window as any).ym(undefined, 'reachGoal', 'click_phone')
-                  }}
+                  onClick={() => track('click_phone')}
                 >
                   {PHONE}
                 </a>
@@ -74,10 +72,7 @@ export default function Contacts() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-dark font-semibold hover:text-dark/70 transition"
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && (window as any).ym)
-                      (window as any).ym(undefined, 'reachGoal', 'click_telegram')
-                  }}
+                  onClick={() => track('click_telegram')}
                 >
                   @{TG_USERNAME}
                 </a>

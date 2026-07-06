@@ -12,11 +12,22 @@ import {
   LaserEpilCTA,
 } from '@/components/laser-epil'
 import { laserEpilFaqs } from '@/components/laser-epil/LaserEpilFAQ.data'
-import Footer from '@/components/Footer'
-import FloatingCTA from '@/components/FloatingCTA'
-import MessengerWidgets from '@/components/MessengerWidgets'
+import { buildServiceJsonLd, offersFromCategories } from '@/lib/seo-schema'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lucovica.ru'
+
+const serviceJsonLd = buildServiceJsonLd({
+  name: 'Лазерная эпиляция',
+  description:
+    'Лазерная эпиляция диодным лазером 808 нм в Ростове-на-Дону. Все зоны для женщин и мужчин, результат заметен после первой процедуры.',
+  path: '/laser-epil',
+  offers: offersFromCategories([
+    'laser-women',
+    'laser-complexes-women',
+    'laser-men',
+    'laser-complexes-men',
+  ]),
+})
 
 const faqJsonLd = {
   '@context': 'https://schema.org',
@@ -48,6 +59,10 @@ export default function LaserEpilPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
       <LaserEpilHero />
       <LaserEpilWhy />
       <LaserEpilHow />
@@ -59,9 +74,6 @@ export default function LaserEpilPage() {
       <LaserEpilPricing />
       <LaserEpilFAQ />
       <LaserEpilCTA />
-      <Footer />
-      <FloatingCTA />
-      <MessengerWidgets />
     </>
   )
 }

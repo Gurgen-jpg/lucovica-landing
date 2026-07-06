@@ -3,54 +3,19 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import LeadForm from './LeadForm'
-import LogoDivider from './LogoDivider'
 
 export default function Hero() {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <header className="relative min-h-screen flex flex-col bg-white overflow-hidden">
+      <section className="relative min-h-[calc(100vh-7rem)] flex flex-col bg-white overflow-hidden">
         {/* Decorative blobs */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-mist/40 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-cream/30 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
-        {/* Navigation */}
-        <nav className="relative z-10 flex items-center justify-between px-5 md:px-12 py-5">
-          <div className="flex items-center gap-3">
-            <LogoDivider
-              sourse="/Logo_main_black_no background.png"
-              // alt="LUCOVICA"
-              width={120}
-              height={80}
-            // priority
-            // className="h-10 w-auto object-contain"
-            />
-          </div>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-dark/60">
-            <a href="#services" className="hover:text-dark transition">Услуги</a>
-            <a href="#pricing" className="hover:text-dark transition">Цены</a>
-            <LogoDivider
-              sourse="/Symbol_black_no background.png"
-              // alt="LUCOVICA"
-              width={48}
-              height={48}
-            // priority
-            // className="h-10 w-auto object-contain"
-            />
-            <a href="#reviews" className="hover:text-dark transition">Отзывы</a>
-            <a href="#contacts" className="hover:text-dark transition">Контакты</a>
-          </div>
-          <a
-            href={`tel:${process.env.NEXT_PUBLIC_PHONE ?? '+7-961-XXX-XX-XX'}`}
-            className="hidden md:flex items-center gap-2 text-dark/70 font-semibold text-sm hover:text-dark transition"
-          >
-            Позвонить
-          </a>
-        </nav>
-
         {/* Hero content */}
-        <div className="relative z-10 flex-1 flex flex-col md:flex-row items-center justify-center gap-8 px-5 md:px-12 pb-16 pt-6 md:pt-0">
+        <div className="relative z-10 flex-1 flex flex-col md:flex-row items-center justify-center gap-8 px-5 md:px-12 pb-16 pt-10 md:pt-6">
           {/* Text */}
           <div className="flex-1 max-w-xl text-center md:text-left">
             {/* Promo badge */}
@@ -141,7 +106,7 @@ export default function Hero() {
         <div className="relative z-10 flex justify-center pb-6 animate-bounce">
           <a href="#trust" className="text-dark/20 text-xl">↓</a>
         </div>
-      </header>
+      </section>
 
       <LeadForm isOpen={open} onClose={() => setOpen(false)} />
     </>

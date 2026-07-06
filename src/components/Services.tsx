@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import LeadForm from './LeadForm'
 import { SectionHeader, TagPill } from '@/components/ui'
 
@@ -92,12 +93,28 @@ export default function Services() {
                     Записаться →
                   </button>
                   {cat.id === 'laser' && (
-                    <a
+                    <Link
                       href="/laser-epil"
                       className="text-dark/40 text-sm hover:text-dark/70 transition flex items-center gap-1"
                     >
                       Подробнее
-                    </a>
+                    </Link>
+                  )}
+                  {cat.id === 'sugaring' && (
+                    <Link
+                      href="/sugaring"
+                      className="text-dark/40 text-sm hover:text-dark/70 transition flex items-center gap-1"
+                    >
+                      Подробнее
+                    </Link>
+                  )}
+                  {cat.id === 'electro' && (
+                    <Link
+                      href="/electro-epil"
+                      className="text-dark/40 text-sm hover:text-dark/70 transition flex items-center gap-1"
+                    >
+                      Подробнее
+                    </Link>
                   )}
                 </div>
               </div>

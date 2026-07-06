@@ -3,20 +3,18 @@
 import { useState } from 'react'
 import LeadForm from '@/components/LeadForm'
 import { PHONE, PHONE_HREF, TG_USERNAME } from '@/lib/site-config'
-
-declare const ym: (id: number, action: string, goal: string) => void
-const YM_ID = Number(process.env.NEXT_PUBLIC_YM_ID)
+import { track } from '@/lib/analytics'
 
 export default function LaserEpilCTA() {
   const [open, setOpen] = useState(false)
 
   const handleCTA = () => {
-    try { ym(YM_ID, 'reachGoal', 'laser_epil_cta_click') } catch {}
+    track('laser_epil_cta_click')
     setOpen(true)
   }
 
   const handlePhone = () => {
-    try { ym(YM_ID, 'reachGoal', 'laser_epil_phone_click') } catch {}
+    track('laser_epil_phone_click')
   }
 
   return (
@@ -65,7 +63,7 @@ export default function LaserEpilCTA() {
         </div>
       </section>
 
-      <LeadForm isOpen={open} onClose={() => setOpen(false)} />
+      <LeadForm isOpen={open} onClose={() => setOpen(false)} defaultPromo />
     </>
   )
 }

@@ -2,63 +2,31 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import LogoDivider from '@/components/LogoDivider'
 import LeadForm from '@/components/LeadForm'
 import { PHONE_HREF } from '@/lib/site-config'
-
-declare const ym: (id: number, action: string, goal: string) => void
-const YM_ID = Number(process.env.NEXT_PUBLIC_YM_ID)
+import { track } from '@/lib/analytics'
 
 export default function LaserEpilHero() {
   const [open, setOpen] = useState(false)
 
   const handleCTA = () => {
-    try { ym(YM_ID, 'reachGoal', 'laser_epil_cta_click') } catch {}
+    track('laser_epil_cta_click')
     setOpen(true)
   }
 
   const handlePhone = () => {
-    try { ym(YM_ID, 'reachGoal', 'laser_epil_phone_click') } catch {}
+    track('laser_epil_phone_click')
   }
 
   return (
     <>
-      <header className="relative bg-white overflow-hidden">
+      <section className="relative bg-white overflow-hidden">
         {/* Decorative blobs */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-mist/40 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-cream/30 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
-        {/* Navigation */}
-        <nav className="relative z-10 flex items-center justify-between px-5 md:px-12 py-5">
-          <a href="/">
-            <LogoDivider
-              sourse="/Logo_main_black_no background.png"
-              width={120}
-              height={80}
-            />
-          </a>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-dark/60">
-            <a href="/#services" className="hover:text-dark transition">Услуги</a>
-            <a href="/#pricing" className="hover:text-dark transition">Цены</a>
-            <LogoDivider
-              sourse="/Symbol_black_no background.png"
-              width={48}
-              height={48}
-            />
-            <a href="/#reviews" className="hover:text-dark transition">Отзывы</a>
-            <a href="/#contacts" className="hover:text-dark transition">Контакты</a>
-          </div>
-          <a
-            href={`tel:${PHONE_HREF}`}
-            onClick={handlePhone}
-            className="hidden md:flex items-center gap-2 text-dark/70 font-semibold text-sm hover:text-dark transition"
-          >
-            Позвонить
-          </a>
-        </nav>
-
         {/* Hero content */}
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 px-5 md:px-12 pb-16 pt-6 md:pt-4">
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 px-5 md:px-12 pb-16 pt-10 md:pt-8">
           {/* Text */}
           <div className="flex-1 max-w-xl text-center md:text-left">
             <div className="inline-flex items-center gap-2 bg-dark/5 border border-dark/15 text-dark/50 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-widest uppercase">
@@ -143,9 +111,9 @@ export default function LaserEpilHero() {
         <div className="relative z-10 flex justify-center pb-6 animate-bounce">
           <a href="#why" className="text-dark/20 text-xl">↓</a>
         </div>
-      </header>
+      </section>
 
-      <LeadForm isOpen={open} onClose={() => setOpen(false)} />
+      <LeadForm isOpen={open} onClose={() => setOpen(false)} defaultPromo />
     </>
   )
 }

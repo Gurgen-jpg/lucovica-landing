@@ -6,6 +6,8 @@ export type LeadData = {
   phone: string
   service: string
   time: string
+  contact_method?: string
+  promo?: string
   utm_source?: string
   utm_medium?: string
   utm_campaign?: string
@@ -33,6 +35,8 @@ export async function sendLeadToTelegram(data: LeadData): Promise<void> {
     : `🌸 <b>Новая заявка на запись — LUCOVICA</b>`
 
   const timeRow = isCert ? '' : `\n🕐 <b>Время:</b> ${escHtml(data.time)}`
+  const contactRow = data.contact_method ? `\n📱 <b>Связь:</b> ${escHtml(data.contact_method)}` : ''
+  const promoRow = data.promo ? `\n🎁 <b>Акция:</b> ${escHtml(data.promo)}` : ''
 
   const text =
     `${header}\n` +
@@ -41,6 +45,8 @@ export async function sendLeadToTelegram(data: LeadData): Promise<void> {
     `📞 <b>Телефон:</b> <a href="tel:${escHtml(data.phone)}">${escHtml(data.phone)}</a>\n` +
     `💆 <b>Услуга:</b> ${escHtml(data.service)}` +
     timeRow +
+    contactRow +
+    promoRow +
     utmBlock
 
   await sendTelegramMessage(token, chatId, text)

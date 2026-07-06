@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { SectionHeader } from '@/components/ui'
 import { laserEpilFaqs } from './LaserEpilFAQ.data'
 
@@ -44,6 +45,16 @@ export default function LaserEpilFAQ() {
               )}
             </div>
           ))}
+        </div>
+
+        <div className="mt-6 bg-cream/30 border border-cream rounded-2xl px-6 py-4 text-center">
+          <p className="text-dark text-sm font-medium">
+            Остались единичные, седые или очень светлые волоски? Их доработает{' '}
+            <Link href="/electro-epil" className="underline underline-offset-2 hover:text-dark/70 transition">
+              электроэпиляция
+            </Link>{' '}
+            — она удаляет волосы любого цвета.
+          </p>
         </div>
       </div>
     </section>
