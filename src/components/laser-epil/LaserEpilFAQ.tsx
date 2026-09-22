@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { SectionHeader } from '@/components/ui'
 import { laserEpilFaqs } from './LaserEpilFAQ.data'
@@ -29,9 +29,8 @@ export default function LaserEpilFAQ() {
               >
                 <span className="font-semibold text-dark text-sm pr-4">{faq.q}</span>
                 <span
-                  className={`text-dark text-lg font-bold transition-transform flex-shrink-0 ${
-                    open === i ? 'rotate-45' : ''
-                  }`}
+                  className={`text-dark text-lg font-bold transition-transform flex-shrink-0 ${open === i ? 'rotate-45' : ''
+                    }`}
                 >
                   +
                 </span>
