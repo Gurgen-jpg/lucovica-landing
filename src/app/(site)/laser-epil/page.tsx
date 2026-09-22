@@ -13,6 +13,7 @@ import {
 } from '@/components/laser-epil'
 import { laserEpilFaqs } from '@/components/laser-epil/LaserEpilFAQ.data'
 import { buildServiceJsonLd, offersFromCategories } from '@/lib/seo-schema'
+import { ServiceBreadcrumb } from '@/components/ui'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lucovica.ru'
 
@@ -63,6 +64,7 @@ export default function LaserEpilPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
+      <ServiceBreadcrumb serviceName="Лазерная эпиляция" />
       <LaserEpilHero />
       <LaserEpilWhy />
       <LaserEpilHow />

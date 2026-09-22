@@ -13,6 +13,7 @@ import {
 } from '@/components/sugaring'
 import { sugaringFaqs } from '@/components/sugaring/SugaringFAQ.data'
 import { buildServiceJsonLd, offersFromCategories } from '@/lib/seo-schema'
+import { ServiceBreadcrumb } from '@/components/ui'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lucovica.ru'
 
@@ -54,6 +55,7 @@ export default function SugaringPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
+      <ServiceBreadcrumb serviceName="Шугаринг" />
       <SugaringHero />
       <SugaringWhy />
       <SugaringHow />
