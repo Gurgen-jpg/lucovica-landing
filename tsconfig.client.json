@@ -4,6 +4,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "types": []
   },
-  "include": ["src/client", "src/shared"],
+  "include": ["src/client", "src/shared", "tests/client"],
   "exclude": ["node_modules", "dist"]
 }

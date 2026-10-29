@@ -16,5 +16,5 @@
     "isolatedModules": true
   },
   "include": ["src", "server", "scripts", "tests", "e2e", "*.config.ts"],
-  "exclude": ["src/client", "node_modules", "dist"]
+  "exclude": ["src/client", "tests/client", "node_modules", "dist"]
 }

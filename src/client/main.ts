@@ -1,2 +1,4 @@
 // Точка входа браузерного кода.
-export {}
+import { initAnalytics } from './analytics.ts'
+
+initAnalytics()

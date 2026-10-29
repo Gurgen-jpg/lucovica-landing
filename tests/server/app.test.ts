@@ -22,6 +22,7 @@ beforeAll(() => {
   writeFileSync(join(dist, '404.html'), '<h1>Страница не найдена</h1><a href="/">На главную</a>')
   writeFileSync(join(dist, 'assets', 'site-ABC123.css'), 'body{margin:0}')
   writeFileSync(join(dist, 'robots.txt'), 'User-agent: *')
+  writeFileSync(join(dist, 'sitemap.xml'), '<?xml version="1.0"?><urlset/>')
   writeFileSync(
     join(dist, 'routes.json'),
     JSON.stringify({ '/': 'index.html', '/sugaring': 'sugaring.html', '/welcome': 'welcome.html', '/welcome/back': 'welcome/back.html' }),
@@ -65,6 +66,12 @@ describe('страницы', () => {
     const r = await request(app).get('/no-such-page')
     expect(r.status).toBe(404)
     expect(r.text).toContain('href="/"')
+  })
+
+  it('sitemap.xml отдаётся как application/xml', async () => {
+    const r = await request(app).get('/sitemap.xml')
+    expect(r.status).toBe(200)
+    expect(r.headers['content-type']).toMatch(/^application\/xml/)
   })
 
   it('служебные файлы сборки не отдаются', async () => {

@@ -21,9 +21,9 @@
 
 ## 4. SEO и аналитика
 
-- [ ] 4.1 `robots.txt` и `sitemap.xml` по спеке `seo-metadata` (ручная дата `lastmod`, 6 URL, приоритеты); тест: XML валиден и содержит ровно 6 URL, `robots.txt` содержит `Disallow: /welcome`
-- [ ] 4.2 JSON-LD-хелперы: `beautySalon(site)`, `service(...)`, `faqPage(items)`, `breadcrumbs(...)` на данных `site.ts`; unit-тесты: валидный JSON, адрес и телефон совпадают с `site.ts`
-- [ ] 4.3 Метрика: сниппет в `document()` при заданном `YM_ID` + `<noscript>`; `src/client/analytics.ts` (`track` с ожиданием до 10 с, делегирование `[data-goal]`, `data-page-goal` на body); тесты happy-dom: цель до загрузки счётчика отправляется один раз, без ID — пустая операция
+- [x] 4.1 `robots.txt` и `sitemap.xml` по спеке `seo-metadata` (ручная дата `lastmod`, 6 URL, приоритеты); тест: XML валиден и содержит ровно 6 URL, `robots.txt` содержит `Disallow: /welcome`
+- [x] 4.2 JSON-LD-хелперы: `beautySalon(site)`, `service(...)`, `faqPage(items)`, `breadcrumbs(...)` на данных `site.ts`; unit-тесты: валидный JSON, адрес и телефон совпадают с `site.ts`
+- [x] 4.3 Метрика: сниппет в `document()` при заданном `YM_ID` + `<noscript>`; `src/client/analytics.ts` (`track` с ожиданием до 10 с, делегирование `[data-goal]`, `data-page-goal` на body); тесты happy-dom: цель до загрузки счётчика отправляется один раз, без ID — пустая операция
 
 ## 5. Тестовая инфраструктура и документация
 
