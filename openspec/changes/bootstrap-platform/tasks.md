@@ -8,11 +8,11 @@
 
 ## 2. Шаблоны и сборка
 
-- [ ] 2.1 `src/lib/html.ts`: тег `html` с экранированием, `raw()`, склейка массивов, пропуск `null/undefined/false`; unit-тесты на экранирование `<script>`, кавычек в атрибутах и вложенные шаблоны проходят
-- [ ] 2.2 `src/content/site.ts` — единый источник контактов (телефон, tel-href, адрес, индекс, координаты, часы, Telegram, MAX_URL, ID организации Яндекс Карт, текст промо); unit-тест на формат телефона
-- [ ] 2.3 `src/layout/document.ts`: `<html lang="ru">`, title/description/canonical/OG/иконки, preload шрифтов, подключение CSS/JS из манифеста, JSON-LD, `noindex` по флагу; unit-тест: для мета-объекта формируются все теги из спеки `seo-metadata`
-- [ ] 2.4 `scripts/images.ts` + хелпер `picture()` (AVIF/WebP, ширины, `width/height`, `loading`, `fetchpriority`, кэш `.cache/img`); проверить, что повторная сборка без изменений пропускает перекодирование
-- [ ] 2.5 `scripts/build.ts`: esbuild JS/CSS с хэшами и метафайлом, рендер всех `src/pages/*.ts` в `dist/`, `404.html`, `sitemap.xml` из флагов страниц, копирование `public/`; заглушка `src/pages/home.ts`; проверить `npm run build` → `dist/index.html`, `dist/sitemap.xml`, хэшированные ассеты
+- [x] 2.1 `src/lib/html.ts`: тег `html` с экранированием, `raw()`, склейка массивов, пропуск `null/undefined/false`; unit-тесты на экранирование `<script>`, кавычек в атрибутах и вложенные шаблоны проходят
+- [x] 2.2 `src/content/site.ts` — единый источник контактов (телефон, tel-href, адрес, индекс, координаты, часы, Telegram, MAX_URL, ID организации Яндекс Карт, текст промо); unit-тест на формат телефона
+- [x] 2.3 `src/layout/document.ts`: `<html lang="ru">`, title/description/canonical/OG/иконки, preload шрифтов, подключение CSS/JS из манифеста, JSON-LD, `noindex` по флагу; unit-тест: для мета-объекта формируются все теги из спеки `seo-metadata`
+- [x] 2.4 `scripts/images.ts` + хелпер `picture()` (AVIF/WebP, ширины, `width/height`, `loading`, `fetchpriority`, кэш `.cache/img`); проверить, что повторная сборка без изменений пропускает перекодирование
+- [x] 2.5 `scripts/build.ts`: esbuild JS/CSS с хэшами и метафайлом, рендер всех `src/pages/*.ts` в `dist/`, `404.html`, `sitemap.xml` из флагов страниц, копирование `public/`; заглушка `src/pages/home.ts`; проверить `npm run build` → `dist/index.html`, `dist/sitemap.xml`, хэшированные ассеты
 
 ## 3. Сервер
 
