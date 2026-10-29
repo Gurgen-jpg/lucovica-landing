@@ -16,8 +16,8 @@
 
 ## 3. Сервер
 
-- [ ] 3.1 `server/app.ts` + `server/index.ts` по design.md D6; тесты supertest: 200 для `/`, 301 для `/sugaring/?a=1` и `/cert.html`, 404 со страницей, `/healthz` → `ok`, заголовки безопасности, отсутствие `X-Powered-By`, `immutable` у ассетов и `no-cache` + 304 по ETag у HTML, `Content-Encoding` при `Accept-Encoding: gzip`
-- [ ] 3.2 `scripts/dev.ts`: watch JS/CSS/страниц, `node --watch` для сервера, live reload через `/__dev/reload` только в development; проверить вручную: правка текста в `src/pages/home.ts` обновляет открытую страницу
+- [x] 3.1 `server/app.ts` + `server/index.ts` по design.md D6; тесты supertest: 200 для `/`, 301 для `/sugaring/?a=1` и `/cert.html`, 404 со страницей, `/healthz` → `ok`, заголовки безопасности, отсутствие `X-Powered-By`, `immutable` у ассетов и `no-cache` + 304 по ETag у HTML, `Content-Encoding` при `Accept-Encoding: gzip`
+- [x] 3.2 `scripts/dev.ts`: watch JS/CSS/страниц, `node --watch` для сервера, live reload через `/__dev/reload` только в development; проверить вручную: правка текста в `src/pages/home.ts` обновляет открытую страницу
 
 ## 4. SEO и аналитика
 

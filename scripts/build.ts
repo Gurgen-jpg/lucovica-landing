@@ -1,6 +1,6 @@
 // Сборка сайта: изображения → JS/CSS (esbuild) → HTML-страницы → sitemap → public/.
 import * as esbuild from 'esbuild'
-import { cp, mkdir, readdir, rm, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, relative } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { absoluteUrl, config } from '../src/config.ts'
@@ -47,11 +47,9 @@ export function assetsFromMetafile(metafile: esbuild.Metafile): Assets {
 export async function loadPages(): Promise<Page[]> {
   const dir = 'src/pages'
   const files = (await readdir(dir)).filter((f) => f.endsWith('.ts')).sort()
-  // ?t= — сбрасывает кэш модулей при пересборке в dev-режиме
-  const bust = config.dev ? `?t=${Date.now()}` : ''
   const pages: Page[] = []
   for (const f of files) {
-    const mod = (await import(pathToFileURL(join(dir, f)).href + bust)) as { page?: Page }
+    const mod = (await import(pathToFileURL(join(dir, f)).href)) as { page?: Page }
     if (!mod.page) throw new Error(`${dir}/${f} не экспортирует page`)
     if (mod.page.devOnly && !config.dev) continue
     pages.push(mod.page)
@@ -100,6 +98,7 @@ export async function renderPages(assets: Assets, images: ImageManifest): Promis
     if (page.path !== NOT_FOUND_PATH) routes[page.path] = fileForPath(page.path)
   }
   await writeFile(join(OUT, 'routes.json'), JSON.stringify(routes, null, 2))
+  await writeFile(join(OUT, 'assets.json'), JSON.stringify(assets, null, 2))
   await writeFile(join(OUT, 'sitemap.xml'), sitemapXml(pages))
   return pages
 }
@@ -121,8 +120,16 @@ export async function build(): Promise<void> {
   )
 }
 
+/** Перерисовать только HTML по уже собранным ассетам (dev-режим, отдельный процесс). */
+export async function renderFromDist(): Promise<Page[]> {
+  const assets = JSON.parse(await readFile(join(OUT, 'assets.json'), 'utf8')) as Assets
+  const images = JSON.parse(await readFile(join(OUT, 'img', 'manifest.json'), 'utf8')) as ImageManifest
+  return renderPages(assets, images)
+}
+
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
-  build().catch((err) => {
+  const task = process.argv.includes('--pages') ? renderFromDist() : build()
+  task.catch((err) => {
     console.error(err)
     process.exit(1)
   })
