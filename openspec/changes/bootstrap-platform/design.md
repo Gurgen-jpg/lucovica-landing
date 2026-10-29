@@ -70,7 +70,9 @@ Vite не берём: он рассчитан на SPA/SSR-фреймворки;
 `trust proxy` = 1 (Timeweb за прокси — нужно для корректного IP в rate limit).
 
 ### D7. Dev-режим
-`npm run dev` → `scripts/dev.ts`: esbuild `context().watch()` для JS/CSS, наблюдение за `src/**` с повторным рендером страниц (импорт с cache-busting query), сервер через `node --watch`. Live reload: в dev-режиме `document()` добавляет крошечный скрипт с `EventSource('/__dev/reload')`; эндпоинт регистрируется только при `NODE_ENV=development`.
+`npm run dev` → `scripts/dev.ts`: esbuild `context().watch()` для JS/CSS, наблюдение за `src/**` с перерисовкой страниц в отдельном коротком процессе (`build.ts --pages`), сервер — в том же процессе, что и `dev.ts`. Live reload: в dev-режиме `document()` добавляет крошечный скрипт с `EventSource('/__dev/reload')`; эндпоинт регистрируется только в `dev.ts`.
+
+Уточнено при реализации: импорт с cache-busting query перезагружает только модуль страницы, но не импортированный ею контент — поэтому рендер вынесен в отдельный процесс. Сервер под `node --watch` на Windows перезапускался по кругу и рвал SSE-соединение — поэтому он работает внутри `dev.ts`; правки `server/` требуют перезапуска `npm run dev`.
 
 ### D8. Конфигурация
 - Время сборки: `SITE_URL` (по умолчанию `https://lucovica.ru`), `YM_ID`, `MAX_URL`.
