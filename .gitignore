@@ -1,7 +1,8 @@
-/node_modules
-/.next/
-/out/
-/build
-.swc/
-.env*.local
+node_modules/
+dist/
+.cache/
 .env
+coverage/
+playwright-report/
+test-results/
+.claude/settings.local.json

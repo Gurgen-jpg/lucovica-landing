@@ -1,3 +1,0 @@
-Положи сюда два файла:
-  SF-Pro-Display-Light.otf
-  SF-Pro-Display-Regular.otf
