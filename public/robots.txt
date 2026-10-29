@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /welcome
+Disallow: /welcome/back
+
+Host: lucovica.ru
+Sitemap: https://lucovica.ru/sitemap.xml

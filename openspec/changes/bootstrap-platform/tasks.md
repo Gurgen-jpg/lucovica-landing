@@ -2,9 +2,9 @@
 
 ## 1. Каркас проекта
 
-- [ ] 1.1 Создать `package.json` (`"type": "module"`, Node ≥ 22, скрипты `dev/build/start/lint/test/test:e2e`), `tsconfig.json` (strict, NodeNext) и `tsconfig.client.json` (DOM lib), `.gitignore`, `.env.example` с переменными из design.md D8; проверить `npm install` и `npx tsc --noEmit` без ошибок
-- [ ] 1.2 Перенести статику из `../landing/public` в `public/` (robots.txt, логотипы, symbol, telegram.svg, MAX.svg, og-image.jpg) и фото в `assets/img/` с латинскими именами (`hero.webp`, `team-ekaterina.webp`, `team-tatiana.webp`); сгенерировать favicon 32/ico и apple-touch-icon 180 из `../landing/src/app/icon.png`; проверить наличие файлов
-- [ ] 1.3 Закоммитить каркас в ветку `v2` (worktree `landing_v2/` репозитория `lucovica-landing`) и запушить в `origin/v2`; проверить `git log origin/v2`
+- [x] 1.1 Создать `package.json` (`"type": "module"`, Node ≥ 22, скрипты `dev/build/start/lint/test/test:e2e`), `tsconfig.json` (strict, NodeNext) и `tsconfig.client.json` (DOM lib), `.gitignore`, `.env.example` с переменными из design.md D8; проверить `npm install` и `npx tsc --noEmit` без ошибок
+- [x] 1.2 Перенести статику из `../landing/public` в `public/` (robots.txt, логотипы, symbol, telegram.svg, MAX.svg, og-image.jpg) и фото в `assets/img/` с латинскими именами (`hero.webp`, `team-ekaterina.webp`, `team-tatiana.webp`); сгенерировать favicon 32/ico и apple-touch-icon 180 из `../landing/src/app/icon.png`; проверить наличие файлов
+- [x] 1.3 Закоммитить каркас в ветку `v2` (worktree `landing_v2/` репозитория `lucovica-landing`) и запушить в `origin/v2`; проверить `git log origin/v2`
 
 ## 2. Шаблоны и сборка
 
