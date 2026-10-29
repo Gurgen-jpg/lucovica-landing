@@ -27,6 +27,6 @@
 
 ## 5. Тестовая инфраструктура и документация
 
-- [ ] 5.1 Настроить Vitest (node + happy-dom по шаблону имени) и Playwright (build + start на 3099, Chromium + WebKit iPhone 13, `@axe-core/playwright`); e2e-smoke: главная открывается, 0 нарушений axe на заглушке
-- [ ] 5.2 Добавить Lighthouse-проверку (`npm run lighthouse` через `lighthouse` CLI против собранного сайта) с порогами из спеки `site-delivery`; проверить, что команда выводит оценки
-- [ ] 5.3 `README.md`: команды, переменные окружения и таблица переименования `NEXT_PUBLIC_*`, деплой на Timeweb (build/start/PORT/healthz), откат; `CLAUDE.md` с архитектурными правилами landing_v2; проверить, что команды из README выполняются как написано
+- [x] 5.1 Настроить Vitest (node + happy-dom по шаблону имени) и Playwright (build + start на 3099, Chromium + WebKit iPhone 13, `@axe-core/playwright`); e2e-smoke: главная открывается, 0 нарушений axe на заглушке
+- [x] 5.2 Добавить Lighthouse-проверку (`npm run lighthouse` через `lighthouse` CLI против собранного сайта) с порогами из спеки `site-delivery`; проверить, что команда выводит оценки
+- [x] 5.3 `README.md`: команды, переменные окружения и таблица переименования `NEXT_PUBLIC_*`, деплой на Timeweb (build/start/PORT/healthz), откат; `CLAUDE.md` с архитектурными правилами landing_v2; проверить, что команды из README выполняются как написано
