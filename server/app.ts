@@ -10,6 +10,8 @@ export interface AppOptions {
   api?: Router[]
   /** Перечитывать routes.json на каждый запрос (dev-режим) */
   reloadRoutes?: boolean
+  /** Стенд: запретить индексацию (X-Robots-Tag и robots.txt «Disallow: /») */
+  noindex?: boolean
   /** Дополнительные middleware до раздачи страниц (dev: live reload) */
   before?: ((app: Express) => void)[]
 }
@@ -50,6 +52,16 @@ export function createApp(opts: AppOptions = {}): Express {
   let routes = readRoutes()
 
   app.use(securityHeaders)
+  if (opts.noindex) {
+    app.use((_req, res, next) => {
+      res.setHeader('X-Robots-Tag', 'noindex, nofollow')
+      next()
+    })
+    app.get('/robots.txt', (_req, res) => {
+      res.type('text/plain').setHeader('Cache-Control', 'no-cache')
+      res.send('User-agent: *\nDisallow: /\n')
+    })
+  }
   app.use(compression())
   app.use(canonicalUrl)
 
@@ -112,7 +124,10 @@ export function createApp(opts: AppOptions = {}): Express {
         err.type === 'entity.too.large'
           ? 'Слишком большой запрос.'
           : err.type === 'entity.parse.failed'
-            ? 'Ошибка запроса. Попробуйте ещё раз.'
+            ? // Анкеты гостей обращаются на «ты» (спека welcome-api)
+              req.path.startsWith('/api/welcome')
+              ? 'Ошибка запроса. Попробуй ещё раз.'
+              : 'Ошибка запроса. Попробуйте ещё раз.'
             : 'Ошибка сервера.'
       res.status(status).json({ ok: false, error })
       return

@@ -11,6 +11,7 @@ if (existsSync('.env')) process.loadEnvFile('.env')
 const { OUT, build, esbuildOptions, assetsFromMetafile } = await import('./build.ts')
 const { buildImages } = await import('./images.ts')
 const { createApp } = await import('../server/app.ts')
+const { welcomeRouter } = await import('../server/api/welcome.ts')
 const { leadRouter } = await import('../server/api/lead.ts')
 const { liveReload, triggerReload } = await import('../server/dev.ts')
 
@@ -84,7 +85,7 @@ const onImages = debounced(async () => {
 watch('assets/img', onImages)
 
 const port = Number(process.env.PORT) || 3000
-const server = createApp({ reloadRoutes: true, before: [liveReload], api: [leadRouter({ distDir: OUT })] }).listen(port, () =>
+const server = createApp({ reloadRoutes: true, before: [liveReload], api: [leadRouter({ distDir: OUT }), welcomeRouter({ distDir: OUT })] }).listen(port, () =>
   console.log(`dev: http://localhost:${port}`),
 )
 

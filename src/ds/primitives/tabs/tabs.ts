@@ -5,6 +5,8 @@ export interface TabItem {
   key: string
   label: string
   panel: HtmlValue
+  /** Хэш адреса для вкладки: «#men» открывает её при загрузке и ставится при выборе; пустая строка — без хэша */
+  hash?: string
 }
 
 export interface TabsProps {
@@ -26,7 +28,7 @@ export function tabs(props: TabsProps): SafeHtml {
 <div class="ds-tabs__list" role="tablist" aria-label="${props.label}" hidden>
 ${props.tabs.map(
   (t, i) =>
-    html`<button class="ds-tabs__tab" type="button" role="tab" id="${props.id}-tab-${t.key}" aria-controls="${props.id}-panel-${t.key}" aria-selected="${i === 0 ? 'true' : 'false'}" tabindex="${i === 0 ? 0 : -1}"${props.goal ? html` data-goal="${props.goal}"` : null}>${t.label}</button>`,
+    html`<button class="ds-tabs__tab" type="button" role="tab" id="${props.id}-tab-${t.key}" aria-controls="${props.id}-panel-${t.key}" aria-selected="${i === 0 ? 'true' : 'false'}" tabindex="${i === 0 ? 0 : -1}"${props.goal ? html` data-goal="${props.goal}"` : null}${t.hash !== undefined ? html` data-hash="${t.hash}"` : null}>${t.label}</button>`,
 )}
 </div>
 ${props.tabs.map(

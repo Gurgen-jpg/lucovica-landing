@@ -1,0 +1,436 @@
+/* Страницы услуг (service-pages). */
+
+.svc-section {
+  padding-top: var(--space-9);
+}
+
+.svc-section.ds-inverse {
+  margin-top: var(--space-9);
+  padding-top: 0;
+}
+
+.svc-section__inner {
+  padding-block: var(--space-9);
+}
+
+.svc-note {
+  margin-top: var(--space-5);
+}
+
+@media (min-width: 1280px) {
+  .svc-section {
+    padding-top: var(--space-10);
+  }
+
+  .svc-section.ds-inverse {
+    margin-top: var(--space-10);
+  }
+
+  .svc-section__inner {
+    padding-block: var(--space-10);
+  }
+}
+
+/* ── Крошки ─────────────────────────────────────────────── */
+
+.svc-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  padding-top: var(--space-5);
+  font-size: 13px;
+  color: var(--lv-text-2);
+}
+
+.svc-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.svc-crumbs li + li::before {
+  content: '/' / '';
+  margin-inline: var(--space-2);
+}
+
+.svc-crumbs a {
+  text-decoration: none;
+}
+
+.svc-crumbs a:hover {
+  text-decoration: underline;
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+
+.svc-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+  padding-block: var(--space-7) var(--space-8);
+}
+
+.svc-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.svc-hero__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.svc-hero__title em {
+  font-style: italic;
+}
+
+.svc-hero .ds-lead {
+  max-width: 520px;
+}
+
+.svc-hero__more {
+  color: var(--lv-text-2);
+}
+
+.svc-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.svc-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .svc-hero[data-photo] {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: end;
+  }
+
+  .svc-hero {
+    gap: var(--space-8);
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .svc-hero__title {
+    font-size: 64px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .svc-hero__title {
+    font-size: 88px;
+  }
+}
+
+/* ── Сравнение ──────────────────────────────────────────── */
+
+.svc-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: var(--space-4);
+}
+
+.svc-compare__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-5);
+  border: var(--line) solid var(--lv-line);
+}
+
+.svc-compare__item.ds-inverse {
+  border-color: var(--lv-inverse);
+}
+
+.svc-compare__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.svc-compare__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.svc-compare__list li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: var(--space-2);
+}
+
+.svc-compare__list li::before {
+  content: '+' / 'плюс: ';
+}
+
+.svc-compare__list li[data-kind='con'] {
+  color: var(--lv-text-2);
+}
+
+.svc-compare__list li[data-kind='con']::before {
+  content: '—' / 'минус: ';
+}
+
+.ds-inverse .svc-compare__list li[data-kind='con'] {
+  color: var(--lv-on-inverse-2);
+}
+
+/* ── Шаги ───────────────────────────────────────────────── */
+
+.svc-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  border-top: var(--line) solid var(--lv-text);
+}
+
+.svc-steps li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-5) var(--space-5) 0;
+}
+
+.svc-steps__num {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--lv-text-2);
+}
+
+.svc-steps__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.svc-steps__text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--lv-text-2);
+}
+
+/* ── Зоны ───────────────────────────────────────────────── */
+
+.svc-zones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: var(--space-2);
+  padding-top: var(--space-5);
+}
+
+.svc-zone {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: var(--space-2) var(--space-3);
+  height: 100%;
+  padding: var(--space-5);
+  border: var(--line) solid var(--lv-line);
+  text-decoration: none;
+  transition:
+    border-color var(--dur-hover) var(--ease-silk),
+    background-color var(--dur-hover) var(--ease-silk);
+}
+
+a.svc-zone:hover {
+  border-color: var(--lv-onyx);
+  background: var(--gray-1);
+}
+
+.svc-zone__name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.svc-zone__price {
+  grid-column: 1 / -1;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.svc-zone__cta {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* ── Характеристики ─────────────────────────────────────── */
+
+.svc-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: var(--space-6) var(--space-5);
+  margin: 0;
+}
+
+.svc-features > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: var(--line) solid var(--lv-line);
+}
+
+.ds-inverse .svc-features > div {
+  border-top-color: var(--lv-line-inverse);
+}
+
+.svc-features dt {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.svc-features dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--lv-text-2);
+}
+
+.ds-inverse .svc-features dd {
+  color: var(--lv-on-inverse-2);
+}
+
+/* ── Кому подходит ──────────────────────────────────────── */
+
+.svc-suit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--space-7);
+}
+
+.svc-suit__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.svc-suit__col ul {
+  border-top: var(--line) solid var(--lv-text);
+}
+
+.svc-suit__col li {
+  padding-block: var(--space-3);
+  border-bottom: var(--line) solid var(--lv-line);
+  font-size: 15px;
+}
+
+/* ── Результат ──────────────────────────────────────────── */
+
+.svc-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+  border-top: var(--line) solid var(--lv-line);
+}
+
+.svc-results li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-5);
+}
+
+.svc-results__value {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.svc-results__label {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--lv-text-2);
+}
+
+@media (min-width: 768px) {
+  .svc-results {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .svc-results__value {
+    font-size: 52px;
+  }
+}
+
+/* ── Цены ───────────────────────────────────────────────── */
+
+.svc-price-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-5);
+  row-gap: var(--space-1);
+}
+
+.svc-price-row__book.ds-button {
+  grid-column: 1 / -1;
+  justify-self: start;
+  height: 32px;
+  padding: 0;
+  font-size: 10px;
+  text-underline-offset: 6px;
+}
+
+/* ── CTA ────────────────────────────────────────────────── */
+
+.svc-cta {
+  margin-top: var(--space-9);
+}
+
+.svc-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding-block: var(--space-9);
+}
+
+.svc-cta__overline {
+  color: var(--lv-accent);
+}
+
+.svc-cta .ds-lead {
+  max-width: 560px;
+}
+
+.svc-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+@media (min-width: 1280px) {
+  .svc-cta {
+    margin-top: var(--space-10);
+  }
+
+  .svc-cta__inner {
+    padding-block: var(--space-10);
+  }
+}

@@ -11,6 +11,10 @@ export interface PageMeta {
     type?: 'website' | 'article'
   }
   noindex?: boolean
+  /** Для noindex-страниц: разрешить переход по ссылкам («noindex, follow») */
+  follow?: boolean
+  /** meta keywords (как на текущем сайте; поисковики почти не учитывают) */
+  keywords?: readonly string[]
   jsonLd?: readonly object[]
   /** Цель Метрики, отправляемая при просмотре страницы */
   pageGoal?: string

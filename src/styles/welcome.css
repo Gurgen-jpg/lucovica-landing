@@ -1,0 +1,256 @@
+/* Анкеты гостя /welcome и /welcome/back — без каркаса сайта. */
+
+.welcome {
+  width: 100%;
+  max-width: calc(560px + 2 * var(--space-5));
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-5) var(--space-9);
+}
+
+/* Обращение: видна форма из data-address на корне */
+.welcome [data-vy],
+.welcome[data-address='vy'] [data-ty] {
+  display: none;
+}
+
+.welcome[data-address='vy'] [data-vy] {
+  display: inline;
+}
+
+.welcome__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+}
+
+.welcome__top img {
+  width: auto;
+  height: 22px;
+}
+
+.welcome__counter {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  font-variant-numeric: tabular-nums;
+  color: var(--lv-text-2);
+}
+
+.welcome__progress {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-bottom: var(--space-6);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--lv-line);
+  color: var(--lv-onyx);
+  appearance: none;
+}
+
+.welcome__progress::-webkit-progress-bar {
+  background: var(--lv-line);
+}
+
+.welcome__progress::-webkit-progress-value {
+  background: var(--lv-onyx);
+  transition: width var(--dur-ui) var(--ease-silk);
+}
+
+.welcome__progress::-moz-progress-bar {
+  background: var(--lv-onyx);
+}
+
+.welcome__progress[hidden] {
+  display: none;
+}
+
+/* ── Шаг ────────────────────────────────────────────────── */
+
+.welcome-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-block: var(--space-6);
+}
+
+/* Без JS шаги идут подряд одной формой */
+.welcome:not([data-enhanced]) .welcome-step + .welcome-step {
+  border-top: var(--line) solid var(--lv-line);
+}
+
+.welcome-step__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.welcome-step__title:focus {
+  outline: none;
+}
+
+.welcome-step__lead {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--lv-text-2);
+}
+
+.welcome-step__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.welcome-step__nav {
+  display: flex;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+}
+
+.welcome-step__nav .ds-button {
+  flex: 1 1 0;
+}
+
+.welcome-step__nav[hidden] {
+  display: none;
+}
+
+/* ── Варианты ───────────────────────────────────────────── */
+
+.welcome-choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.welcome-choices__legend {
+  padding: 0;
+  margin-bottom: var(--space-3);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--lv-text);
+}
+
+.welcome-choices__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.welcome-choices[data-layout='column'] .welcome-choices__list {
+  flex-direction: column;
+}
+
+.welcome-choice {
+  position: relative;
+  display: flex;
+}
+
+.welcome-choice input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.welcome-choice span {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-2) var(--space-4);
+  border: var(--line) solid var(--gray-9);
+  font-size: 15px;
+  line-height: 1.35;
+  transition:
+    background-color var(--dur-hover) var(--ease-silk),
+    color var(--dur-hover) var(--ease-silk),
+    border-color var(--dur-hover) var(--ease-silk);
+}
+
+.welcome-choice input:checked + span {
+  border-color: var(--lv-inverse);
+  background: var(--lv-inverse);
+  color: var(--lv-on-inverse);
+}
+
+.welcome-choice input:focus-visible + span {
+  outline: var(--line) solid var(--lv-onyx);
+  outline-offset: 3px;
+}
+
+.welcome-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: var(--space-5);
+}
+
+.welcome-textarea {
+  height: auto;
+  min-height: 72px;
+  padding-block: var(--space-3);
+  resize: vertical;
+}
+
+.welcome-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.welcome-contacts[hidden] {
+  display: none;
+}
+
+/* Ловушка для ботов: вне экрана, но не display:none */
+.welcome-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.welcome-error {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+[data-submit] [data-sending],
+.welcome__form[data-state='sending'] [data-submit] [data-idle] {
+  display: none;
+}
+
+.welcome__form[data-state='sending'] [data-submit] [data-sending] {
+  display: inline;
+}
+
+/* ── Спасибо ────────────────────────────────────────────── */
+
+.welcome-thanks__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .welcome {
+    padding-top: var(--space-7);
+  }
+
+  .welcome-step__title {
+    font-size: 52px;
+  }
+}

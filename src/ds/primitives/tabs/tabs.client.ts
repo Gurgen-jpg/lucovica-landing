@@ -1,6 +1,6 @@
 // Вкладки: WAI-ARIA APG Tabs с автоматической активацией.
 
-function select(tabs: HTMLButtonElement[], next: HTMLButtonElement, focus: boolean): void {
+function select(tabs: HTMLButtonElement[], next: HTMLButtonElement, focus: boolean, syncHash = false): void {
   for (const tab of tabs) {
     const on = tab === next
     tab.setAttribute('aria-selected', String(on))
@@ -9,6 +9,10 @@ function select(tabs: HTMLButtonElement[], next: HTMLButtonElement, focus: boole
     if (panel) panel.hidden = !on
   }
   if (focus) next.focus()
+  // Вкладки с data-hash отражают выбор в адресе (ссылка /price#men)
+  if (syncHash && next.dataset.hash !== undefined) {
+    history.replaceState(null, '', location.pathname + location.search + next.dataset.hash)
+  }
 }
 
 function setup(root: HTMLElement): void {
@@ -16,7 +20,8 @@ function setup(root: HTMLElement): void {
   const list = root.querySelector<HTMLElement>('[role="tablist"]')
   if (!list) return
   const tabs = Array.from(list.querySelectorAll<HTMLButtonElement>('[role="tab"]'))
-  const current = tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0]
+  const fromHash = location.hash ? tabs.find((t) => t.dataset.hash === location.hash) : undefined
+  const current = fromHash ?? tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0]
   if (!current) return
 
   root.dataset.enhanced = ''
@@ -25,7 +30,7 @@ function setup(root: HTMLElement): void {
 
   list.addEventListener('click', (e) => {
     const tab = (e.target as Element).closest<HTMLButtonElement>('[role="tab"]')
-    if (tab) select(tabs, tab, false)
+    if (tab) select(tabs, tab, false, true)
   })
 
   list.addEventListener('keydown', (e) => {
@@ -40,7 +45,7 @@ function setup(root: HTMLElement): void {
       : -1
     if (to < 0) return
     e.preventDefault()
-    select(tabs, tabs[to]!, true)
+    select(tabs, tabs[to]!, true, true)
   })
 }
 

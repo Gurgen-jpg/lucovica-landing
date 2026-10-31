@@ -19,4 +19,6 @@
 @import '../ds/patterns/booking-form/booking-form.css';
 @import './layout.css';
 @import './home.css';
+@import './service.css';
 @import './showcase.css';
+@import './welcome.css';

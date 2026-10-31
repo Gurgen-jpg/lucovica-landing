@@ -37,7 +37,8 @@ export function document(meta: PageMeta, body: SafeHtml, ctx: RenderContext): Sa
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${meta.title}</title>
 <meta name="description" content="${meta.description}">
-${meta.noindex ? html`<meta name="robots" content="noindex, nofollow">` : html`<link rel="canonical" href="${canonical}">`}
+${meta.noindex ? html`<meta name="robots" content="${meta.follow ? 'noindex, follow' : 'noindex, nofollow'}">` : html`<link rel="canonical" href="${canonical}">`}
+${meta.keywords?.length ? html`<meta name="keywords" content="${meta.keywords.join(', ')}">` : null}
 <meta property="og:type" content="${og.type ?? 'website'}">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="${site.name}">

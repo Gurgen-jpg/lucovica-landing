@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /welcome
 Disallow: /welcome/back
+Disallow: /api/
 
 Host: lucovica.ru
 Sitemap: https://lucovica.ru/sitemap.xml

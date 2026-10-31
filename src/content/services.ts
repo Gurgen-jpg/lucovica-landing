@@ -213,3 +213,22 @@ export function minPrice(group: PriceGroup | 'cert'): number {
   if (!prices.length) throw new Error(`Нет цен для группы ${group}`)
   return Math.min(...prices)
 }
+
+export function categoryById(id: string): ServiceCategory {
+  const c = SERVICES.find((s) => s.id === id)
+  if (!c) throw new Error(`Категория прайса «${id}» не найдена`)
+  return c
+}
+
+/** Позиция прайса по ссылке «категория + название»; undefined — нет такой позиции. */
+export function priceOf(ref: { category: string; item: string }): number | undefined {
+  return SERVICES.find((s) => s.id === ref.category)?.items.find((i) => i.name === ref.item)?.price
+}
+
+/** Офферы JSON-LD «<категория> — <позиция>» для страницы услуги (design.md D4 service-pages). */
+export function offersFromCategories(ids: readonly string[]): { name: string; price: number }[] {
+  return ids.flatMap((id) => {
+    const c = categoryById(id)
+    return c.items.map((i) => ({ name: `${c.title} — ${i.name}`, price: i.price }))
+  })
+}

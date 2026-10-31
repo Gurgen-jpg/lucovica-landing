@@ -1,4 +1,5 @@
 import { leadRouter } from './api/lead.ts'
+import { welcomeRouter } from './api/welcome.ts'
 import { createApp } from './app.ts'
 import type { Notify } from './lib/notify/index.ts'
 
@@ -10,8 +11,15 @@ const dryRunNotify: Notify = async (msg) => {
   return { email: true, telegram: true }
 }
 
+const dryRun = process.env.NOTIFY_DRY_RUN === '1'
+
 const app = createApp({
-  api: [leadRouter({ distDir: 'dist', notify: process.env.NOTIFY_DRY_RUN === '1' ? dryRunNotify : undefined })],
+  // Стенд (технический домен) не должен попасть в поиск дублем lucovica.ru
+  noindex: process.env.NOINDEX === '1',
+  api: [
+    leadRouter({ distDir: 'dist', notify: dryRun ? dryRunNotify : undefined }),
+    welcomeRouter({ distDir: 'dist', notify: dryRun ? dryRunNotify : undefined }),
+  ],
 })
 
 const server = app.listen(port, () => {

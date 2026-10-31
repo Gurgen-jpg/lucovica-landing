@@ -129,3 +129,13 @@ describe('служебные маршруты и API', () => {
     expect((await request(app).get('/api/nope')).status).toBe(404)
   })
 })
+
+describe('режим noindex (стенд)', () => {
+  it('X-Robots-Tag на всех ответах и robots.txt с Disallow: /', async () => {
+    const app = createApp({ noindex: true, distDir: 'dist' })
+    const health = await request(app).get('/healthz')
+    expect(health.headers['x-robots-tag']).toBe('noindex, nofollow')
+    const robots = await request(app).get('/robots.txt')
+    expect(robots.text).toBe('User-agent: *\nDisallow: /\n')
+  })
+})

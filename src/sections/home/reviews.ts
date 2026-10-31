@@ -18,7 +18,7 @@ ${carousel({
   slides: items.map(
     (r) => html`<figure class="home-reviews__item">
 <blockquote class="home-reviews__text"><p>«${r.text}»</p></blockquote>
-<figcaption class="home-reviews__author"><span class="home-reviews__name">${r.name}</span><span class="home-reviews__service">${r.service}</span></figcaption>
+<figcaption class="home-reviews__author"><span class="home-reviews__name">${r.name}</span>${r.service ? html`<span class="home-reviews__service">${r.service}</span>` : null}</figcaption>
 </figure>`,
   ),
 })}
