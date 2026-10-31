@@ -6,6 +6,8 @@ export interface DialogProps {
   title: string
   /** Курсивное слово заголовка */
   accent?: string
+  /** Готовая разметка заголовка вместо title/accent (например, два варианта под режимы формы) */
+  titleContent?: HtmlValue
   overline?: string
   body: HtmlValue
   closeLabel?: string
@@ -26,7 +28,7 @@ export function dialog(props: DialogProps): SafeHtml {
 <div class="ds-dialog__header">
 <div class="ds-dialog__heading">
 ${props.overline ? html`<p class="ds-overline">${props.overline}</p>` : null}
-<h2 class="ds-dialog__title" id="${titleId}">${titleWithAccent(props.title, props.accent)}</h2>
+<h2 class="ds-dialog__title" id="${titleId}">${props.titleContent ?? titleWithAccent(props.title, props.accent)}</h2>
 </div>
 <button class="ds-dialog__close" type="button" aria-label="${props.closeLabel ?? 'Закрыть'}" data-dialog-close>${CLOSE_ICON}</button>
 </div>

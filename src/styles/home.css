@@ -628,7 +628,7 @@
   border: var(--line) solid var(--lv-line-inverse);
 }
 
-.home-contacts__form-title {
+.home-contacts__form .booking-form__title {
   font-family: var(--font-display);
   font-weight: 300;
   font-size: 34px;

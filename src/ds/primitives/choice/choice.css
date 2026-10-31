@@ -146,3 +146,26 @@
 .ds-chip[aria-pressed='true'] .ds-chip__dot {
   background: var(--lv-accent);
 }
+
+/* ── На тёмном фоне ─────────────────────────────────────── */
+
+.ds-inverse .ds-choice {
+  color: var(--lv-on-inverse);
+}
+
+.ds-inverse .ds-choice__box {
+  border-color: var(--lv-on-inverse);
+}
+
+.ds-inverse .ds-choice__input:checked + .ds-choice__box:not([data-shape='round']) {
+  background: var(--lv-on-inverse);
+  color: var(--lv-onyx);
+}
+
+.ds-inverse .ds-choice__input:checked + .ds-choice__box .ds-choice__dot {
+  background: var(--lv-on-inverse);
+}
+
+.ds-inverse .ds-choice__input:focus-visible + .ds-choice__box {
+  outline-color: var(--lv-on-inverse);
+}

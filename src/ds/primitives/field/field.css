@@ -87,3 +87,33 @@
   /* Декоративное тире не попадает в доступное описание поля */
   content: '— ' / '';
 }
+
+/* ── На тёмном фоне ─────────────────────────────────────── */
+
+.ds-inverse .ds-field__label,
+.ds-inverse .ds-field__hint {
+  color: var(--lv-on-inverse-2);
+}
+
+.ds-inverse .ds-field__input,
+.ds-inverse .ds-field__chevron,
+.ds-inverse .ds-field__error {
+  color: var(--lv-on-inverse);
+}
+
+.ds-inverse .ds-field__input::placeholder {
+  color: var(--gray-8);
+}
+
+.ds-inverse .ds-field__input:focus,
+.ds-inverse .ds-field__input:focus-visible,
+.ds-inverse .ds-field__input[aria-invalid='true'] {
+  border-bottom-color: var(--lv-on-inverse);
+  box-shadow: 0 var(--line) 0 0 var(--lv-on-inverse);
+}
+
+/* Выпадающий список рисует ОС на светлом фоне */
+.ds-field__input option {
+  background: var(--lv-bg);
+  color: var(--lv-text);
+}

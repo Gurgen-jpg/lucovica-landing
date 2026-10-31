@@ -1,0 +1,174 @@
+/* Форма записи. Режим сертификата — [data-cert], состояние — [data-state]. */
+
+.booking-form,
+.booking-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.booking-form__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 34px;
+  line-height: 1;
+}
+
+/* Подписи режима: «запись» / «сертификат» */
+[data-mode='cert'],
+[data-cert] [data-mode='booking'],
+[data-cert] .booking-form__booking-only {
+  display: none;
+}
+
+[data-cert] [data-mode='cert'] {
+  display: inline;
+}
+
+.booking-form__service {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.booking-form__detail {
+  font-size: 13px;
+  color: var(--lv-text-2);
+}
+
+/* Время и способ связи — нативные radio в виде сегментов */
+.booking-form__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.booking-form__options legend {
+  padding: 0;
+  margin-bottom: var(--space-2);
+}
+
+.booking-form__option-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.booking-form__option {
+  position: relative;
+  display: inline-flex;
+}
+
+.booking-form__option input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.booking-form__option span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border: var(--line) solid var(--gray-9);
+  font-size: 14px;
+  transition:
+    background-color var(--dur-hover) var(--ease-silk),
+    color var(--dur-hover) var(--ease-silk);
+}
+
+.booking-form__option input:checked + span {
+  border-color: var(--lv-inverse);
+  background: var(--lv-inverse);
+  color: var(--lv-on-inverse);
+}
+
+.booking-form__option input:focus-visible + span {
+  outline: var(--line) solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Ловушка для ботов: вне экрана, но не display:none (боты пропускают скрытые поля) */
+.booking-form__hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.booking-form__error {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.booking-form__submit {
+  width: 100%;
+}
+
+.booking-form__submit [data-sending],
+.booking-form[data-state='sending'] .booking-form__submit [data-mode] {
+  display: none;
+}
+
+.booking-form[data-state='sending'] .booking-form__submit [data-sending] {
+  display: inline;
+}
+
+.booking-form__note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--lv-text-3);
+}
+
+.booking-form__success {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.booking-form__success-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+/* ── На тёмном фоне (секция «Контакты») ─────────────────── */
+
+.ds-inverse .booking-form__note,
+.ds-inverse .booking-form__detail {
+  color: var(--lv-on-inverse-2);
+}
+
+.ds-inverse .booking-form__note a {
+  color: var(--lv-accent);
+}
+
+.ds-inverse .booking-form__option span {
+  border-color: var(--gray-9);
+}
+
+.ds-inverse .booking-form__option input:checked + span {
+  border-color: var(--lv-on-inverse);
+  background: var(--lv-on-inverse);
+  color: var(--lv-onyx);
+}
+
+.ds-inverse .booking-form__submit {
+  border-color: var(--lv-on-inverse);
+  background: var(--lv-on-inverse);
+  color: var(--lv-onyx);
+}
+
+.ds-inverse .booking-form__submit:hover {
+  border-color: var(--gray-5);
+  background: var(--gray-5);
+}
