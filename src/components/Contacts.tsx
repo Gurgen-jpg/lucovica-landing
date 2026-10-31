@@ -4,10 +4,9 @@ import { useState } from 'react'
 import LeadForm from './LeadForm'
 import { SectionHeader } from '@/components/ui'
 
-import { PHONE, PHONE_HREF, TG_USERNAME } from '@/lib/site-config'
+import { PHONE, PHONE_HREF, TG_USERNAME, ADDRESS, CITY, YANDEX_MAPS_URL, HOURS_TEXT } from '@/lib/site-config'
+import { track } from '@/lib/analytics'
 
-const ADDRESS = 'просп. Соколова, 68/118Вс1, этаж 1'
-const CITY = 'Ростов-на-Дону'
 const MAP_SRC = 'https://yandex.ru/map-widget/v1/org/lucovica/72594546932/?ll=39.718390,47.231276&z=16'
 
 const HOURS = [
@@ -42,7 +41,7 @@ export default function Contacts() {
                 <p className="text-dark font-medium text-sm">{CITY}</p>
                 <p className="text-dark/70 text-sm">{ADDRESS}</p>
                 <a
-                  href="https://yandex.com/maps/org/lucovica/72594546932/"
+                  href={YANDEX_MAPS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-dark/50 text-xs font-semibold mt-1.5 inline-block hover:text-dark transition"
@@ -57,10 +56,7 @@ export default function Contacts() {
                 <a
                   href={`tel:${PHONE_HREF}`}
                   className="text-dark font-semibold hover:text-dark/70 transition text-base"
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && (window as any).ym)
-                      (window as any).ym(undefined, 'reachGoal', 'click_phone')
-                  }}
+                  onClick={() => track('click_phone')}
                 >
                   {PHONE}
                 </a>
@@ -74,10 +70,7 @@ export default function Contacts() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-dark font-semibold hover:text-dark/70 transition"
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && (window as any).ym)
-                      (window as any).ym(undefined, 'reachGoal', 'click_telegram')
-                  }}
+                  onClick={() => track('click_telegram')}
                 >
                   @{TG_USERNAME}
                 </a>
@@ -101,7 +94,7 @@ export default function Contacts() {
                     </div>
                   ))}
                 </div>
-                <p className="text-dark/40 text-xs mt-2">Ежедневно 10:00–21:00</p>
+                <p className="text-dark/40 text-xs mt-2">{HOURS_TEXT}</p>
               </div>
 
               {/* Book CTA */}

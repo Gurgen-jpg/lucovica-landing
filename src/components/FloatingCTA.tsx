@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import LeadForm from './LeadForm'
+import { track } from '@/lib/analytics'
 
 export default function FloatingCTA() {
   const [visible, setVisible] = useState(false)
@@ -21,7 +22,7 @@ export default function FloatingCTA() {
         }`}
       >
         <button
-          onClick={() => setOpen(true)}
+          onClick={() => { track('floating_cta_click'); setOpen(true) }}
           className="btn-primary shadow-2xl text-sm px-5 py-3.5 animate-pulse-soft"
         >
           Записаться

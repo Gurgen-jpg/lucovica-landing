@@ -22,6 +22,8 @@ export async function POST(req: NextRequest) {
     phone: String(phone).slice(0, 30),
     service: String(service ?? 'Не указана').slice(0, 100),
     time: String(time ?? 'Не указано').slice(0, 50),
+    contact_method: body.contact_method ? String(body.contact_method).slice(0, 30) : undefined,
+    promo: body.promo ? String(body.promo).slice(0, 100) : undefined,
     utm_source: body.utm_source ? String(body.utm_source).slice(0, 50) : undefined,
     utm_medium: body.utm_medium ? String(body.utm_medium).slice(0, 50) : undefined,
     utm_campaign: body.utm_campaign ? String(body.utm_campaign).slice(0, 100) : undefined,

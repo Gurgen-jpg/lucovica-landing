@@ -96,6 +96,8 @@ export async function sendLeadEmail(data: LeadData): Promise<void> {
         ${row('Телефон', data.phone)}
         ${row('Услуга', data.service)}
         ${!isCert ? row('Время', data.time) : ''}
+        ${row('Связь', data.contact_method)}
+        ${row('Акция', data.promo ? `🎁 ${data.promo}` : '')}
         ${utmRow}
       </table>
     </div>`

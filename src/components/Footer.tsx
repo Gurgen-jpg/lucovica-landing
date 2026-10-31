@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Link from 'next/link'
 import LogoDivider from './LogoDivider'
 import { PHONE, PHONE_HREF, TG_USERNAME } from '@/lib/site-config'
 
@@ -37,9 +37,9 @@ export default function Footer() {
             <ul className="space-y-2">
               {nav.map((n) => (
                 <li key={n.href}>
-                  <a href={n.href} className="text-sm hover:text-dark transition">
+                  <Link href={`/${n.href}`} className="text-sm hover:text-dark transition">
                     {n.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -49,12 +49,12 @@ export default function Footer() {
           <div>
             <p className="text-dark font-semibold mb-4 text-sm">Услуги</p>
             <ul className="space-y-2 text-sm">
-              <li><a href="#pricing" className="hover:text-dark transition">Лазерная эпиляция</a></li>
-              <li><a href="#pricing" className="hover:text-dark transition">Шугаринг</a></li>
-              <li><a href="#pricing" className="hover:text-dark transition">Мужская эпиляция</a></li>
-              <li><a href="#pricing" className="hover:text-dark transition">Подростки</a></li>
-              <li><a href="#pricing" className="hover:text-dark transition">Электроэпиляция</a></li>
-              <li><a href="#pricing" className="hover:text-dark transition">Сертификаты</a></li>
+              <li><Link href="/laser-epil" className="hover:text-dark transition">Лазерная эпиляция</Link></li>
+              <li><Link href="/sugaring" className="hover:text-dark transition">Шугаринг</Link></li>
+              <li><Link href="/#pricing" className="hover:text-dark transition">Мужская эпиляция</Link></li>
+              <li><Link href="/#pricing" className="hover:text-dark transition">Подростки</Link></li>
+              <li><Link href="/electro-epil" className="hover:text-dark transition">Электроэпиляция</Link></li>
+              <li><Link href="/#pricing" className="hover:text-dark transition">Сертификаты</Link></li>
             </ul>
           </div>
 
@@ -89,8 +89,8 @@ export default function Footer() {
         <div className="border-t border-dark/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-dark/40">
           <p>© 2026 LUCOVICA. Все права защищены.</p>
           <div className="flex gap-4">
-            <a href="/privacy" className="hover:text-dark/70 transition">Политика конфиденциальности</a>
-            <a href="/offer" className="hover:text-dark/70 transition">Публичная оферта</a>
+            <Link href="/privacy" className="hover:text-dark/70 transition">Политика конфиденциальности</Link>
+            <Link href="/offer" className="hover:text-dark/70 transition">Публичная оферта</Link>
           </div>
         </div>
       </div>

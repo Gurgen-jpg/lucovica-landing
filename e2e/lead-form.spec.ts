@@ -9,7 +9,7 @@ test.describe('LeadForm — запись на процедуру', () => {
   })
 
   const openForm = (page: Parameters<Parameters<typeof test>[1]>[0]) =>
-    page.locator('header').getByRole('button', { name: 'Записаться онлайн' }).click({ force: true })
+    page.getByRole('button', { name: 'Записаться онлайн' }).first().click({ force: true })
 
   test('открывается по кнопке «Записаться онлайн»', async ({ page }) => {
     await openForm(page)

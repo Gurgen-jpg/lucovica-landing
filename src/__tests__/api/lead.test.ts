@@ -67,6 +67,24 @@ describe('POST /api/lead', () => {
     expect(res.status).toBe(500)
   })
 
+  it('передаёт способ связи и акцию в Telegram-сообщение', async () => {
+    mockFetchOk()
+    const { sendLeadToTelegram } = await import('@/lib/sendLead')
+    await sendLeadToTelegram({
+      name: 'Анна',
+      phone: '+79991234567',
+      service: 'Лазерная эпиляция (жен.) — Подмышки',
+      time: 'Утром',
+      contact_method: 'Telegram',
+      promo: 'Первый визит — подмышки бесплатно',
+    })
+    const fetchMock = vi.mocked(fetch)
+    expect(fetchMock).toHaveBeenCalled()
+    const body = JSON.parse(String(fetchMock.mock.calls[0][1]?.body))
+    expect(body.text).toContain('Связь:</b> Telegram')
+    expect(body.text).toContain('Акция:</b> Первый визит — подмышки бесплатно')
+  })
+
   it('возвращает 400 при невалидном JSON', async () => {
     const req = new NextRequest('http://localhost/api/lead', {
       method: 'POST',

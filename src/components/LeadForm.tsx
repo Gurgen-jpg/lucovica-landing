@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { SERVICE_NAMES_FOR_FORM } from '@/lib/services-data'
-import { PHONE, PHONE_HREF, TG_USERNAME } from '@/lib/site-config'
+import { PHONE, PHONE_HREF, TG_USERNAME, PROMO_FIRST_VISIT } from '@/lib/site-config'
+import { track } from '@/lib/analytics'
 import { formatDate, buildTimeString, getUtm } from './LeadForm.helpers'
 
 type Step = 1 | 2 | 3 | 'success'
@@ -11,15 +12,19 @@ type Props = {
   isOpen: boolean
   onClose: () => void
   defaultService?: string
+  defaultPromo?: boolean
 }
 
 const TIME_SLOTS = ['Утро (9–12)', 'День (12–16)', 'Вечер (16–20)']
+const CONTACT_METHODS = ['Звонок', 'Telegram', 'WhatsApp', 'MAX']
 
-export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
+export default function LeadForm({ isOpen, onClose, defaultService, defaultPromo }: Props) {
   const [step, setStep] = useState<Step>(1)
   const [service, setService] = useState(defaultService ?? '')
   const [timeSlot, setTimeSlot] = useState('')
   const [dateInput, setDateInput] = useState('')
+  const [contactMethod, setContactMethod] = useState('Звонок')
+  const [promo, setPromo] = useState(false)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
@@ -48,17 +53,19 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
 
   useEffect(() => {
     if (isOpen) {
-      setStep(1)
+      // При предвыбранной услуге шаг выбора пропускаем — меньше шагов, выше конверсия
+      setStep(defaultService ? (defaultService === 'Подарочный сертификат' ? 3 : 2) : 1)
       setError('')
       setTimeSlot('')
       setDateInput('')
+      setPromo(!!defaultPromo)
       if (defaultService) setService(defaultService)
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
     }
     return () => { document.body.style.overflow = '' }
-  }, [isOpen, defaultService])
+  }, [isOpen, defaultService, defaultPromo])
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
@@ -78,13 +85,19 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, service, time: timeValue, ...getUtm() }),
+        body: JSON.stringify({
+          name,
+          phone,
+          service,
+          time: timeValue,
+          contact_method: contactMethod,
+          promo: promo ? PROMO_FIRST_VISIT : undefined,
+          ...getUtm(),
+        }),
       })
       if (!res.ok) throw new Error('Ошибка отправки')
       setStep('success')
-      if (typeof window !== 'undefined' && (window as any).ym) {
-        ;(window as any).ym(undefined, 'reachGoal', 'form_submit')
-      }
+      track('form_submit')
     } catch {
       setError('Не удалось отправить заявку. Попробуйте ещё раз.')
     } finally {
@@ -247,8 +260,40 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
                 placeholder="+7 (___) ___-__-__"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full border-2 border-mist rounded-xl px-4 py-3 text-dark text-sm focus:border-dark focus:outline-none mb-2"
+                className="w-full border-2 border-mist rounded-xl px-4 py-3 text-dark text-sm focus:border-dark focus:outline-none mb-4"
               />
+
+              <p className="text-sm font-medium text-dark/70 mb-2">Как с вами связаться?</p>
+              <div className="grid grid-cols-2 gap-2 mb-4">
+                {CONTACT_METHODS.map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => setContactMethod(m)}
+                    className={`py-2.5 px-3 rounded-xl border-2 text-sm font-medium transition-all ${
+                      contactMethod === m
+                        ? 'border-dark bg-dark text-white'
+                        : 'border-mist hover:border-dark text-dark'
+                    }`}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+
+              {!isCertificate && (
+                <label className="flex items-start gap-2.5 mb-4 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={promo}
+                    onChange={(e) => setPromo(e.target.checked)}
+                    className="mt-0.5 w-4 h-4 accent-dark flex-shrink-0"
+                  />
+                  <span className="text-sm text-dark/70">
+                    Хочу акцию: <span className="font-semibold text-dark">{PROMO_FIRST_VISIT.toLowerCase()}</span>
+                  </span>
+                </label>
+              )}
+
               {error && <p className="text-dark text-xs mb-2">{error}</p>}
               <p className="text-xs text-dark/50 mb-4">
                 Нажимая кнопку, вы соглашаетесь с{' '}
@@ -285,7 +330,7 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
               <div className="flex flex-col gap-2">
                 <a
                   href={`tel:${PHONE_HREF}`}
-                  onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_phone') }}
+                  onClick={() => track('click_phone')}
                   className="btn-outline text-sm py-2.5"
                 >
                   {PHONE}
@@ -294,7 +339,7 @@ export default function LeadForm({ isOpen, onClose, defaultService }: Props) {
                   href={`https://t.me/${TG_USERNAME}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => { if ((window as any).ym) (window as any).ym(undefined, 'reachGoal', 'click_telegram') }}
+                  onClick={() => track('click_telegram')}
                   className="btn-primary text-sm py-2.5"
                 >
                   Написать в Telegram

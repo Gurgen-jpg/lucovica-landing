@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import YandexMetrikaHit from '@/components/YandexMetrikaHit'
 import './globals.css'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lucovica.ru'
@@ -64,8 +65,8 @@ const jsonLd = {
       },
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: '47.2226',
-        longitude: '39.7189',
+        latitude: '47.231276',
+        longitude: '39.718390',
       },
       openingHoursSpecification: [
         { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '10:00', closes: '21:00' },
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
 
         {/* Яндекс Метрика */}
+        <YandexMetrikaHit />
         <Script id="ym-init" strategy="afterInteractive">
           {`
             (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
