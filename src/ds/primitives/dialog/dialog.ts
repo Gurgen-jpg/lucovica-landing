@@ -9,6 +9,8 @@ export interface DialogProps {
   overline?: string
   body: HtmlValue
   closeLabel?: string
+  /** sheet — боковая панель на всю высоту (мобильное меню) */
+  variant?: 'sheet'
 }
 
 export const CLOSE_ICON = html`<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1"/></svg>`
@@ -19,7 +21,7 @@ export const CLOSE_ICON = html`<svg width="14" height="14" viewBox="0 0 14 14" a
  */
 export function dialog(props: DialogProps): SafeHtml {
   const titleId = `${props.id}-title`
-  return html`<dialog class="ds-dialog" id="${props.id}" aria-labelledby="${titleId}" data-ds="dialog">
+  return html`<dialog class="ds-dialog" id="${props.id}" aria-labelledby="${titleId}" data-ds="dialog"${props.variant ? html` data-variant="${props.variant}"` : null}>
 <div class="ds-dialog__panel">
 <div class="ds-dialog__header">
 <div class="ds-dialog__heading">

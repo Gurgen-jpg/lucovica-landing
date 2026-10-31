@@ -16,4 +16,6 @@
 @import '../ds/primitives/choice/choice.css';
 @import '../ds/primitives/toast/toast.css';
 @import '../ds/primitives/tooltip/tooltip.css';
+@import './layout.css';
+@import './home.css';
 @import './showcase.css';

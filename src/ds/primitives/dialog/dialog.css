@@ -94,3 +94,23 @@ html.ds-scroll-lock {
     padding: var(--space-7);
   }
 }
+
+/* Боковая панель: справа на всю высоту, выезжает сбоку */
+.ds-dialog[data-variant='sheet'] {
+  width: min(360px, 88vw);
+  height: 100dvh;
+  max-height: none;
+  margin: 0 0 0 auto;
+  box-shadow: var(--shadow-overlay);
+}
+
+.ds-dialog[data-variant='sheet'][open] {
+  translate: 0 0;
+}
+
+@starting-style {
+  .ds-dialog[data-variant='sheet'][open] {
+    opacity: 0;
+    translate: 16px 0;
+  }
+}

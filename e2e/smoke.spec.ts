@@ -18,7 +18,7 @@ test('главная без нарушений доступности (axe)', as
 test('несуществующая страница — 404 со ссылкой на главную', async ({ page }) => {
   const res = await page.goto('/no-such-page')
   expect(res?.status()).toBe(404)
-  await expect(page.locator('a[href="/"]')).toBeVisible()
+  await expect(page.locator('main a[href="/"]')).toBeVisible()
 })
 
 test('иконки и og:image доступны', async ({ page, request }) => {

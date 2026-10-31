@@ -59,3 +59,16 @@ for (const tone of ['black', 'white'] as const) {
     .toBuffer()
   await writeFile(`public/brand/symbol-${tone}-72.png`, small)
 }
+
+// Логотипы для хедера/футера (высота ×2 для ретины) и символ для «Философии»
+async function trimmedHeight(src: string, height: number, out: string) {
+  const data = await sharp(src).trim().resize({ height }).png({ compressionLevel: 9 }).toBuffer()
+  const { width } = await sharp(data).metadata()
+  await writeFile(out, data)
+  return { out, width, height }
+}
+console.log(
+  await trimmedHeight('public/brand/logo-black.png', 44, 'public/brand/logo-black-44.png'),
+  await trimmedHeight('public/brand/logo-white.png', 32, 'public/brand/logo-white-32.png'),
+  await trimmedHeight('public/brand/symbol-white.png', 128, 'public/brand/symbol-white-128.png'),
+)
