@@ -51,7 +51,7 @@ export async function loadPages(): Promise<Page[]> {
   for (const f of files) {
     const mod = (await import(pathToFileURL(join(dir, f)).href)) as { page?: Page }
     if (!mod.page) throw new Error(`${dir}/${f} не экспортирует page`)
-    if (mod.page.devOnly && !config.dev) continue
+    if (mod.page.devOnly && !config.showcase) continue
     pages.push(mod.page)
   }
   const seen = new Set<string>()

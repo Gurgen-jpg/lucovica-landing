@@ -21,7 +21,7 @@ export default defineConfig({
   webServer: {
     command: 'npm run build && npm start',
     url: `http://localhost:${PORT}/healthz`,
-    env: { PORT: String(PORT), YM_ID: '' },
+    env: { PORT: String(PORT), YM_ID: '', DS_SHOWCASE: '1' },
     reuseExistingServer: false,
     timeout: 120_000,
   },

@@ -1,0 +1,21 @@
+.ds-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+}
+
+.ds-section-header[data-align='center'] {
+  align-items: center;
+  text-align: center;
+}
+
+.ds-section-header__description {
+  max-width: 48ch;
+}
+
+@media (min-width: 1280px) {
+  .ds-section-header {
+    margin-bottom: var(--space-8);
+  }
+}

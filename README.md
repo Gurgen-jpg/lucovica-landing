@@ -12,7 +12,7 @@ npm install
 npm run dev          # сборка + наблюдение + сервер с live reload на http://localhost:3000
 npm run build        # продакшен-сборка в dist/
 npm start            # сервер на $PORT (по умолчанию 3000), отдаёт dist/ и /api
-npm run lint         # проверка типов (сервер и браузерный код)
+npm run lint         # типы (сервер и браузерный код) + stylelint (литеральные цвета только в tokens.css)
 npm test             # unit- и API-тесты (Vitest)
 npm run test:e2e     # e2e (Playwright): сам собирает сайт и поднимает сервер на 3099
 npm run lighthouse   # Lighthouse мобильный для / ; другие страницы: npm run lighthouse -- /sugaring
@@ -31,6 +31,7 @@ src/
   pages/     одна страница = один модуль, экспортирует `page: Page`
   layout/    document() — <html>/<head>, метаданные, Метрика
   lib/       html`` (шаблоны с экранированием), picture(), JSON-LD
+  ds/        дизайн-система: tokens.css, fonts.css, base.css, primitives/<name>/{.ts,.css,.client.ts}
   client/    браузерный код (точка входа main.ts)
   styles/    site.css — точка входа стилей
 server/      Express: app.ts (createApp), index.ts (запуск), api/
@@ -42,6 +43,8 @@ tests/       Vitest;  e2e/ — Playwright
 
 Добавить страницу: создать `src/pages/<name>.ts` с `export const page: Page = { path, meta, sitemap?, render }`.
 Сборка сама положит её в `dist/`, `routes.json` и (если указан `sitemap`) в `sitemap.xml`.
+
+Витрина примитивов — `/ds`: собирается только в `npm run dev` и при `DS_SHOWCASE=1` (так её собирает e2e), в продакшен не попадает.
 
 Дата `<lastmod>` в sitemap задаётся вручную в `src/content/sitemap.ts` — меняйте её при правке текстов или цен.
 

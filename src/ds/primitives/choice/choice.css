@@ -1,0 +1,148 @@
+/* ── Checkbox / Radio ───────────────────────────────────── */
+
+.ds-choice-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-choice {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--lv-text);
+  cursor: pointer;
+}
+
+/* Нативный input остаётся в потоке доступности, но визуально заменяется .ds-choice__box */
+.ds-choice__input {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 18px;
+  height: 18px;
+  margin: 13px 0 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ds-choice__box {
+  flex: 0 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: var(--line) solid var(--lv-onyx);
+  border-radius: var(--radius);
+  background: transparent;
+  color: transparent;
+  transition:
+    background-color var(--dur-hover) var(--ease-silk),
+    color var(--dur-hover) var(--ease-silk);
+}
+
+.ds-choice__box[data-shape='round'] {
+  border-radius: var(--radius-full);
+}
+
+.ds-choice__input:checked + .ds-choice__box:not([data-shape='round']) {
+  background: var(--lv-onyx);
+  color: var(--gray-2);
+}
+
+.ds-choice__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: transparent;
+}
+
+.ds-choice__input:checked + .ds-choice__box .ds-choice__dot {
+  background: var(--lv-onyx);
+}
+
+.ds-choice__input:focus-visible + .ds-choice__box {
+  outline: var(--line) solid var(--lv-onyx);
+  outline-offset: 4px;
+}
+
+.ds-choice__input[aria-invalid='true'] + .ds-choice__box {
+  border-width: 2px;
+}
+
+/* ── Да / Нет ───────────────────────────────────────────── */
+
+.ds-yesno {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.ds-yesno__legend {
+  padding: 0;
+  margin-bottom: var(--space-2);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--lv-text);
+}
+
+.ds-yesno__options {
+  display: flex;
+  gap: var(--space-5);
+}
+
+/* ── Chips ──────────────────────────────────────────────── */
+
+.ds-chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+  gap: var(--space-2);
+}
+
+.ds-chip {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0 var(--space-5);
+  border: var(--line) solid var(--gray-9);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--lv-text);
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-hover) var(--ease-silk),
+    color var(--dur-hover) var(--ease-silk),
+    border-color var(--dur-hover) var(--ease-silk);
+}
+
+.ds-chip:hover {
+  border-color: var(--lv-onyx);
+}
+
+.ds-chip__dot {
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: transparent;
+}
+
+/* Выбранный чип — инверсия в оникс, точка шампань на ониксе */
+.ds-chip[aria-pressed='true'] {
+  border-color: var(--lv-inverse);
+  background: var(--lv-inverse);
+  color: var(--lv-on-inverse);
+}
+
+.ds-chip[aria-pressed='true'] .ds-chip__dot {
+  background: var(--lv-accent);
+}

@@ -49,3 +49,13 @@ await writeFile('public/favicon.ico', ico([{ size: 16, data: fav16 }, { size: 32
 await writeFile('public/apple-touch-icon.png', await square(180, 24, PLASTER))
 await writeFile('public/icon-512.png', await square(512, 48, PLASTER))
 console.log('icons: favicon.ico, favicon-32.png, apple-touch-icon.png, icon-512.png')
+
+// Символ для разделителя ДС (36px на экране, 72px для ретины)
+for (const tone of ['black', 'white'] as const) {
+  const small = await sharp(`public/brand/symbol-${tone}.png`)
+    .trim()
+    .resize(72, 72, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .png({ compressionLevel: 9 })
+    .toBuffer()
+  await writeFile(`public/brand/symbol-${tone}-72.png`, small)
+}

@@ -1,0 +1,76 @@
+/*
+ * Дизайн-система 2.0 «Plaster & Onyx» — единственный источник визуальных значений.
+ * Литеральные цвета разрешены только в этом файле (см. .stylelintrc.json).
+ */
+:root {
+  /* plaster · 12 ступеней */
+  --gray-1: #FCFBF9;
+  --gray-2: #F7F5F0;
+  --gray-3: #F0EDE7;
+  --gray-4: #E8E4DD;
+  --gray-5: #E0DCD4;
+  --gray-6: #D2CEC6;
+  --gray-7: #C0BBB2;
+  --gray-8: #A39F97;
+  --gray-9: #7D7A74;
+  --gray-10: #6B6965;
+  --gray-11: #4A4845;
+  --gray-12: #1A1A1C;
+
+  /* фирменные */
+  --lv-onyx: #141416;
+  --lv-graphite: #25272C;
+  --lv-champagne: #B8A47E;
+
+  /* семантические */
+  --lv-bg: var(--gray-2);
+  --lv-surface: var(--gray-3);
+  --lv-inverse: var(--lv-onyx);
+  --lv-text: var(--gray-12);
+  --lv-text-2: var(--gray-11);
+  --lv-text-3: var(--gray-10);
+  --lv-line: var(--gray-6);
+  /* Шампань — только на --lv-inverse: линии, детали, текст-акценты */
+  --lv-accent: var(--lv-champagne);
+
+  /* на тёмном фоне */
+  --lv-on-inverse: var(--gray-2);
+  --lv-on-inverse-2: var(--gray-7);
+  --lv-line-inverse: var(--gray-11);
+  --lv-backdrop: rgb(20 20 22 / 0.72);
+
+  /* шрифты */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-text: 'Jost', -apple-system, 'SF Pro Display', 'Segoe UI', sans-serif;
+
+  /* отступы · шаг 4px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 160px;
+  --space-11: 240px;
+
+  /* форма */
+  --radius: 0;
+  --radius-full: 9999px;
+  --line: 1px;
+
+  /* движение */
+  --ease-silk: cubic-bezier(.22, .61, .12, 1);
+  --dur-hover: 160ms;
+  --dur-ui: 320ms;
+  --dur-enter: 640ms;
+  --dur-photo: 1200ms;
+
+  /* глубина — только диалоги и всплывающие элементы */
+  --shadow-overlay: 0 32px 64px -24px rgb(20 20 22 / 0.28);
+
+  /* фото: 1 — монохром, 0 — цвет */
+  --photo-mono: 1;
+}

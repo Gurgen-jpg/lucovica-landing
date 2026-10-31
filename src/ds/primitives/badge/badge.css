@@ -1,0 +1,28 @@
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 var(--space-3);
+  border: var(--line) solid var(--lv-text);
+  border-radius: var(--radius);
+  color: var(--lv-text);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Шампань на ониксе — фон бейджа сам является --lv-inverse */
+.ds-badge[data-variant='onyx'] {
+  border-color: var(--lv-inverse);
+  background: var(--lv-inverse);
+  color: var(--lv-accent);
+}
+
+.ds-badge[data-variant='soft'] {
+  border-color: var(--gray-4);
+  background: var(--gray-4);
+  color: var(--lv-text-2);
+}

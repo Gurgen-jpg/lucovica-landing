@@ -1,0 +1,60 @@
+.ds-tabs__list {
+  display: flex;
+  gap: var(--space-6);
+  border-bottom: var(--line) solid var(--lv-line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ds-tabs__tab {
+  flex: 0 0 auto;
+  height: 48px;
+  margin-bottom: calc(-1 * var(--line));
+  padding: 0;
+  border: 0;
+  border-bottom: var(--line) solid transparent;
+  background: transparent;
+  color: var(--lv-text-3);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color var(--dur-hover) var(--ease-silk),
+    border-color var(--dur-hover) var(--ease-silk);
+}
+
+.ds-tabs__tab:hover {
+  color: var(--lv-text);
+}
+
+.ds-tabs__tab[aria-selected='true'] {
+  border-bottom-color: var(--lv-onyx);
+  color: var(--lv-text);
+}
+
+/* Фокус внутри полосы прокрутки не обрезается */
+.ds-tabs__tab:focus-visible {
+  outline-offset: -4px;
+}
+
+.ds-tabs__panel + .ds-tabs__panel {
+  margin-top: var(--space-7);
+}
+
+.ds-tabs__panel-title {
+  margin-bottom: var(--space-3);
+}
+
+[data-enhanced] > .ds-tabs__panel + .ds-tabs__panel {
+  margin-top: 0;
+}
+
+[data-enhanced] > .ds-tabs__panel > .ds-tabs__panel-title {
+  display: none;
+}
+
+[data-enhanced] > .ds-tabs__panel:focus-visible {
+  outline-offset: 2px;
+}

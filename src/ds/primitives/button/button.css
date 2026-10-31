@@ -1,0 +1,93 @@
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 52px;
+  padding: 0 var(--space-6);
+  border: var(--line) solid var(--lv-onyx);
+  border-radius: var(--radius);
+  background: var(--lv-onyx);
+  color: var(--gray-2);
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-hover) var(--ease-silk),
+    color var(--dur-hover) var(--ease-silk),
+    border-color var(--dur-hover) var(--ease-silk);
+}
+
+.ds-button[data-size='2'] {
+  height: 40px;
+  padding: 0 var(--space-5);
+  font-size: 11px;
+}
+
+.ds-button:hover {
+  background: var(--gray-11);
+  border-color: var(--gray-11);
+}
+
+.ds-button[data-variant='outline'] {
+  background: transparent;
+  border-color: var(--lv-text);
+  color: var(--lv-text);
+}
+
+.ds-button[data-variant='outline']:hover {
+  background: var(--lv-onyx);
+  border-color: var(--lv-onyx);
+  color: var(--gray-2);
+}
+
+.ds-button[data-variant='link'] {
+  padding: 0 var(--space-1);
+  border-color: transparent;
+  background: transparent;
+  color: var(--lv-text);
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: var(--line);
+}
+
+.ds-button[data-variant='link']:hover {
+  color: var(--lv-text-2);
+}
+
+.ds-button[data-variant='inverse'] {
+  background: var(--lv-on-inverse);
+  border-color: var(--lv-on-inverse);
+  color: var(--lv-onyx);
+}
+
+.ds-button[data-variant='inverse']:hover {
+  background: var(--gray-5);
+  border-color: var(--gray-5);
+}
+
+/* Только на --lv-inverse */
+.ds-button[data-variant='champagne'] {
+  background: transparent;
+  border-color: var(--lv-accent);
+  color: var(--lv-accent);
+}
+
+.ds-button[data-variant='champagne']:hover {
+  background: var(--lv-accent);
+  color: var(--lv-onyx);
+}
+
+.ds-button:disabled,
+.ds-button:disabled:hover {
+  background: var(--gray-4);
+  border-color: var(--lv-line);
+  color: var(--gray-10);
+  cursor: not-allowed;
+}

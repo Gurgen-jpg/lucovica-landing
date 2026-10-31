@@ -1,0 +1,22 @@
+.ds-separator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding-block: var(--space-3);
+}
+
+.ds-separator__line {
+  flex: 1 1 auto;
+  height: var(--line);
+  background: var(--lv-line);
+}
+
+.ds-separator[data-inverse] .ds-separator__line {
+  background: var(--lv-line-inverse);
+}
+
+.ds-separator__symbol {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+}

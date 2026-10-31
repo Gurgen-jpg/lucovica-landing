@@ -1,1 +1,19 @@
-/* Точка входа стилей. Токены и примитивы подключаются в изменении design-system. */
+/* Точка входа стилей: токены → шрифты → база → примитивы ДС. */
+@import '../ds/tokens.css';
+@import '../ds/fonts.css';
+@import '../ds/base.css';
+
+@import '../ds/primitives/button/button.css';
+@import '../ds/primitives/badge/badge.css';
+@import '../ds/primitives/separator/separator.css';
+@import '../ds/primitives/section-header/section-header.css';
+@import '../ds/primitives/photo/photo.css';
+@import '../ds/primitives/dialog/dialog.css';
+@import '../ds/primitives/accordion/accordion.css';
+@import '../ds/primitives/tabs/tabs.css';
+@import '../ds/primitives/carousel/carousel.css';
+@import '../ds/primitives/field/field.css';
+@import '../ds/primitives/choice/choice.css';
+@import '../ds/primitives/toast/toast.css';
+@import '../ds/primitives/tooltip/tooltip.css';
+@import './showcase.css';

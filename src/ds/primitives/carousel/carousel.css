@@ -1,0 +1,72 @@
+.ds-carousel__slides {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+[data-enhanced] > .ds-carousel__slides {
+  display: block;
+}
+
+.ds-carousel__slide {
+  animation: ds-carousel-in var(--dur-enter) var(--ease-silk);
+}
+
+@keyframes ds-carousel-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.ds-carousel__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.ds-carousel__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: var(--line) solid var(--lv-text);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--lv-text);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-hover) var(--ease-silk),
+    color var(--dur-hover) var(--ease-silk);
+}
+
+.ds-carousel__button:hover {
+  background: var(--lv-onyx);
+  color: var(--gray-2);
+}
+
+.ds-carousel__status {
+  min-width: 7ch;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  font-variant-numeric: tabular-nums;
+  color: var(--lv-text-2);
+}
+
+.ds-inverse .ds-carousel__button {
+  border-color: var(--lv-on-inverse);
+  color: var(--lv-on-inverse);
+}
+
+.ds-inverse .ds-carousel__button:hover {
+  background: var(--lv-on-inverse);
+  color: var(--lv-onyx);
+}
+
+.ds-inverse .ds-carousel__status {
+  color: var(--lv-on-inverse-2);
+}

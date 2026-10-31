@@ -1,0 +1,89 @@
+.ds-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-field__label {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--lv-text-2);
+}
+
+.ds-field__input {
+  width: 100%;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-bottom: var(--line) solid var(--gray-9);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--lv-text);
+  font-family: var(--font-text);
+  font-size: 16px;
+  font-weight: 300;
+  transition: border-color var(--dur-hover) var(--ease-silk);
+  appearance: none;
+}
+
+.ds-field__input::placeholder {
+  color: var(--lv-text-3);
+  opacity: 1;
+}
+
+.ds-field__input:hover {
+  border-bottom-color: var(--gray-10);
+}
+
+/* Активное поле — линия оникса; фокус показывается линией, без контура */
+.ds-field__input:focus,
+.ds-field__input:focus-visible {
+  outline: none;
+  border-bottom-color: var(--lv-onyx);
+  box-shadow: 0 var(--line) 0 0 var(--lv-onyx);
+}
+
+.ds-field__input[aria-invalid='true'] {
+  border-bottom-color: var(--lv-text);
+  box-shadow: 0 var(--line) 0 0 var(--lv-text);
+}
+
+.ds-field__select {
+  position: relative;
+}
+
+.ds-field__select .ds-field__input {
+  padding-right: var(--space-6);
+  cursor: pointer;
+}
+
+.ds-field__chevron {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  pointer-events: none;
+  color: var(--lv-text);
+}
+
+.ds-field__hint {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--lv-text-3);
+}
+
+/* Ошибка отмечается текстом и знаком, без красного: палитра ДС монохромна */
+.ds-field__error {
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--lv-text);
+}
+
+.ds-field__error::before {
+  /* Декоративное тире не попадает в доступное описание поля */
+  content: '— ' / '';
+}
