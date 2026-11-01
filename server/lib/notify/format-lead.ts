@@ -10,6 +10,8 @@ export interface Lead {
   service: string
   time: string
   contact_method: string
+  /** Ник или номер в выбранном мессенджере */
+  messenger?: string
   promo?: string
   utm_source?: string
   utm_medium?: string
@@ -27,12 +29,19 @@ export function formatLead(lead: Lead): StaffMessage {
   const subject = isCert ? `🎁 Новый заказ сертификата — ${lead.name}` : `🌸 Новая заявка — ${lead.name}`
   const utm = lead.utm_source ? [lead.utm_source, lead.utm_medium, lead.utm_campaign].filter(Boolean).join(' / ') : ''
 
+  const contact = lead.messenger ? `${lead.contact_method} — ${lead.messenger}` : lead.contact_method
+  // Ник Telegram — ссылкой, чтобы администратор открыл чат в одно касание
+  const tgUser = lead.contact_method === 'Telegram' ? /^@?([A-Za-z0-9_]{5,32})$/.exec(lead.messenger ?? '')?.[1] : undefined
+  const contactTg = tgUser
+    ? `${e(lead.contact_method)} — <a href="https://t.me/${tgUser}">@${tgUser}</a>`
+    : e(contact)
+
   const rows = [
     row('Имя', lead.name),
     row('Телефон', lead.phone),
     row('Услуга', lead.service),
     isCert ? '' : row('Время', lead.time),
-    row('Связь', lead.contact_method),
+    row('Связь', contact),
     row('Акция', lead.promo ? `🎁 ${lead.promo}` : ''),
     row('Источник', utm),
   ].filter(Boolean)
@@ -52,7 +61,7 @@ ${rows.join('\n')}
     `📞 <b>Телефон:</b> <a href="tel:${e(lead.phone.replace(/[^\d+]/g, ''))}">${e(lead.phone)}</a>\n` +
     `💆 <b>Услуга:</b> ${e(lead.service)}` +
     (isCert ? '' : `\n🕐 <b>Время:</b> ${e(lead.time)}`) +
-    `\n📱 <b>Связь:</b> ${e(lead.contact_method)}` +
+    `\n📱 <b>Связь:</b> ${contactTg}` +
     (lead.promo ? `\n🎁 <b>Акция:</b> ${e(lead.promo)}` : '') +
     (utm ? `\n\n<blockquote>📊 Источник: ${e(utm)}</blockquote>` : '')
 

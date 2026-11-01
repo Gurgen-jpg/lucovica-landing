@@ -189,10 +189,14 @@ test.describe('форма в «Контактах»', () => {
     await form.scrollIntoViewIfNeeded()
     await page.fill('#contact-form-name', 'Анна')
     await page.fill('#contact-form-phone', '89770169775')
+    const messenger = form.getByLabel('Ник или номер в мессенджере')
+    await expect(messenger).toBeHidden()
     await form.getByRole('radio', { name: 'Telegram' }).check({ force: true })
+    await expect(messenger).toBeVisible()
+    await messenger.fill('@anna_lv')
     await form.getByRole('button', { name: 'Отправить заявку' }).click()
     await expect(form.getByText('Заявка принята!')).toBeVisible()
-    expect(sent[0]).toMatchObject({ contact_method: 'Telegram', utm_source: 'yandex', utm_campaign: 'laser' })
+    expect(sent[0]).toMatchObject({ contact_method: 'Telegram', messenger: '@anna_lv', utm_source: 'yandex', utm_campaign: 'laser' })
   })
 
   test('без нарушений доступности на тёмном фоне', async ({ page }) => {

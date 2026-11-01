@@ -47,6 +47,9 @@ ${selectField({ id: `${id}-service`, name: 'service', label: 'Услуга', pla
 ${options(id, 'time', 'Удобное время', TIME_SLOTS)}
 </div>
 ${options(id, 'contact_method', 'Способ связи', CONTACT_METHODS, 'Звонок')}
+<div class="booking-form__messenger">
+${textField({ id: `${id}-messenger`, name: 'messenger', label: 'Ник или номер в мессенджере', placeholder: '@username или +7…', hint: 'Если оставить пустым — напишем на номер телефона выше.', autocomplete: 'off', maxlength: 100 })}
+</div>
 ${site.promo ? html`<div class="booking-form__booking-only">${checkbox({ id: `${id}-promo`, name: 'promo', value: site.promo, label: html`Хочу акцию: <strong>${site.promo.toLowerCase()}</strong>` })}</div>` : null}
 <div class="booking-form__hp" aria-hidden="true"><label>Не заполняйте это поле <input type="text" name="_hp" tabindex="-1" autocomplete="off"></label></div>
 <p class="booking-form__error" role="alert" data-error hidden></p>

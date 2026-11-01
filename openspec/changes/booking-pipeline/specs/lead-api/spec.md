@@ -7,7 +7,7 @@
 ## ADDED Requirements
 
 ### Requirement: Request contract
-`POST /api/lead` SHALL принимать JSON (`application/json`) или форму (`application/x-www-form-urlencoded`) с полями `name`, `phone` (обязательные), `service`, `time`, `contact_method`, `promo`, `utm_source`, `utm_medium`, `utm_campaign`, `_hp` (необязательные). Строки MUST обрезаться по пробелам и длине: name 100, phone 30, service 100 (по умолчанию «Не указана»), time 50 («Не указано»), contact_method 30 («Звонок»), promo 100, utm_source 50, utm_medium 50, utm_campaign 100. Тело больше 32 КБ MUST отклоняться со статусом 413.
+`POST /api/lead` SHALL принимать JSON (`application/json`) или форму (`application/x-www-form-urlencoded`) с полями `name`, `phone` (обязательные), `service`, `time`, `contact_method`, `messenger`, `promo`, `utm_source`, `utm_medium`, `utm_campaign`, `_hp` (необязательные). Строки MUST обрезаться по пробелам и длине: name 100, phone 30, service 100 (по умолчанию «Не указана»), time 50 («Не указано»), contact_method 30 («Звонок»), messenger 100 (отбрасывается, если способ связи «Звонок»; в уведомлении — «Связь: <способ> — <ник>», ник Telegram ссылкой на t.me), promo 100, utm_source 50, utm_medium 50, utm_campaign 100. Тело больше 32 КБ MUST отклоняться со статусом 413.
 
 #### Scenario: Defaults applied
 - **WHEN** приходит заявка только с `name` и `phone`

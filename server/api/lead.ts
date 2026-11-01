@@ -31,12 +31,15 @@ const opt = (v: unknown, max: number): string | undefined => str(v, max) || unde
 
 /** Поля заявки: обрезка по пробелам и длине, значения по умолчанию. */
 export function parseLead(body: Record<string, unknown>): Lead {
+  const contactMethod = str(body.contact_method, 30) || 'Звонок'
   return {
     name: str(body.name, 100),
     phone: str(body.phone, 30),
     service: str(body.service, 100) || 'Не указана',
     time: str(body.time, 50) || 'Не указано',
-    contact_method: str(body.contact_method, 30) || 'Звонок',
+    contact_method: contactMethod,
+    // Без JS поле уходит всегда — для звонка ник не нужен
+    messenger: contactMethod === 'Звонок' ? undefined : opt(body.messenger, 100),
     promo: opt(body.promo, 100),
     utm_source: opt(body.utm_source, 50),
     utm_medium: opt(body.utm_medium, 50),

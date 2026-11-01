@@ -86,12 +86,14 @@ function payload(p: Parts): Record<string, string> {
   const cert = p.service.value === CERTIFICATE
   const detail = p.form.dataset.detail ?? ''
   const service = get('service')
+  const contactMethod = get('contact_method') || 'Звонок'
   return {
     name: get('name'),
     phone: formatPhone(normalizePhone(get('phone'))),
     service: service && detail ? `${service} — ${detail}` : service,
     time: cert ? CERTIFICATE : get('time'),
-    contact_method: get('contact_method') || 'Звонок',
+    contact_method: contactMethod,
+    messenger: contactMethod === 'Звонок' ? '' : get('messenger'),
     promo: !cert && p.promo?.checked ? p.promo.value : '',
     _hp: get('_hp'),
     ...readUtm(),

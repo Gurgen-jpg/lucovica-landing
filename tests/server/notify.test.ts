@@ -150,6 +150,19 @@ describe('formatLead', () => {
     expect(m.html).not.toContain('Время')
   })
 
+  it('ник Telegram — ссылкой на чат', () => {
+    const m = formatLead({ ...base, messenger: '@anna_lv' })
+    expect(m.telegram).toContain('📱 <b>Связь:</b> Telegram — <a href="https://t.me/anna_lv">@anna_lv</a>')
+    expect(m.html).toContain('<b>Telegram — @anna_lv</b>')
+  })
+
+  it('номер в WhatsApp и произвольный текст — как есть, с экранированием', () => {
+    expect(formatLead({ ...base, contact_method: 'WhatsApp', messenger: '+7 900 000-00-00' }).telegram).toContain(
+      '📱 <b>Связь:</b> WhatsApp — +7 900 000-00-00',
+    )
+    expect(formatLead({ ...base, messenger: '<i>x</i>' }).telegram).toContain('Telegram — &lt;i&gt;x&lt;/i&gt;')
+  })
+
   it('разметка в имени экранируется в обоих каналах', () => {
     const m = formatLead({ ...base, name: '<b>Анна</b>' })
     expect(m.telegram).toContain('👤 <b>Имя:</b> &lt;b&gt;Анна&lt;/b&gt;')

@@ -94,6 +94,11 @@
   outline-offset: 3px;
 }
 
+/* Ник в мессенджере не нужен, если выбран звонок; без :has() поле просто видно всегда */
+.booking-form:has([name='contact_method'][value='Звонок']:checked) .booking-form__messenger {
+  display: none;
+}
+
 /* Ловушка для ботов: вне экрана, но не display:none (боты пропускают скрытые поля) */
 .booking-form__hp {
   position: absolute;

@@ -48,6 +48,13 @@ describe('POST /api/lead', () => {
     expect(msg.telegram).toContain('<b>Связь:</b> Звонок')
   })
 
+  it('ник в мессенджере попадает в уведомление, при звонке — отбрасывается', async () => {
+    await request(app()).post('/api/lead').send({ ...valid, contact_method: 'Telegram', messenger: ' @anna_lv ' })
+    expect(notify.mock.calls[0]![0].telegram).toContain('Telegram — <a href="https://t.me/anna_lv">@anna_lv</a>')
+    expect(parseLead({ ...valid, contact_method: 'Звонок', messenger: '@anna_lv' }).messenger).toBeUndefined()
+    expect(parseLead({ ...valid }).messenger).toBeUndefined()
+  })
+
   it('200, если доставлен хотя бы один канал', async () => {
     result = { email: false, telegram: true }
     const res = await request(app()).post('/api/lead').send(valid)
