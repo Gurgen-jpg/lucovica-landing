@@ -15,16 +15,15 @@ import { formatPrice } from '../../src/lib/format.ts'
 import { yearsLabel } from '../../src/sections/home/masters.ts'
 
 describe('services', () => {
-  it('8 категорий с прежним числом позиций', () => {
+  it('7 категорий по прайсам студии', () => {
     expect(SERVICES.map((c) => [c.id, c.items.length])).toEqual([
-      ['laser-women', 12],
-      ['laser-complexes-women', 7],
-      ['sugaring-women', 9],
-      ['sugaring-master', 7],
-      ['sugaring-teen', 5],
-      ['sugaring-men', 7],
-      ['laser-men', 7],
-      ['laser-complexes-men', 4],
+      ['laser-women', 14],
+      ['laser-complexes-women', 10],
+      ['sugaring-women', 13],
+      ['sugaring-teen', 13],
+      ['sugaring-men', 14],
+      ['laser-men', 15],
+      ['laser-complexes-men', 8],
     ])
     expect(ELECTRO_PRICES).toHaveLength(4)
     expect(CERTIFICATES).toHaveLength(4)
@@ -39,7 +38,6 @@ describe('services', () => {
     expect(byGroup('laser').map((c) => c.audience)).toEqual(['Девушки', 'Мужчины'])
     expect(byGroup('sugaring').map((c) => c.audience)).toEqual([
       'Девушки',
-      'Мастер Екатерина (руководитель)',
       'Юные леди (до 15 лет)',
       'Мужчины',
     ])
@@ -48,7 +46,7 @@ describe('services', () => {
 
   it('minPrice вычисляется из данных', () => {
     expect(minPrice('sugaring')).toBe(300)
-    expect(minPrice('laser')).toBe(990)
+    expect(minPrice('laser')).toBe(1490)
     expect(minPrice('electro')).toBe(700)
     expect(minPrice('complex')).toBe(3690)
     expect(minPrice('cert')).toBe(500)
@@ -66,7 +64,7 @@ describe('services', () => {
   })
 })
 
-// Сверка с исходниками старого сайта (ветка main). Без git-истории тест пропускается.
+// Сверка с исходниками старого сайта (ветка main). Цены с 01.11.2026 — по новым прайсам, не сверяются. Без git-истории тест пропускается.
 function oldSource(path: string): string | null {
   try {
     return execFileSync('git', ['show', `origin/main:${path}`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })
@@ -89,9 +87,8 @@ function arrayLiteral(source: string, name: string): unknown[] {
 
 const oldFaq = oldSource('src/components/FAQ.tsx')
 const oldReviews = oldSource('src/components/Reviews.tsx')
-const oldPrices = oldSource('src/lib/services-data.ts')
 
-describe.skipIf(!oldFaq || !oldReviews || !oldPrices)('совпадение с текущим сайтом', () => {
+describe.skipIf(!oldFaq || !oldReviews)('совпадение с текущим сайтом', () => {
   it('FAQ — посимвольно', () => {
     const faqs = arrayLiteral(oldFaq!, 'faqs') as { q: string; a: string }[]
     expect(HOME_FAQ).toEqual(faqs.map((f) => ({ question: f.q, answer: f.a })))
@@ -102,12 +99,4 @@ describe.skipIf(!oldFaq || !oldReviews || !oldPrices)('совпадение с �
     expect(REVIEWS).toEqual(reviews.map(({ name, date, service, text }) => ({ name, date, service, text })))
   })
 
-  it('цены — все позиции без изменений', () => {
-    const body = oldPrices!.replace(/^export type[\s\S]*?\n\}\n/gm, '')
-    const old = arrayLiteral(body, 'SERVICES: ServiceCategory[]'.replace(': ServiceCategory[]', '')) as {
-      id: string
-      items: { name: string; price: number; short: string }[]
-    }[]
-    expect(SERVICES.map((c) => ({ id: c.id, items: c.items }))).toEqual(old.map((c) => ({ id: c.id, items: c.items })))
-  })
 })

@@ -17,7 +17,7 @@
 ## Decisions
 
 ### D1. Модель цен `src/content/services.ts`
-Переносим `SERVICES`, `ELECTRO_PRICES`, `CERTIFICATES` как есть, добавляем к категории поля `group: 'laser' | 'sugaring' | 'complex' | 'electro'`, `audience` (подпись подгруппы: «Девушки», «Мужчины», «Мастер Екатерина (руководитель)», «Юные леди (до 15 лет)») и `bookingService` — точное значение из списка услуг формы. Вкладки главной строятся фильтром по `group`; «от N ₽» карточек — `min(price)` по группе (для сертификата — минимальный номинал). Этим закрывается расхождение «`defaultService` не из списка формы».
+Переносим `SERVICES`, `ELECTRO_PRICES`, `CERTIFICATES` как есть, добавляем к категории поля `group: 'laser' | 'sugaring' | 'complex' | 'electro'`, `audience` (подпись подгруппы: «Девушки», «Мужчины», «Юные леди (до 15 лет)») и `bookingService` — точное значение из списка услуг формы. Вкладки главной строятся фильтром по `group`; «от N ₽» карточек — `min(price)` по группе (для сертификата — минимальный номинал). Этим закрывается расхождение «`defaultService` не из списка формы».
 
 ### D2. Секции — функции `(data) => html`
 `src/sections/home/hero.ts`, `numbers.ts`, `philosophy.ts`, `services.ts`, `prices.ts`, `ritual.ts`, `masters.ts`, `reviews.ts`, `faq.ts`, `contacts.ts`. Каждая собирается только из примитивов ДС (`SectionHeader`, `Button`, `Tabs`, `Accordion`, `Carousel`, `Photo`). Секции услуг/FAQ/отзывов позже переиспользуются страницами услуг с другими данными.

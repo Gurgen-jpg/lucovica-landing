@@ -23,7 +23,7 @@ export default {
   slug: 'sugaring', name: 'Шугаринг', goalPrefix: 'sugaring',
   meta: {...}, hero: {...},
   sections: [comparison(...), steps(...), zones(...), composition(...), suitability(...), results(...)],
-  priceCategories: ['sugaring-women', 'sugaring-master', 'sugaring-teen', 'sugaring-men'],
+  priceCategories: ['sugaring-women', 'sugaring-teen', 'sugaring-men'],
   reviews, faq, cta,
 } satisfies ServicePage
 ```

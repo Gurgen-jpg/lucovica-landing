@@ -6,7 +6,7 @@ import { offersFromCategories } from '../../services.ts'
 import { FAQ } from './faq.ts'
 import { REVIEWS } from './reviews.ts'
 
-const CATEGORIES = ['sugaring-women', 'sugaring-master', 'sugaring-teen', 'sugaring-men'] as const
+const CATEGORIES = ['sugaring-women', 'sugaring-teen', 'sugaring-men'] as const
 
 // Зоны без записи; цены — из прайса (все названия совпадают с позициями)
 const zone = (category: string, name: string, popular = false): Zone => ({ name, priceRef: { category, item: name }, popular })
@@ -20,7 +20,7 @@ export const ZONES_WOMEN: readonly Zone[] = [
   zone('sugaring-women', 'Голени / Бёдра'),
   zone('sugaring-women', 'Классическое бикини'),
   zone('sugaring-women', 'Лицо полностью'),
-  zone('sugaring-women', 'Верхняя губа'),
+  zone('sugaring-women', 'Лицо — одна зона'),
 ]
 
 export const ZONES_MEN: readonly Zone[] = [
@@ -30,7 +30,7 @@ export const ZONES_MEN: readonly Zone[] = [
   zone('sugaring-men', 'Руки полностью'),
   zone('sugaring-men', 'Грудь'),
   zone('sugaring-men', 'Подмышки'),
-  zone('sugaring-men', 'Борода (оформление)'),
+  zone('sugaring-men', 'Оформление бороды'),
 ]
 
 export const sugaringPage: ServicePageDef = {
@@ -123,7 +123,7 @@ export const sugaringPage: ServicePageDef = {
         { key: 'men', label: 'Мужчинам', zones: ZONES_MEN },
       ],
       '',
-      { note: 'Есть отдельный прайс для юных леди и шугаринг у мастера Екатерины. Уточняйте на консультации.' },
+      { note: 'Для юных леди до 15 лет включительно — отдельный прайс. Уточняйте на консультации.' },
     ),
     featureList(
       'composition',
@@ -183,7 +183,6 @@ export const sugaringPage: ServicePageDef = {
     head: { overline: 'Прейскурант', title: 'Цены на шугаринг', description: 'Все цены указаны за один сеанс.' },
     groups: [
       groupFromCategory('sugaring-women', 'Девушки'),
-      groupFromCategory('sugaring-master', 'Мастер Екатерина'),
       groupFromCategory('sugaring-teen', 'Юные леди'),
       groupFromCategory('sugaring-men', 'Мужчины'),
     ],

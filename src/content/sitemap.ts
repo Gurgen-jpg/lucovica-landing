@@ -1,3 +1,3 @@
 // Дата последнего реального изменения контента для <lastmod> в sitemap.xml.
 // Меняется вручную при правке текстов или цен — не при каждой сборке.
-export const SITEMAP_LASTMOD = '2026-10-31'
+export const SITEMAP_LASTMOD = '2026-11-01'

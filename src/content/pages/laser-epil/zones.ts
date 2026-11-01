@@ -16,21 +16,19 @@ export const ZONES_WOMEN: readonly Zone[] = [
   { name: 'Спина + поясница', priceRef: women('Спина + поясница') },
   { name: 'Живот', priceRef: women('Живот') },
   { name: 'Ягодицы', priceRef: women('Ягодицы') },
-  { name: 'Верхняя губа', priceRef: women('Верхняя губа') },
   { name: 'Плечи', priceRef: women('Плечи') },
   { name: 'Зоны мини', priceRef: women('Зоны мини') },
 ]
 
 export const ZONES_MEN: readonly Zone[] = [
-  // В прайсе «Спина» (2 790 ₽); старая страница показывала «от 4 990 ₽» — ждёт сверки владельцем
-  { name: 'Спина полностью', popular: true },
+  { name: 'Спина полностью', priceRef: men('Спина'), popular: true },
   { name: 'Грудь', priceRef: men('Грудь'), popular: true },
   { name: 'Подмышки', priceRef: men('Подмышки'), popular: true },
   { name: 'Плечи + руки' },
-  { name: 'Шея' },
-  { name: 'Живот' },
+  { name: 'Шея', priceRef: men('Шея полностью') },
+  { name: 'Живот', priceRef: men('Живот') },
   { name: 'Ягодицы' },
   { name: 'Ноги полностью', priceRef: men('Ноги полностью') },
   { name: 'Борода / Усы' },
-  { name: 'Зоны мини' },
+  { name: 'Зоны мини', priceRef: men('Зоны мини') },
 ]
