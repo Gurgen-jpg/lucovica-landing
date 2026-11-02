@@ -59,7 +59,8 @@ export function createApp(opts: AppOptions = {}): Express {
     })
     app.get('/robots.txt', (_req, res) => {
       res.type('text/plain').setHeader('Cache-Control', 'no-cache')
-      res.send('User-agent: *\nDisallow: /\n')
+      // /catalog/ — фото услуг для импорта в Яндекс Бизнес: загрузчик должен их забрать и со стенда
+      res.send('User-agent: *\nAllow: /catalog/\nDisallow: /\n')
     })
   }
   app.use(compression())

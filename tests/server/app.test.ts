@@ -131,11 +131,11 @@ describe('служебные маршруты и API', () => {
 })
 
 describe('режим noindex (стенд)', () => {
-  it('X-Robots-Tag на всех ответах и robots.txt с Disallow: /', async () => {
+  it('X-Robots-Tag на всех ответах, robots.txt закрывает всё, кроме /catalog/', async () => {
     const app = createApp({ noindex: true, distDir: 'dist' })
     const health = await request(app).get('/healthz')
     expect(health.headers['x-robots-tag']).toBe('noindex, nofollow')
     const robots = await request(app).get('/robots.txt')
-    expect(robots.text).toBe('User-agent: *\nDisallow: /\n')
+    expect(robots.text).toBe('User-agent: *\nAllow: /catalog/\nDisallow: /\n')
   })
 })
