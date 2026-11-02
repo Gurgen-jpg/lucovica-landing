@@ -176,11 +176,12 @@ export const SERVICES: readonly ServiceCategory[] = [
   },
 ]
 
+// Электроэпиляция — 40 ₽ за минуту работы
 export const ELECTRO_PRICES: readonly ServiceItem[] = [
-  { name: '15 минут', short: 'Единичные волоски, небольшая зона', price: 700 },
+  { name: '15 минут', short: 'Единичные волоски, небольшая зона', price: 600 },
   { name: '30 минут', short: 'Верхняя губа, подбородок, брови', price: 1200 },
-  { name: '45 минут', short: 'Коррекция после лазера', price: 1700 },
-  { name: '60 минут', short: 'Большая зона или несколько участков', price: 2200 },
+  { name: '45 минут', short: 'Коррекция после лазера', price: 1800 },
+  { name: '60 минут', short: 'Большая зона или несколько участков', price: 2400 },
 ]
 
 export const CERTIFICATES: readonly { amount: number; desc: string }[] = [

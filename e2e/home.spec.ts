@@ -35,13 +35,13 @@ test.describe('главная', () => {
     const cards = page.locator('.home-services__card')
     await expect(cards).toHaveCount(5)
     for (const [i, href] of SERVICE_PAGES.entries()) await expect(cards.nth(i)).toHaveAttribute('href', href)
-    await expect(page.locator('.home-services__from')).toHaveText(['от 990 ₽', 'от 300 ₽', 'от 700 ₽', 'от 3 690 ₽', 'от 500 ₽'])
+    await expect(page.locator('.home-services__from')).toHaveText(['от 1 490 ₽', 'от 300 ₽', 'от 600 ₽', 'от 3 690 ₽', 'от 500 ₽'])
   })
 
-  test('цены: во вкладке «Лазер» 19 строк, стрелки переключают вкладки', async ({ page }) => {
+  test('цены: во вкладке «Лазер» 29 строк, стрелки переключают вкладки', async ({ page }) => {
     await page.goto('/')
     const laser = page.getByRole('tab', { name: 'Лазер' })
-    await expect(page.locator('#prices-panel-laser .price-list__row')).toHaveCount(19)
+    await expect(page.locator('#prices-panel-laser .price-list__row')).toHaveCount(29)
     await laser.focus()
     await page.keyboard.press('ArrowLeft')
     const electro = page.getByRole('tab', { name: 'Электро' })
