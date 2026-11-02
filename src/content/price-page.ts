@@ -105,9 +105,9 @@ export function priceCards(): PriceCardDef[] {
 
 export const ELECTRO_CARD = {
   title: 'Электроэпиляция',
-  note: 'Для девушек и мужчин · цена за время работы',
+  note: 'Для девушек и мужчин · тело 40 ₽/мин, лицо 45 ₽/мин',
   bookingService: 'Электроэпиляция' as BookingService,
-  rows: [...ELECTRO_PRICES].sort((a, b) => a.price - b.price),
+  rows: [...ELECTRO_PRICES],
 }
 
 export function minPriceOnPage(): number {

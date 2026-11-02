@@ -2,7 +2,7 @@
 import type { ServicePageDef } from '../../../layout/service-page.ts'
 import { html } from '../../../lib/html.ts'
 import { featureList, results, steps, suitability } from '../../../sections/service/sections.ts'
-import { ELECTRO_PRICES } from '../../services.ts'
+import { ELECTRO_GROUPS, ELECTRO_PRICES } from '../../services.ts'
 import { FAQ } from './faq.ts'
 import { REVIEWS } from './reviews.ts'
 
@@ -149,9 +149,9 @@ export const electroEpilPage: ServicePageDef = {
     head: {
       overline: 'Прейскурант',
       title: 'Цены на электроэпиляцию',
-      description: 'Стоимость зависит от времени процедуры. Точную цену назовёт мастер на консультации.',
+      description: 'Стоимость зависит от времени процедуры: тело — 40 ₽ за минуту, лицо — 45 ₽ за минуту. Точное время назовёт мастер на консультации.',
     },
-    groups: [{ key: 'electro', label: 'Электроэпиляция', bookingService: 'Электроэпиляция', items: ELECTRO_PRICES }],
+    groups: ELECTRO_GROUPS.map((g) => ({ key: g.key, label: `${g.label} · ${g.rate} ₽/мин`, bookingService: 'Электроэпиляция' as const, items: g.items })),
     options: { note: 'Электроэпиляция тарифицируется по времени — это честно: платите только за фактическую работу.' },
   },
   faq: FAQ,

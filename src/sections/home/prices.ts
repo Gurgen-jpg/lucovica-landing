@@ -1,5 +1,5 @@
 import { SECTIONS } from '../../content/home.ts'
-import { byGroup, ELECTRO_PRICES, PRICE_TABS, type PriceTab, type ServiceItem } from '../../content/services.ts'
+import { byGroup, ELECTRO_GROUPS, PRICE_TABS, type PriceTab, type ServiceItem } from '../../content/services.ts'
 import { sectionHeader } from '../../ds/primitives/section-header/section-header.ts'
 import { tabs } from '../../ds/primitives/tabs/tabs.ts'
 import { bookingButton } from '../../layout/booking.ts'
@@ -20,7 +20,7 @@ ${items.map(
 function panel(tab: PriceTab): SafeHtml {
   const groups =
     tab.group === 'electro'
-      ? [{ audience: 'Тарифы по времени', items: ELECTRO_PRICES }]
+      ? ELECTRO_GROUPS.map((g) => ({ audience: `${g.label} · ${g.rate} ₽/мин`, items: g.items }))
       : byGroup(tab.group)
   return html`<div class="price-panel"${groups.length > 1 ? html` data-columns` : null}>
 ${groups.map(

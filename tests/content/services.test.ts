@@ -25,7 +25,7 @@ describe('services', () => {
       ['laser-men', 15],
       ['laser-complexes-men', 8],
     ])
-    expect(ELECTRO_PRICES).toHaveLength(4)
+    expect(ELECTRO_PRICES).toHaveLength(8)
     expect(CERTIFICATES).toHaveLength(4)
   })
 

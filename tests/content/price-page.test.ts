@@ -17,8 +17,8 @@ describe('/price', () => {
     }
   })
 
-  it('минимальная цена страницы — 400 ₽, электро — 4 тарифа', () => {
+  it('минимальная цена страницы — 400 ₽, электро — 8 тарифов (тело и лицо)', () => {
     expect(minPriceOnPage()).toBe(400)
-    expect(ELECTRO_CARD.rows).toHaveLength(4)
+    expect(ELECTRO_CARD.rows).toHaveLength(8)
   })
 })
