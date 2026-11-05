@@ -3,7 +3,7 @@ import type { FaqItem } from '../content/faq-home.ts'
 import type { Review } from '../content/reviews.ts'
 import { html, type SafeHtml } from '../lib/html.ts'
 import type { Page } from '../lib/page.ts'
-import { breadcrumbs, faqPage, service } from '../lib/schema.ts'
+import { beautySalon, breadcrumbs, faqPage, service } from '../lib/schema.ts'
 import { faq } from '../sections/home/faq.ts'
 import { reviews } from '../sections/home/reviews.ts'
 import { servicePricing, type PriceGroupDef, type PricingOptions } from '../sections/service/pricing.ts'
@@ -43,6 +43,8 @@ export interface ServicePageDef {
 export function servicePage(def: ServicePageDef): Page {
   const goal = `${def.goalPrefix}_cta_click`
   const jsonLd: object[] = [
+    // Организация на каждой странице: provider у Service ссылается на неё по @id
+    beautySalon(),
     service({ name: def.name, description: def.meta.serviceDescription, path: def.path, offers: [...def.offers] }),
     breadcrumbs([
       { name: 'Главная', path: '/' },

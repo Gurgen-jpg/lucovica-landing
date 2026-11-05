@@ -82,7 +82,7 @@ describe('servicePage', () => {
       const ids = [...out.matchAll(/<section class="(?:svc-section|home-section|svc-cta)[^"]*" id="([a-z-]+)"/g)].map((m) => m[1])
       expect(ids.slice(-4)).toEqual(['reviews', 'prices', 'faq', 'cta'])
       const types = (page.meta.jsonLd ?? []).map((d) => (d as { '@type': string })['@type'])
-      expect(types).toEqual(['Service', 'BreadcrumbList', 'FAQPage'])
+      expect(types).toEqual(['BeautySalon', 'Service', 'BreadcrumbList', 'FAQPage'])
       expect(page.meta.title).toMatch(/ в Ростове-на-Дону — студия LUCOVICA$/)
       expect(page.meta.title).not.toContain('| LUCOVICA')
     })

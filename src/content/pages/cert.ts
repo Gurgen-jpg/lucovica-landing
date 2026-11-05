@@ -13,7 +13,7 @@ export const certPage: ServicePageDef = {
   goalPrefix: 'cert',
   meta: {
     title: 'Подарочные сертификаты в Ростове-на-Дону — студия LUCOVICA',
-    description: `Подарочные сертификаты студии Lucovica в Ростове-на-Дону — от ${Math.min(...amounts)} до ${Math.max(...amounts)} ₽ на любые услуги: шугаринг, лазерная и электроэпиляция.`,
+    description: `Подарочные сертификаты студии LUCOVICA в центре Ростова-на-Дону — от ${Math.min(...amounts)} до ${Math.max(...amounts)} ₽ на любые услуги: шугаринг, лазерная и электроэпиляция.`,
     serviceDescription: 'Подарочный сертификат на любые услуги студии: шугаринг, лазерная и электроэпиляция.',
     pageGoal: 'cert_page_view',
   },

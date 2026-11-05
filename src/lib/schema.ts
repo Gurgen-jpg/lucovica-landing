@@ -4,6 +4,12 @@ import { links, site } from '../content/site.ts'
 
 const BUSINESS_ID = () => `${config.siteUrl}/#business`
 
+const city = () => ({
+  '@type': 'City',
+  name: site.address.city,
+  containedInPlace: { '@type': 'State', name: site.address.region },
+})
+
 export function beautySalon(): object {
   return {
     '@context': 'https://schema.org',
@@ -36,12 +42,16 @@ export function beautySalon(): object {
         closes: site.hours.closes,
       },
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: site.yandexMaps.rating,
-      bestRating: 5,
-      reviewCount: site.yandexMaps.reviewCount,
+    // Привязка к городу: студия в центре Ростова-на-Дону
+    containedInPlace: {
+      '@type': 'Place',
+      name: `Центр ${site.address.cityGenitive}`,
+      containedInPlace: city(),
     },
+    areaServed: city(),
+    hasMap: links.yandexOrg,
+    // Рейтинг без числа отзывов в разметку не выводится: AggregateRating без reviewCount/ratingCount невалиден.
+    // На странице рейтинг показан текстом (5,0 на Яндекс Картах).
     sameAs: [links.yandexOrg, links.telegram],
   }
 }
@@ -60,7 +70,7 @@ export function service(opts: { name: string; description: string; path: string;
     serviceType: opts.name,
     description: opts.description,
     url: absoluteUrl(opts.path),
-    areaServed: { '@type': 'City', name: site.address.city },
+    areaServed: city(),
     provider: { '@id': BUSINESS_ID() },
     offers: {
       '@type': 'AggregateOffer',

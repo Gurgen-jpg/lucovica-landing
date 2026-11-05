@@ -15,6 +15,7 @@ export const site = {
     street: 'просп. Соколова, 68/118Вс1, этаж 1',
     short: 'Просп. Соколова, 68',
     city: 'Ростов-на-Дону',
+    cityGenitive: 'Ростова-на-Дону',
     region: 'Ростовская область',
     postalCode: '344000',
     country: 'RU',
@@ -37,7 +38,6 @@ export const site = {
   yandexMaps: {
     orgId: '72594546932',
     rating: 5.0,
-    reviewCount: 500,
   },
 
   // Пустая строка — промо-плашка и галочка акции не выводятся

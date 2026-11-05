@@ -16,7 +16,9 @@ describe('JSON-LD', () => {
     expect(s.geo).toMatchObject({ latitude: site.geo.lat, longitude: site.geo.lon })
     expect(s.openingHoursSpecification[0]).toMatchObject({ opens: '10:00', closes: '21:00' })
     expect(s.openingHoursSpecification[0].dayOfWeek).toHaveLength(7)
-    expect(s.aggregateRating.ratingValue).toBe(5)
+    expect(s.aggregateRating).toBeUndefined()
+    expect(s.areaServed).toMatchObject({ '@type': 'City', name: site.address.city })
+    expect(s.containedInPlace).toMatchObject({ name: 'Центр Ростова-на-Дону', containedInPlace: { name: site.address.city } })
   })
 
   it('Service: диапазон цен и каталог', () => {
