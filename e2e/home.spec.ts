@@ -27,7 +27,7 @@ test.describe('главная', () => {
 
   test('четыре показателя «Студия в цифрах»', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('.home-numbers__value')).toHaveText(['12+', '2 000+', '10 000+', '5.0'])
+    await expect(page.locator('.home-numbers__value')).toHaveText(['12+', '2 000+', '10 000+', '5'])
   })
 
   test('карточки услуг ведут на страницы, «от N ₽» из данных', async ({ page }) => {

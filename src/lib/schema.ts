@@ -51,7 +51,7 @@ export function beautySalon(): object {
     areaServed: city(),
     hasMap: links.yandexOrg,
     // Рейтинг без числа отзывов в разметку не выводится: AggregateRating без reviewCount/ratingCount невалиден.
-    // На странице рейтинг показан текстом (5,0 на Яндекс Картах).
+    // На странице рейтинг показан текстом («5 звёзд по отзывам клиентов»).
     sameAs: [links.yandexOrg, links.telegram],
   }
 }

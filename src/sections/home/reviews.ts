@@ -9,7 +9,7 @@ export function reviews(items: readonly Review[]): SafeHtml {
 <div class="home-reviews">
 <div class="home-reviews__head">
 <h2 class="ds-overline" id="reviews-title">${SECTIONS.reviews.overline}</h2>
-<p class="ds-overline">${site.yandexMaps.rating.toFixed(1)} · Яндекс Карты</p>
+<p class="ds-overline">${site.yandexMaps.rating} звёзд по отзывам клиентов</p>
 </div>
 ${carousel({
   label: 'Лента отзывов',

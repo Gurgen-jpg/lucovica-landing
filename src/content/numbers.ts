@@ -10,5 +10,5 @@ export const NUMBERS: readonly Figure[] = [
   { value: '12+', label: 'лет работы' },
   { value: '2 000+', label: 'постоянных гостей' },
   { value: '10 000+', label: 'проведённых сеансов' },
-  { value: site.yandexMaps.rating.toFixed(1), label: 'рейтинг на Яндекс Картах' },
+  { value: String(site.yandexMaps.rating), label: 'звёзд по отзывам клиентов' },
 ]
