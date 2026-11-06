@@ -23,6 +23,8 @@ beforeAll(() => {
   writeFileSync(join(dist, 'assets', 'site-ABC123.css'), 'body{margin:0}')
   writeFileSync(join(dist, 'robots.txt'), 'User-agent: *')
   writeFileSync(join(dist, 'sitemap.xml'), '<?xml version="1.0"?><urlset/>')
+  mkdirSync(join(dist, 'catalog'))
+  writeFileSync(join(dist, 'catalog', 'feed.yml'), '<?xml version="1.0"?><yml_catalog/>')
   writeFileSync(
     join(dist, 'routes.json'),
     JSON.stringify({ '/': 'index.html', '/sugaring': 'sugaring.html', '/welcome': 'welcome.html', '/welcome/back': 'welcome/back.html' }),
@@ -101,6 +103,12 @@ describe('заголовки', () => {
     const r = await request(app).get('/assets/site-ABC123.css')
     expect(r.status).toBe(200)
     expect(r.headers['cache-control']).toBe('public, max-age=31536000, immutable')
+  })
+
+  it('YML-фид отдаётся как XML', async () => {
+    const r = await request(app).get('/catalog/feed.yml')
+    expect(r.status).toBe(200)
+    expect(r.headers['content-type']).toBe('application/xml; charset=utf-8')
   })
 
   it('HTML — no-cache и 304 по ETag', async () => {

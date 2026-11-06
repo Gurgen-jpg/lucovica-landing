@@ -113,6 +113,8 @@ export function createApp(opts: AppOptions = {}): Express {
           'Cache-Control',
           HASHED_DIRS.test(urlPath) ? 'public, max-age=31536000, immutable' : 'public, max-age=86400',
         )
+        // YML-фиды (Яндекс Директ) — это XML, а не YAML
+        if (urlPath.endsWith('.yml')) res.setHeader('Content-Type', 'application/xml; charset=utf-8')
       },
     }),
   )
