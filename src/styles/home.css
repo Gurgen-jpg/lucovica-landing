@@ -1,12 +1,15 @@
 /* Секции главной (макет v2, борды 06 и 07). */
 
+/* Якорь секции: верхний отступ уходит под хедер, заголовок встаёт сразу под ним */
 .home-section {
   padding-top: var(--space-9);
+  scroll-margin-top: calc(var(--space-5) - var(--space-9));
 }
 
 @media (min-width: 1280px) {
   .home-section {
     padding-top: var(--space-10);
+    scroll-margin-top: calc(var(--space-6) - var(--space-10));
   }
 }
 

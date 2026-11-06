@@ -14,11 +14,12 @@ html {
   scroll-padding-top: var(--header-h);
 }
 
-/* Якорь-алиас старого адреса (#pricing, #about, #trust): не участвует в сетке секции */
+/* Якорь-алиас старого адреса (#pricing, #about, #trust): вне потока, не добавляет gap в сетке секции.
+   Без top/left встаёт в начало содержимого секции — там, где её заголовок. */
 .anchor {
-  display: block;
-  grid-column: 1 / -1;
+  position: absolute;
   height: 0;
+  scroll-margin-top: var(--space-5);
 }
 
 /* ── Промо-плашка ───────────────────────────────────────── */

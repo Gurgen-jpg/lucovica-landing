@@ -33,7 +33,8 @@ function onClose(dlg: HTMLDialogElement): void {
   }
   const opener = openers.get(dlg)
   openers.delete(dlg)
-  if (opener?.isConnected) opener.focus()
+  // preventScroll: возврат фокуса не должен сбивать прокрутку к якорю из меню
+  if (opener?.isConnected) opener.focus({ preventScroll: true })
 }
 
 function trapTab(dlg: HTMLDialogElement, e: KeyboardEvent): void {

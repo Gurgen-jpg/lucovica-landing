@@ -3,6 +3,7 @@ import { initPrimitives } from '../ds/init.client.ts'
 import { initAnalytics } from './analytics.ts'
 import { initBooking } from './booking.ts'
 import { initFloating } from './floating.ts'
+import { initMenuAnchors } from './menu-anchors.ts'
 import { initShowcase } from './showcase.ts'
 import { captureUtm } from './utm.ts'
 import { initWelcome } from './welcome.ts'
@@ -12,5 +13,6 @@ initPrimitives()
 initAnalytics()
 initBooking()
 initFloating()
+initMenuAnchors()
 initShowcase()
 initWelcome()
