@@ -26,6 +26,13 @@ function securityHeaders(_req: Request, res: Response, next: NextFunction) {
   next()
 }
 
+/** www.lucovica.ru → 301 на lucovica.ru с тем же путём и query */
+function stripWww(req: Request, res: Response, next: NextFunction) {
+  const host = req.hostname
+  if (!host.startsWith('www.')) return next()
+  res.redirect(301, `${req.protocol}://${host.slice('www.'.length)}${req.originalUrl}`)
+}
+
 /** /x/ и /x.html → 301 на /x с сохранением query; /index.html → / */
 function canonicalUrl(req: Request, res: Response, next: NextFunction) {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next()
@@ -52,6 +59,7 @@ export function createApp(opts: AppOptions = {}): Express {
   let routes = readRoutes()
 
   app.use(securityHeaders)
+  app.use(stripWww)
   if (opts.noindex) {
     app.use((_req, res, next) => {
       res.setHeader('X-Robots-Tag', 'noindex, nofollow')

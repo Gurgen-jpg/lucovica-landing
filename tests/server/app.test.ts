@@ -57,6 +57,15 @@ describe('страницы', () => {
     expect(r.headers.location).toBe('/sugaring?utm_source=ya')
   })
 
+  it('301 с www на домен без www, путь и query сохраняются', async () => {
+    const r = await request(app)
+      .get('/sugaring?utm_source=ya')
+      .set('Host', 'www.lucovica.ru')
+      .set('X-Forwarded-Proto', 'https')
+    expect(r.status).toBe(301)
+    expect(r.headers.location).toBe('https://lucovica.ru/sugaring?utm_source=ya')
+  })
+
   it('301 с .html и /index.html', async () => {
     expect((await request(app).get('/cert.html')).headers.location).toBe('/cert')
     expect((await request(app).get('/index.html')).headers.location).toBe('/')
