@@ -1,4 +1,5 @@
-// Мастер анкет /welcome и /welcome/back (welcome-intake D2): один шаг за раз, правила шагов — таблица ниже.
+// Мастер анкет /welcome и /welcome/back (welcome-intake D2, welcome-redesign D2–D3): один шаг за раз,
+// правила шагов — таблица ниже; боковая панель и счётчик «Шаг N из M» обновляются здесь.
 import { COFFEE, MILK_TRIGGER, NO_CONTRAINDICATIONS } from '../content/welcome-options.ts'
 import { clearFieldError, setFieldError } from '../ds/primitives/field/field.client.ts'
 import { formatPhone, isValidPhone, normalizePhone } from '../shared/phone.ts'
@@ -8,6 +9,7 @@ import { attachPhoneMask } from './phone-mask.ts'
 export type Visit = 'new' | 'back'
 
 const FALLBACK_ERROR = 'Что-то пошло не так. Попробуй ещё раз.'
+const PHONE_ERROR = 'Укажите номер телефона полностью'
 
 /** Ошибка с текстом от сервера — показывается гостю как есть; сетевые ошибки — общим текстом. */
 class ServerError extends Error {}
@@ -40,7 +42,7 @@ const contacts = (a: Answers) => !!a.get('name') && isValidPhone(a.get('phone'))
 /** Можно ли уйти дальше с шага: обязательные поля заполнены. */
 export const STEP_RULES: Record<Visit, Record<number, (a: Answers, opts: { contactsShown: boolean }) => boolean>> = {
   new: {
-    1: (a) => contacts(a) && !!a.get('address_form'),
+    1: (a) => contacts(a),
     2: (a) => !!a.get('drink'),
     3: (a) => !!a.get('car'),
     4: (a) => !!a.get('talk_mode') && !!a.get('with_kid'),
@@ -89,7 +91,8 @@ export function payload(visit: Visit, a: Answers): Record<string, unknown> {
   const kid = bool(a.get('with_kid'))
   return {
     ...common,
-    address_form: a.get('address_form'),
+    // Новая анкета всегда на «вы» (welcome-redesign D2)
+    address_form: 'vy',
     car,
     car_number: car ? a.get('car_number') : '',
     talk_mode: a.get('talk_mode'),
@@ -112,8 +115,8 @@ function setup(root: HTMLElement): void {
   const last = formSteps.length - 1
   const thanks = steps.find((s) => !form.contains(s))
   const counter = root.querySelector<HTMLElement>('[data-counter]')
-  const counterValue = root.querySelector<HTMLElement>('[data-counter-value]')
   const progress = root.querySelector<HTMLProgressElement>('[data-progress]')
+  const sections = Array.from(root.querySelectorAll<HTMLElement>('[data-steps] > li'))
   const error = form.querySelector<HTMLElement>('[data-error]')
   const name = form.querySelector<HTMLInputElement>('[name="name"]')
   const phone = form.querySelector<HTMLInputElement>('[name="phone"]')
@@ -133,20 +136,29 @@ function setup(root: HTMLElement): void {
     attachPhoneMask(phone)
   }
   root.querySelectorAll<HTMLElement>('[data-greet-name]').forEach((el) => {
-    if (!qName) return
-    el.textContent = visit === 'back' ? `, ${qName}` : `${qName}, `
+    if (qName) el.textContent = `, ${qName}`
   })
-  if (visit === 'new') {
-    // «Анна, давай…» — первое слово после имени со строчной буквы
-    const lead = root.querySelector('[data-greet-name]')?.nextSibling
-    if (qName && lead?.nodeType === Node.TEXT_NODE) lead.textContent = lead.textContent!.replace(/^Д/, 'д')
-  }
   // Повторный гость с корректной ссылкой — без полей контактов
   const contactsShown = !(contactsBlock && qName && isValidPhone(qPhone))
   if (contactsBlock) contactsBlock.hidden = !contactsShown
 
   let current = 0
+  let reached = 0
   let sending = false
+  let done = false
+
+  /** Боковая панель: пройденные разделы — кнопки возврата, текущий отмечен, остальные неактивны. */
+  const renderSections = () => {
+    sections.forEach((li, i) => {
+      const n = i + 1
+      const state = done ? 'done' : n === current ? 'current' : n <= reached ? 'done' : 'todo'
+      li.dataset.state = state
+      if (state === 'current') li.setAttribute('aria-current', 'step')
+      else li.removeAttribute('aria-current')
+      const btn = li.querySelector<HTMLButtonElement>('button')
+      if (btn) btn.disabled = done || n > reached || n === current
+    })
+  }
 
   const render = () => {
     const a = readAnswers(form)
@@ -158,18 +170,17 @@ function setup(root: HTMLElement): void {
     formSteps[current]?.querySelectorAll<HTMLButtonElement>('[data-next], [data-submit]').forEach((b) => {
       b.disabled = !ready || sending
     })
-    root.dataset.address = a.get('address_form') === 'vy' ? 'vy' : 'ty'
-    const shown = current > 0 && current <= last
-    if (counter) counter.hidden = !shown
+    if (counter) counter.textContent = done ? 'Анкета отправлена' : current === 0 ? 'Анкета гостя' : `Шаг ${current} из ${last}`
     if (progress) {
-      progress.hidden = !shown
-      progress.value = current
+      progress.hidden = false
+      progress.value = done ? last : current
     }
-    if (counterValue) counterValue.textContent = String(current)
+    renderSections()
   }
 
   const show = (n: number, focus = true) => {
     current = n
+    reached = Math.max(reached, n)
     formSteps.forEach((s, i) => (s.hidden = i !== n))
     if (thanks) thanks.hidden = true
     render()
@@ -189,6 +200,13 @@ function setup(root: HTMLElement): void {
     }
   })
 
+  // Возврат к пройденному разделу из боковой панели
+  sections.forEach((li, i) => {
+    li.querySelector<HTMLButtonElement>('button')?.addEventListener('click', () => {
+      if (!done && i + 1 <= reached) show(i + 1)
+    })
+  })
+
   form.addEventListener('change', (e) => {
     const input = e.target as HTMLInputElement
     if (input.name === 'drink') {
@@ -196,7 +214,7 @@ function setup(root: HTMLElement): void {
       form.querySelectorAll<HTMLInputElement>('[name="milk"], [name="sugar"], [name="cream"]').forEach((r) => (r.checked = false))
     }
     if (input.name === 'contraindications' && input.checked) {
-      // «Ничего из перечисленного» исключает остальные пункты и наоборот
+      // «Противопоказаний нет» исключает остальные пункты и наоборот
       const none = input.value === NO_CONTRAINDICATIONS
       form.querySelectorAll<HTMLInputElement>('[name="contraindications"]').forEach((c) => {
         if (c !== input && (none || c.value === NO_CONTRAINDICATIONS)) c.checked = false
@@ -209,7 +227,7 @@ function setup(root: HTMLElement): void {
     if (phone && isValidPhone(phone.value)) clearFieldError(phone)
   })
   phone?.addEventListener('blur', () => {
-    if (phone.value && !isValidPhone(phone.value)) setFieldError(phone, 'Введи полный номер телефона')
+    if (phone.value && !isValidPhone(phone.value)) setFieldError(phone, phone.dataset.requiredMessage ?? PHONE_ERROR)
   })
 
   form.addEventListener('submit', async (e) => {
@@ -230,10 +248,11 @@ function setup(root: HTMLElement): void {
       const body = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null
       if (!res.ok || !body?.ok) throw new ServerError(body?.error || FALLBACK_ERROR)
       track('welcome_submitted')
+      done = true
       form.hidden = true
-      if (counter) counter.hidden = true
-      if (progress) progress.hidden = true
       if (thanks) {
+        const guest = a.get('name')
+        thanks.querySelectorAll<HTMLElement>('[data-thanks-name]').forEach((el) => (el.textContent = guest ? `, ${guest}` : ''))
         thanks.hidden = false
         window.scrollTo({ top: 0 })
         thanks.querySelector<HTMLElement>('.welcome-step__title')?.focus()

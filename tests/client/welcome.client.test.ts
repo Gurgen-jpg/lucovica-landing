@@ -44,23 +44,34 @@ describe('/welcome — мастер', () => {
     expect(w.step(1).hidden).toBe(true)
     expect(w.form.querySelector<HTMLInputElement>('[name="name"]')!.value).toBe('Анна')
     expect(w.form.querySelector<HTMLInputElement>('[name="phone"]')!.value).toBe('+7 (977) 016-97-75')
-    expect(w.step(0).querySelector('[data-greet-name]')!.textContent).toBe('Анна, ')
+    expect(document.querySelector('[data-counter]')!.textContent).toBe('Анкета гостя')
   })
 
-  it('«Далее» неактивна без обязательных полей шага 1', () => {
+  it('шаг 1: вопроса об обращении нет, «Далее» активна при имени и полном телефоне', () => {
+    expect(w.form.querySelector('[name="address_form"]:not([type="hidden"])')).toBeNull()
     w.next()
+    expect(document.querySelector('[data-counter]')!.textContent).toBe('Шаг 1 из 6')
     const nextBtn = w.step(1).querySelector<HTMLButtonElement>('[data-next]')!
-    expect(nextBtn.disabled).toBe(true)
-    w.pick('address_form', 'vy')
     expect(nextBtn.disabled).toBe(false)
     w.type('name', '  ')
     expect(nextBtn.disabled).toBe(true)
+    w.type('name', 'Анна')
+    w.type('phone', '+7 (977) 016')
+    expect(nextBtn.disabled).toBe(true)
+    w.type('phone', '+7 (977) 016-97-75')
+    expect(nextBtn.disabled).toBe(false)
   })
 
-  it('«На вы» переключает обращение', () => {
+  it('боковая панель: на шаге 2 «Напиток» текущий, «Контактные данные» доступен для возврата, остальные неактивны', () => {
     w.next()
-    w.pick('address_form', 'vy')
-    expect(w.root.dataset.address).toBe('vy')
+    w.next()
+    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-steps] > li'))
+    expect(items.map((li) => li.dataset.state)).toEqual(['done', 'current', 'todo', 'todo', 'todo', 'todo'])
+    expect(items.map((li) => li.querySelector('button')!.disabled)).toEqual([false, true, true, true, true, true])
+    expect(items[1]!.getAttribute('aria-current')).toBe('step')
+    items[0]!.querySelector('button')!.click()
+    expect(w.step(1).hidden).toBe(false)
+    expect(items.map((li) => li.dataset.state)).toEqual(['current', 'done', 'todo', 'todo', 'todo', 'todo'])
   })
 
   it('матча — молоко без сахара и сливок; смена напитка сбрасывает молоко', () => {
@@ -87,7 +98,6 @@ describe('/welcome — мастер', () => {
 
   it('«Назад» сохраняет ответы', () => {
     w.next()
-    w.pick('address_form', 'ty')
     w.next()
     w.pick('drink', 'green_tea')
     w.next()
@@ -96,8 +106,7 @@ describe('/welcome — мастер', () => {
     expect(w.form.querySelector<HTMLInputElement>('[name="drink"][value="green_tea"]')!.checked).toBe(true)
   })
 
-  it('тело запроса: булевы, массивы, зависимые поля только при условии', () => {
-    w.pick('address_form', 'vy')
+  it('тело запроса: булевы, массивы, зависимые поля только при условии; обращение всегда «вы»', () => {
     w.pick('drink', 'matcha')
     w.pick('milk', 'almond')
     w.pick('car', 'no')

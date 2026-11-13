@@ -1,10 +1,11 @@
-import { html, type SafeHtml } from '../../../lib/html.ts'
+import { html, type HtmlValue, type SafeHtml } from '../../../lib/html.ts'
 import { attrs } from '../../attrs.ts'
 
 interface FieldBase {
   id: string
   name: string
-  label: string
+  /** Подпись; разметка — для пометок вроде «по желанию» */
+  label: HtmlValue
   required?: boolean
   /** Текст ошибки для пустого обязательного поля; по умолчанию «Заполните поле» */
   requiredMessage?: string

@@ -1,13 +1,14 @@
-/* Анкеты гостя /welcome и /welcome/back — без каркаса сайта. */
+/* Анкеты гостя /welcome и /welcome/back — без каркаса сайта (welcome-redesign D3, эталон docs/welcome-mockup.html). */
+
+/* ── Каркас ─────────────────────────────────────────────── */
 
 .welcome {
-  width: 100%;
-  max-width: calc(560px + 2 * var(--space-5));
-  margin-inline: auto;
-  padding: var(--space-5) var(--space-5) var(--space-9);
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
 }
 
-/* Обращение: видна форма из data-address на корне */
+/* Обращение (только /welcome/back): видна форма из data-address на корне */
 .welcome [data-vy],
 .welcome[data-address='vy'] [data-ty] {
   display: none;
@@ -17,32 +18,180 @@
   display: inline;
 }
 
+.welcome-eyebrow {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--lv-text-3);
+}
+
+/* ── Тёмная панель (≥960px) ─────────────────────────────── */
+
+.welcome-aside {
+  display: none;
+  background: var(--lv-inverse);
+  color: var(--lv-on-inverse);
+}
+
+.welcome-aside__in {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-height: 100vh;
+  padding: var(--space-7) var(--space-7) var(--space-6);
+}
+
+.welcome-aside__logo img {
+  display: block;
+  width: auto;
+  height: 26px;
+}
+
+/* Шампань — только на тёмной панели и тёмной карточке */
+.welcome-aside .welcome-eyebrow,
+.welcome-card .welcome-eyebrow {
+  color: var(--lv-accent);
+}
+
+.welcome-aside__title {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.welcome-aside__title em {
+  font-style: italic;
+  color: var(--lv-accent);
+}
+
+.welcome-steps {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border-top: var(--line) solid var(--lv-line-inverse);
+  list-style: none;
+}
+
+.welcome-steps__item {
+  border-bottom: var(--line) solid var(--lv-line-inverse);
+}
+
+.welcome-steps__button {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-3) 0;
+  border: 0;
+  background: transparent;
+  color: var(--gray-9);
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur-hover) var(--ease-silk);
+}
+
+.welcome-steps__button:disabled {
+  cursor: default;
+}
+
+.welcome-steps__n {
+  width: 24px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  font-variant-numeric: tabular-nums;
+}
+
+.welcome-steps__item[data-state='done'] .welcome-steps__button {
+  color: var(--lv-on-inverse-2);
+}
+
+.welcome-steps__item[data-state='done'] .welcome-steps__button:hover {
+  color: var(--lv-on-inverse);
+}
+
+.welcome-steps__item[data-state='current'] .welcome-steps__button {
+  color: var(--lv-on-inverse);
+}
+
+.welcome-steps__item[data-state='current'] .welcome-steps__n {
+  color: var(--lv-accent);
+}
+
+.welcome-steps__button:focus-visible {
+  outline: var(--line) solid var(--lv-accent);
+  outline-offset: 2px;
+}
+
+.welcome-aside__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: auto;
+  font-size: 13px;
+  color: var(--lv-on-inverse-2);
+}
+
+.welcome-aside__foot a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.welcome-aside__foot a:hover {
+  color: var(--lv-on-inverse);
+}
+
+/* ── Основная колонка ───────────────────────────────────── */
+
+.welcome-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
 .welcome__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding-block: var(--space-3);
+  width: 100%;
+  max-width: calc(600px + 2 * var(--space-5));
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-5) var(--space-4);
 }
 
-.welcome__top img {
+.welcome__logo img {
+  display: block;
   width: auto;
-  height: 22px;
+  height: 20px;
 }
 
 .welcome__counter {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.24em;
+  text-transform: uppercase;
   font-variant-numeric: tabular-nums;
   color: var(--lv-text-2);
 }
 
 .welcome__progress {
   display: block;
-  width: 100%;
+  width: calc(100% - 2 * var(--space-5));
+  max-width: 600px;
   height: 2px;
-  margin-bottom: var(--space-6);
+  margin-inline: auto;
   border: 0;
   border-radius: var(--radius);
   background: var(--lv-line);
@@ -63,8 +212,12 @@
   background: var(--lv-onyx);
 }
 
-.welcome__progress[hidden] {
-  display: none;
+.welcome__body {
+  flex: 1;
+  width: 100%;
+  max-width: calc(600px + 2 * var(--space-5));
+  margin-inline: auto;
+  padding: var(--space-7) var(--space-5) var(--space-9);
 }
 
 /* ── Шаг ────────────────────────────────────────────────── */
@@ -72,13 +225,42 @@
 .welcome-step {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  padding-block: var(--space-6);
+  gap: var(--space-6);
 }
 
 /* Без JS шаги идут подряд одной формой */
 .welcome:not([data-enhanced]) .welcome-step + .welcome-step {
+  margin-top: var(--space-7);
+  padding-top: var(--space-7);
   border-top: var(--line) solid var(--lv-line);
+}
+
+.welcome[data-enhanced] .welcome-step {
+  animation: welcome-enter var(--dur-enter) var(--ease-silk);
+}
+
+@keyframes welcome-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome[data-enhanced] .welcome-step {
+    animation: none;
+  }
+}
+
+.welcome-step__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
 .welcome-step__title {
@@ -94,6 +276,7 @@
 }
 
 .welcome-step__lead {
+  max-width: 52ch;
   font-size: 16px;
   line-height: 1.6;
   color: var(--lv-text-2);
@@ -102,59 +285,98 @@
 .welcome-step__body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-7);
+}
+
+.welcome-note {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--lv-text-3);
+}
+
+.welcome-note a {
+  text-underline-offset: 4px;
+}
+
+.welcome-rule {
+  height: 1px;
+  border: 0;
+  background: var(--lv-line);
+}
+
+.welcome-opt {
+  margin-left: var(--space-2);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: none;
+  color: var(--lv-text-3);
 }
 
 .welcome-step__nav {
   display: flex;
   gap: var(--space-3);
-  padding-top: var(--space-3);
+  padding-top: var(--space-4);
 }
 
 .welcome-step__nav .ds-button {
   flex: 1 1 0;
 }
 
-.welcome-step__nav[hidden] {
-  display: none;
+/* «Назад» — без рамки и заливки */
+.welcome-step__nav .welcome-step__back {
+  flex: 0 0 auto;
+  padding: 0 var(--space-4);
+  border-color: transparent;
+  background: transparent;
+  color: var(--lv-text);
 }
 
-/* ── Варианты ───────────────────────────────────────────── */
+.welcome-step__nav .welcome-step__back:hover {
+  border-color: transparent;
+  background: transparent;
+  color: var(--lv-text-2);
+}
 
-.welcome-choices {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+/* ── Варианты: плитки ───────────────────────────────────── */
+
+.welcome-group {
   min-width: 0;
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-.welcome-choices__legend {
+.welcome-group__legend {
+  margin-bottom: var(--space-4);
   padding: 0;
-  margin-bottom: var(--space-3);
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--lv-text);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--lv-text-2);
 }
 
-.welcome-choices__list {
-  display: flex;
-  flex-wrap: wrap;
+.welcome-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: var(--space-2);
 }
 
-.welcome-choices[data-layout='column'] .welcome-choices__list {
-  flex-direction: column;
+.welcome-tiles[data-cols='2'] {
+  grid-template-columns: 1fr 1fr;
 }
 
-.welcome-choice {
+.welcome-tiles[data-cols='3'] {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.welcome-tile {
   position: relative;
   display: flex;
 }
 
-.welcome-choice input {
+.welcome-tile input {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -164,53 +386,140 @@
   cursor: pointer;
 }
 
-.welcome-choice span {
+.welcome-tile span {
+  flex: 1;
   display: flex;
   align-items: center;
-  width: 100%;
-  min-height: 48px;
-  padding: var(--space-2) var(--space-4);
-  border: var(--line) solid var(--gray-9);
-  font-size: 15px;
+  justify-content: center;
+  min-height: 52px;
+  padding: var(--space-3) var(--space-4);
+  border: var(--line) solid var(--lv-line);
+  background: transparent;
+  color: var(--lv-text);
+  font-size: 14px;
   line-height: 1.35;
+  text-align: center;
   transition:
     background-color var(--dur-hover) var(--ease-silk),
-    color var(--dur-hover) var(--ease-silk),
-    border-color var(--dur-hover) var(--ease-silk);
+    border-color var(--dur-hover) var(--ease-silk),
+    color var(--dur-hover) var(--ease-silk);
 }
 
-.welcome-choice input:checked + span {
-  border-color: var(--lv-inverse);
-  background: var(--lv-inverse);
-  color: var(--lv-on-inverse);
+.welcome-tile:hover span {
+  border-color: var(--lv-onyx);
 }
 
-.welcome-choice input:focus-visible + span {
+.welcome-tile input:checked + span {
+  border-color: var(--lv-onyx);
+  background: var(--lv-onyx);
+  color: var(--gray-2);
+}
+
+.welcome-tile input:focus-visible + span {
   outline: var(--line) solid var(--lv-onyx);
   outline-offset: 3px;
 }
 
+/* ── Варианты: список с чекбоксами ──────────────────────── */
+
+.welcome-checks {
+  display: flex;
+  flex-direction: column;
+  border-top: var(--line) solid var(--lv-line);
+}
+
+.welcome-check {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: var(--line) solid var(--lv-line);
+  font-size: 15px;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.welcome-check input {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 18px;
+  height: 18px;
+  margin: var(--space-4) 0 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.welcome-check__box {
+  flex: 0 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border: var(--line) solid var(--lv-onyx);
+  color: transparent;
+  transition: background-color var(--dur-hover) var(--ease-silk);
+}
+
+.welcome-check input:checked + .welcome-check__box {
+  background: var(--lv-onyx);
+  color: var(--gray-2);
+}
+
+.welcome-check input:focus-visible + .welcome-check__box {
+  outline: var(--line) solid var(--lv-onyx);
+  outline-offset: 4px;
+}
+
+.welcome-check__text small {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--lv-text-3);
+}
+
+.welcome-check--none {
+  font-weight: 400;
+}
+
+/* Согласие — мелким текстом */
+.welcome-consent .ds-choice {
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--lv-text-2);
+}
+
+.welcome-consent .ds-choice__input {
+  margin-top: 2px;
+}
+
+.welcome-consent .ds-choice__box {
+  margin-top: 2px;
+}
+
+/* ── Поля ───────────────────────────────────────────────── */
+
 .welcome-pair {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-  gap: var(--space-5);
+  gap: var(--space-7);
+}
+
+.welcome-dep,
+.welcome-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
 }
 
 .welcome-textarea {
   height: auto;
-  min-height: 72px;
+  min-height: 96px;
   padding-block: var(--space-3);
+  line-height: 1.6;
   resize: vertical;
-}
-
-.welcome-contacts {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
-.welcome-contacts[hidden] {
-  display: none;
 }
 
 /* Ловушка для ботов: вне экрана, но не display:none */
@@ -223,9 +532,13 @@
 }
 
 .welcome-error {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1.5;
+}
+
+.welcome-error::before {
+  content: '— ';
 }
 
 [data-submit] [data-sending],
@@ -239,18 +552,86 @@
 
 /* ── Спасибо ────────────────────────────────────────────── */
 
-.welcome-thanks__links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+.welcome-thanks {
+  gap: var(--space-7);
 }
 
-@media (min-width: 768px) {
+.welcome-mark {
+  width: 56px;
+  height: 1px;
+  background: var(--lv-onyx);
+}
+
+.welcome-card {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  background: var(--lv-inverse);
+  color: var(--lv-on-inverse);
+}
+
+.welcome-card .welcome-eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.welcome-card p {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.welcome-card a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.welcome-thanks__links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.welcome-thanks__links .ds-button:first-child {
+  grid-column: 1 / -1;
+}
+
+/* ── Брейкпоинты ────────────────────────────────────────── */
+
+@media (max-width: 420px) {
+  .welcome-tiles[data-cols='3'] {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 600px) {
+  .welcome-step__title {
+    font-size: 48px;
+  }
+
+  .welcome-pair {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .welcome-card {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 960px) {
   .welcome {
+    grid-template-columns: minmax(360px, 420px) 1fr;
+  }
+
+  .welcome-aside {
+    display: block;
+  }
+
+  .welcome__top {
     padding-top: var(--space-7);
   }
 
-  .welcome-step__title {
-    font-size: 52px;
+  /* Логотип уже в панели; место в шапке сохраняем для выравнивания счётчика */
+  .welcome__logo {
+    visibility: hidden;
   }
 }

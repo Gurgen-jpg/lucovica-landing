@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Анкета гостя — LUCOVICA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* Токены — копия src/ds/tokens.css (ДС 2.0 «Plaster & Onyx») */
+:root{
+  --gray-1:#FCFBF9;--gray-2:#F7F5F0;--gray-3:#F0EDE7;--gray-4:#E8E4DD;--gray-5:#E0DCD4;--gray-6:#D2CEC6;
+  --gray-7:#C0BBB2;--gray-8:#A39F97;--gray-9:#7D7A74;--gray-10:#6B6965;--gray-11:#4A4845;--gray-12:#1A1A1C;
+  --lv-onyx:#141416;--lv-graphite:#25272C;--lv-champagne:#B8A47E;
+  --lv-bg:var(--gray-2);--lv-surface:var(--gray-3);--lv-inverse:var(--lv-onyx);
+  --lv-text:var(--gray-12);--lv-text-2:var(--gray-11);--lv-text-3:var(--gray-10);--lv-line:var(--gray-6);
+  --lv-accent:var(--lv-champagne);
+  --lv-on-inverse:var(--gray-2);--lv-on-inverse-2:var(--gray-7);--lv-line-inverse:var(--gray-11);
+  --font-display:'Cormorant Garamond','Times New Roman',serif;
+  --font-text:'Jost',-apple-system,'SF Pro Display','Segoe UI',sans-serif;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;
+  --radius:0;--radius-full:9999px;--line:1px;
+  --ease-silk:cubic-bezier(.22,.61,.12,1);--dur-hover:160ms;--dur-ui:320ms;--dur-enter:640ms;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--lv-bg);color:var(--lv-text);font-family:var(--font-text);font-weight:300;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,textarea{font:inherit;color:inherit}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ── Каркас ───────────────────────────────────────── */
+.wl{min-height:100vh;display:grid;grid-template-columns:1fr}
+@media (min-width:960px){.wl{grid-template-columns:minmax(360px,420px) 1fr}}
+
+/* Тёмная панель */
+.wl-aside{display:none;background:var(--lv-inverse);color:var(--lv-on-inverse)}
+@media (min-width:960px){.wl-aside{display:block}}
+.wl-aside__in{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:var(--space-8);padding:var(--space-7) var(--space-7) var(--space-6)}
+.wl-aside__logo img{height:26px;width:auto;display:block}
+.eyebrow{font-size:11px;font-weight:400;letter-spacing:.28em;text-transform:uppercase}
+.wl-aside .eyebrow{color:var(--lv-accent)}
+.wl-aside__title{font-family:var(--font-display);font-weight:300;font-size:40px;line-height:1.05;letter-spacing:-.02em;margin-top:var(--space-4)}
+.wl-aside__title em{font-style:italic;color:var(--lv-accent)}
+.wl-steps{list-style:none;display:flex;flex-direction:column;border-top:var(--line) solid var(--lv-line-inverse)}
+.wl-steps li{border-bottom:var(--line) solid var(--lv-line-inverse)}
+.wl-steps button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:baseline;gap:var(--space-4);padding:var(--space-3) 0;cursor:pointer;color:var(--gray-9);font-size:13px;letter-spacing:.06em;transition:color var(--dur-hover) var(--ease-silk)}
+.wl-steps button:disabled{cursor:default}
+.wl-steps .n{font-size:11px;letter-spacing:.2em;font-variant-numeric:tabular-nums;width:24px}
+.wl-steps li[data-state=done] button{color:var(--lv-on-inverse-2)}
+.wl-steps li[data-state=done] button:hover{color:var(--lv-on-inverse)}
+.wl-steps li[data-state=current] button{color:var(--lv-on-inverse)}
+.wl-steps li[data-state=current] .n{color:var(--lv-accent)}
+.wl-steps button:focus-visible{outline:var(--line) solid var(--lv-accent);outline-offset:2px}
+.wl-aside__foot{margin-top:auto;display:flex;flex-direction:column;gap:var(--space-1);font-size:13px;color:var(--lv-on-inverse-2)}
+.wl-aside__foot a{text-decoration:none}
+.wl-aside__foot a:hover{color:var(--lv-on-inverse)}
+
+/* Основная колонка */
+.wl-main{display:flex;flex-direction:column;min-width:0}
+.wl-top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-5) var(--space-4);max-width:calc(600px + 2*var(--space-5));width:100%;margin-inline:auto}
+@media (min-width:960px){.wl-top{padding-top:var(--space-7)}}
+.wl-top__logo img{height:20px;width:auto;display:block}
+@media (min-width:960px){.wl-top__logo{visibility:hidden}}
+.wl-counter{font-size:11px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--lv-text-2);font-variant-numeric:tabular-nums}
+.wl-progress{height:1px;background:var(--lv-line);max-width:calc(600px + 2*var(--space-5));width:calc(100% - 2*var(--space-5));margin-inline:auto;position:relative}
+.wl-progress span{position:absolute;inset:0 auto 0 0;background:var(--lv-onyx);height:2px;top:-.5px;transition:width var(--dur-ui) var(--ease-silk)}
+.wl-body{flex:1;width:100%;max-width:calc(600px + 2*var(--space-5));margin-inline:auto;padding:var(--space-7) var(--space-5) var(--space-9)}
+
+/* Шаг */
+.step{display:none;flex-direction:column;gap:var(--space-6);animation:enter var(--dur-enter) var(--ease-silk)}
+.step.is-active{display:flex}
+@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.step__head{display:flex;flex-direction:column;gap:var(--space-4)}
+.step__head .eyebrow{color:var(--lv-text-3)}
+.step__title{font-family:var(--font-display);font-weight:300;font-size:40px;line-height:1.05;letter-spacing:-.02em}
+@media (min-width:600px){.step__title{font-size:48px}}
+.step__title:focus{outline:none}
+.step__lead{color:var(--lv-text-2);max-width:52ch}
+.step__body{display:flex;flex-direction:column;gap:var(--space-7)}
+.note{font-size:13px;line-height:1.6;color:var(--lv-text-3)}
+.note a{text-underline-offset:4px}
+.rule{height:1px;background:var(--lv-line);border:0}
+
+/* Поля */
+.field{display:flex;flex-direction:column;gap:var(--space-2)}
+.label,.legend{font-size:11px;font-weight:400;line-height:1.4;letter-spacing:.28em;text-transform:uppercase;color:var(--lv-text-2)}
+.legend{margin-bottom:var(--space-4);padding:0}
+.label .opt,.legend .opt{letter-spacing:.14em;color:var(--lv-text-3);text-transform:none;font-size:12px;margin-left:var(--space-2)}
+.input{width:100%;height:48px;border:0;border-bottom:var(--line) solid var(--gray-9);border-radius:0;background:transparent;font-size:16px;font-weight:300;appearance:none;transition:border-color var(--dur-hover) var(--ease-silk)}
+textarea.input{height:auto;min-height:96px;padding:var(--space-3) 0;resize:vertical;line-height:1.6}
+.input::placeholder{color:var(--lv-text-3);opacity:1}
+.input:hover{border-bottom-color:var(--gray-10)}
+.input:focus{outline:none;border-bottom-color:var(--lv-onyx);box-shadow:0 var(--line) 0 0 var(--lv-onyx)}
+.hint{font-size:13px;line-height:1.5;color:var(--lv-text-3)}
+.error{font-size:13px;line-height:1.5;font-weight:400;color:var(--lv-text)}
+.error::before{content:'— '}
+.error[hidden]{display:none}
+.input[aria-invalid=true]{border-bottom-color:var(--lv-text);box-shadow:0 var(--line) 0 0 var(--lv-text)}
+.row2{display:grid;gap:var(--space-7)}
+@media (min-width:600px){.row2{grid-template-columns:1fr 1fr;gap:var(--space-6)}}
+
+/* Выбор: плитки */
+fieldset{border:0;min-width:0}
+.tiles{display:grid;gap:var(--space-2);grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.tiles[data-cols="2"]{grid-template-columns:1fr 1fr}
+.tiles[data-cols="3"]{grid-template-columns:repeat(3,1fr)}
+@media (max-width:420px){.tiles[data-cols="3"]{grid-template-columns:1fr}}
+.tile{position:relative;display:flex}
+.tile input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+.tile span{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:52px;padding:var(--space-3) var(--space-4);border:var(--line) solid var(--lv-line);font-size:14px;line-height:1.35;color:var(--lv-text);background:transparent;transition:background-color var(--dur-hover) var(--ease-silk),border-color var(--dur-hover) var(--ease-silk),color var(--dur-hover) var(--ease-silk)}
+.tile:hover span{border-color:var(--lv-onyx)}
+.tile input:checked+span{background:var(--lv-onyx);border-color:var(--lv-onyx);color:var(--gray-2)}
+.tile input:focus-visible+span{outline:var(--line) solid var(--lv-onyx);outline-offset:3px}
+fieldset[aria-invalid=true] .tile span{border-color:var(--lv-text)}
+
+/* Выбор: список с чекбоксами */
+.checks{display:flex;flex-direction:column;border-top:var(--line) solid var(--lv-line)}
+.check{position:relative;display:flex;align-items:flex-start;gap:var(--space-4);padding:var(--space-4) 0;border-bottom:var(--line) solid var(--lv-line);cursor:pointer;font-size:15px;line-height:1.45}
+.check input{position:absolute;opacity:0;width:18px;height:18px;margin:var(--space-4) 0 0;inset:0 auto auto 0;cursor:pointer}
+.check .box{flex:0 0 18px;width:18px;height:18px;margin-top:2px;border:var(--line) solid var(--lv-onyx);display:inline-flex;align-items:center;justify-content:center;color:transparent;transition:background-color var(--dur-hover) var(--ease-silk)}
+.check input:checked+.box{background:var(--lv-onyx);color:var(--gray-2)}
+.check input:focus-visible+.box{outline:var(--line) solid var(--lv-onyx);outline-offset:4px}
+.check small{display:block;font-size:12px;color:var(--lv-text-3);letter-spacing:.02em}
+.check--none{font-weight:400}
+.check--consent{border:0;padding:0;font-size:13px;line-height:1.6;color:var(--lv-text-2)}
+.check--consent input{margin-top:2px}
+
+.dep{display:flex;flex-direction:column;gap:var(--space-7)}
+.dep[hidden]{display:none}
+
+/* Кнопки */
+.nav{display:flex;gap:var(--space-3);padding-top:var(--space-4)}
+.nav .btn{flex:1 1 0}
+.nav .btn--ghost{flex:0 0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);height:52px;padding:0 var(--space-6);border:var(--line) solid var(--lv-onyx);border-radius:0;background:var(--lv-onyx);color:var(--gray-2);font-size:12px;font-weight:400;line-height:1;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background-color var(--dur-hover) var(--ease-silk),color var(--dur-hover) var(--ease-silk),border-color var(--dur-hover) var(--ease-silk)}
+.btn:hover{background:var(--gray-11);border-color:var(--gray-11)}
+.btn--outline{background:transparent;color:var(--lv-text);border-color:var(--lv-text)}
+.btn--outline:hover{background:var(--lv-onyx);border-color:var(--lv-onyx);color:var(--gray-2)}
+.btn--ghost{background:transparent;color:var(--lv-text);border-color:transparent;padding:0 var(--space-4)}
+.btn--ghost:hover{background:transparent;border-color:transparent;color:var(--lv-text-2)}
+.btn:focus-visible{outline:var(--line) solid var(--lv-onyx);outline-offset:3px}
+
+/* Финал */
+.thanks{display:none;flex-direction:column;gap:var(--space-7);animation:enter var(--dur-enter) var(--ease-silk)}
+.thanks.is-active{display:flex}
+.thanks__card{background:var(--lv-inverse);color:var(--lv-on-inverse);padding:var(--space-6);display:grid;gap:var(--space-5)}
+@media (min-width:600px){.thanks__card{grid-template-columns:1fr 1fr}}
+.thanks__card .eyebrow{color:var(--lv-accent);margin-bottom:var(--space-2)}
+.thanks__card p{font-size:15px;line-height:1.5}
+.thanks__card a{text-decoration:none}
+.thanks__actions{display:grid;gap:var(--space-2);grid-template-columns:1fr 1fr}
+.thanks__actions .btn:first-child{grid-column:1/-1}
+.mark{width:56px;height:1px;background:var(--lv-onyx)}
+</style>
+</head>
+<body>
+<div class="wl">
+
+<aside class="wl-aside" aria-label="Студия LUCOVICA">
+  <div class="wl-aside__in">
+    <a class="wl-aside__logo" href="/" aria-label="LUCOVICA — на главную"><img src="data:image/png;base64,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" alt="LUCOVICA"></a>
+    <div>
+      <p class="eyebrow">Анкета гостя</p>
+      <p class="wl-aside__title">Подготовим визит<br><em>заранее</em></p>
+    </div>
+    <ol class="wl-steps" data-steps></ol>
+    <div class="wl-aside__foot">
+      <span>просп. Соколова, 68 · Ростов-на-Дону</span>
+      <span>Ежедневно, 10:00 — 21:00</span>
+      <a href="tel:+79770169775">+7 977 016-97-75</a>
+    </div>
+  </div>
+</aside>
+
+<main class="wl-main">
+  <header class="wl-top">
+    <a class="wl-top__logo" href="/" aria-label="LUCOVICA — на главную"><img src="data:image/png;base64,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" alt="LUCOVICA"></a>
+    <p class="wl-counter" data-counter aria-live="polite"></p>
+  </header>
+  <div class="wl-progress" aria-hidden="true"><span data-progress style="width:0"></span></div>
+
+  <div class="wl-body">
+  <h1 class="sr-only">Анкета гостя LUCOVICA</h1>
+  <form novalidate data-form>
+
+    <!-- 0 · Приветствие -->
+    <section class="step is-active" data-step="0" data-name="Приветствие" aria-labelledby="t0">
+      <div class="step__head">
+        <p class="eyebrow">Перед первым визитом</p>
+        <h2 class="step__title" id="t0" tabindex="-1">Добро пожаловать в&nbsp;LUCOVICA</h2>
+        <p class="step__lead">Чтобы ваш визит прошёл комфортно и&nbsp;безопасно, просим ответить на несколько вопросов. Мы заранее подготовим процедуру и&nbsp;пространство с&nbsp;учётом ваших предпочтений.</p>
+      </div>
+      <hr class="rule">
+      <p class="note">Около 3&nbsp;минут · 6&nbsp;коротких разделов<br>Данные обрабатываются в&nbsp;соответствии с&nbsp;<a href="/privacy" target="_blank">Политикой конфиденциальности</a>.</p>
+      <div class="nav"><button type="button" class="btn" data-next>Заполнить анкету</button></div>
+    </section>
+
+    <!-- 1 · Контакты -->
+    <section class="step" data-step="1" data-name="Контактные данные" aria-labelledby="t1">
+      <div class="step__head">
+        <p class="eyebrow">01 · Контакты</p>
+        <h2 class="step__title" id="t1" tabindex="-1">Контактные данные</h2>
+      </div>
+      <div class="step__body">
+        <div class="field">
+          <label class="label" for="name">Как к вам обращаться</label>
+          <input class="input" id="name" name="name" autocomplete="given-name" placeholder="Имя" maxlength="100" required data-msg="Укажите, как к вам обращаться">
+          <p class="error" hidden></p>
+        </div>
+        <div class="field">
+          <label class="label" for="phone">Телефон</label>
+          <input class="input" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" maxlength="18" required data-msg="Укажите номер телефона полностью" data-phone>
+          <p class="hint">Для подтверждения записи и&nbsp;связи в&nbsp;день визита</p>
+          <p class="error" hidden></p>
+        </div>
+      </div>
+      <div class="nav"><button type="button" class="btn" data-next>Далее</button></div>
+    </section>
+
+    <!-- 2 · Напиток -->
+    <section class="step" data-step="2" data-name="Напиток" aria-labelledby="t2">
+      <div class="step__head">
+        <p class="eyebrow">02 · Напиток</p>
+        <h2 class="step__title" id="t2" tabindex="-1">Что подготовить к&nbsp;вашему приходу?</h2>
+        <p class="step__lead">Напиток будет ждать вас к&nbsp;началу визита.</p>
+      </div>
+      <div class="step__body">
+        <fieldset data-group="drink" data-required data-msg="Выберите вариант">
+          <legend class="sr-only">Напиток</legend>
+          <div class="tiles">
+            <label class="tile"><input type="radio" name="drink" value="cappuccino"><span>Капучино</span></label>
+            <label class="tile"><input type="radio" name="drink" value="americano"><span>Американо</span></label>
+            <label class="tile"><input type="radio" name="drink" value="matcha"><span>Матча</span></label>
+            <label class="tile"><input type="radio" name="drink" value="black_tea"><span>Чёрный чай</span></label>
+            <label class="tile"><input type="radio" name="drink" value="green_tea"><span>Зелёный чай</span></label>
+            <label class="tile"><input type="radio" name="drink" value="water"><span>Вода</span></label>
+            <label class="tile"><input type="radio" name="drink" value="nothing"><span>Без напитка</span></label>
+          </div>
+          <p class="error" hidden></p>
+        </fieldset>
+        <div class="dep" data-dep="milk" hidden>
+          <fieldset>
+            <legend class="legend">Молоко</legend>
+            <div class="tiles" data-cols="3">
+              <label class="tile"><input type="radio" name="milk" value="regular"><span>Классическое</span></label>
+              <label class="tile"><input type="radio" name="milk" value="coconut"><span>Кокосовое</span></label>
+              <label class="tile"><input type="radio" name="milk" value="almond"><span>Миндальное</span></label>
+              <label class="tile"><input type="radio" name="milk" value="banana"><span>Банановое</span></label>
+              <label class="tile"><input type="radio" name="milk" value="pistachio"><span>Фисташковое</span></label>
+              <label class="tile"><input type="radio" name="milk" value="none"><span>Без молока</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="dep" data-dep="coffee" hidden>
+          <div class="row2">
+            <fieldset>
+              <legend class="legend">Сахар</legend>
+              <div class="tiles" data-cols="2">
+                <label class="tile"><input type="radio" name="sugar" value="yes"><span>С сахаром</span></label>
+                <label class="tile"><input type="radio" name="sugar" value="no"><span>Без сахара</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend class="legend">Сливки</legend>
+              <div class="tiles" data-cols="2">
+                <label class="tile"><input type="radio" name="cream" value="yes"><span>Со сливками</span></label>
+                <label class="tile"><input type="radio" name="cream" value="no"><span>Без сливок</span></label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="drink_wish">Особые пожелания<span class="opt">по желанию</span></label>
+          <textarea class="input" id="drink_wish" name="extra_drink_wish" maxlength="500" rows="2" placeholder="Например, покрепче или погорячее"></textarea>
+        </div>
+      </div>
+      <div class="nav"><button type="button" class="btn btn--ghost" data-back>Назад</button><button type="button" class="btn" data-next>Далее</button></div>
+    </section>
+
+    <!-- 3 · Дорога -->
+    <section class="step" data-step="3" data-name="Дорога" aria-labelledby="t3">
+      <div class="step__head">
+        <p class="eyebrow">03 · Дорога</p>
+        <h2 class="step__title" id="t3" tabindex="-1">Как вы планируете добраться?</h2>
+      </div>
+      <div class="step__body">
+        <fieldset data-group="car" data-required data-msg="Выберите вариант">
+          <legend class="sr-only">Транспорт</legend>
+          <div class="tiles" data-cols="2">
+            <label class="tile"><input type="radio" name="car" value="yes"><span>На автомобиле</span></label>
+            <label class="tile"><input type="radio" name="car" value="no"><span>Другим способом</span></label>
+          </div>
+          <p class="error" hidden></p>
+        </fieldset>
+        <div class="dep" data-dep="car" hidden>
+          <div class="field">
+            <label class="label" for="car_number">Номер автомобиля<span class="opt">по желанию</span></label>
+            <input class="input" id="car_number" name="car_number" maxlength="20" placeholder="А123БВ 161">
+            <p class="hint">Позаботимся о&nbsp;свободном месте у&nbsp;входа в&nbsp;студию.</p>
+          </div>
+        </div>
+      </div>
+      <div class="nav"><button type="button" class="btn btn--ghost" data-back>Назад</button><button type="button" class="btn" data-next>Далее</button></div>
+    </section>
+
+    <!-- 4 · Атмосфера -->
+    <section class="step" data-step="4" data-name="Атмосфера визита" aria-labelledby="t4">
+      <div class="step__head">
+        <p class="eyebrow">04 · Атмосфера</p>
+        <h2 class="step__title" id="t4" tabindex="-1">Атмосфера визита</h2>
+        <p class="step__lead">Мастер учтёт ваши пожелания во&nbsp;время процедуры.</p>
+      </div>
+      <div class="step__body">
+        <fieldset data-group="talk_mode" data-required data-msg="Выберите вариант">
+          <legend class="legend">Формат общения</legend>
+          <div class="tiles" data-cols="3">
+            <label class="tile"><input type="radio" name="talk_mode" value="chat"><span>Беседа</span></label>
+            <label class="tile"><input type="radio" name="talk_mode" value="silent"><span>Тишина</span></label>
+            <label class="tile"><input type="radio" name="talk_mode" value="any"><span>По настроению</span></label>
+          </div>
+          <p class="error" hidden></p>
+        </fieldset>
+        <fieldset data-group="with_kid" data-required data-msg="Выберите вариант">
+          <legend class="legend">Будет ли с вами ребёнок</legend>
+          <div class="tiles" data-cols="2">
+            <label class="tile"><input type="radio" name="with_kid" value="yes"><span>Да</span></label>
+            <label class="tile"><input type="radio" name="with_kid" value="no"><span>Нет</span></label>
+          </div>
+          <p class="error" hidden></p>
+        </fieldset>
+        <div class="dep" data-dep="kid" hidden>
+          <div class="field">
+            <label class="label" for="kid_age">Возраст ребёнка</label>
+            <input class="input" id="kid_age" name="kid_age" inputmode="numeric" maxlength="2" placeholder="Полных лет">
+          </div>
+          <fieldset>
+            <legend class="legend">Что подготовить для ребёнка<span class="opt">можно несколько</span></legend>
+            <div class="tiles">
+              <label class="tile"><input type="checkbox" name="kid_needs" value="cartoon"><span>Мультфильмы</span></label>
+              <label class="tile"><input type="checkbox" name="kid_needs" value="coloring"><span>Раскраски</span></label>
+              <label class="tile"><input type="checkbox" name="kid_needs" value="drink"><span>Напиток</span></label>
+              <label class="tile"><input type="checkbox" name="kid_needs" value="nothing"><span>Ничего не нужно</span></label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="nav"><button type="button" class="btn btn--ghost" data-back>Назад</button><button type="button" class="btn" data-next>Далее</button></div>
+    </section>
+
+    <!-- 5 · Здоровье -->
+    <section class="step" data-step="5" data-name="Сведения о здоровье" aria-labelledby="t5">
+      <div class="step__head">
+        <p class="eyebrow">05 · Здоровье</p>
+        <h2 class="step__title" id="t5" tabindex="-1">Сведения о&nbsp;здоровье</h2>
+        <p class="step__lead">Некоторые состояния требуют адаптации процедуры или являются противопоказанием к&nbsp;ней. Отметьте всё, что относится к&nbsp;вам, — мастер подберёт безопасный протокол.</p>
+      </div>
+      <div class="step__body">
+        <fieldset data-group="contraindications" data-required data-msg="Отметьте подходящие пункты или «Противопоказаний нет»">
+          <legend class="legend">Отметьте, что относится к вам</legend>
+          <div class="checks">
+            <label class="check"><input type="checkbox" name="contraindications" value="pregnancy"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Беременность</span></label>
+            <label class="check"><input type="checkbox" name="contraindications" value="lactation"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Период лактации</span></label>
+            <label class="check"><input type="checkbox" name="contraindications" value="oncology"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Онкологические заболевания<small>в настоящее время или в анамнезе</small></span></label>
+            <label class="check"><input type="checkbox" name="contraindications" value="diabetes"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Сахарный диабет</span></label>
+            <label class="check"><input type="checkbox" name="contraindications" value="epilepsy"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Эпилепсия</span></label>
+            <label class="check"><input type="checkbox" name="contraindications" value="antibiotics"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Приём антибиотиков<small>в последние 2 недели</small></span></label>
+            <label class="check"><input type="checkbox" name="contraindications" value="retinoids"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Приём ретиноидов (в&nbsp;том числе Роаккутана)<small>в последние 6 месяцев</small></span></label>
+            <label class="check"><input type="checkbox" name="contraindications" value="photodermatitis"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Фотодерматит или повышенная чувствительность к&nbsp;свету</span></label>
+            <label class="check"><input type="checkbox" name="contraindications" value="infection"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Острая инфекция, ОРВИ или повышенная температура</span></label>
+            <label class="check check--none"><input type="checkbox" name="contraindications" value="none" data-exclusive><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Противопоказаний нет</span></label>
+          </div>
+          <p class="error" hidden></p>
+        </fieldset>
+        <fieldset data-group="tan" data-required data-msg="Выберите вариант">
+          <legend class="legend">Загар или солярий за последние 2 недели</legend>
+          <div class="tiles" data-cols="2">
+            <label class="tile"><input type="radio" name="tan" value="yes"><span>Да</span></label>
+            <label class="tile"><input type="radio" name="tan" value="no"><span>Нет</span></label>
+          </div>
+          <p class="error" hidden></p>
+        </fieldset>
+        <div class="field">
+          <label class="label" for="skin">Аллергии и особенности кожи<span class="opt">по желанию</span></label>
+          <textarea class="input" id="skin" name="skin_notes" maxlength="500" rows="2" placeholder="Например, реакция на определённые средства"></textarea>
+        </div>
+      </div>
+      <div class="nav"><button type="button" class="btn btn--ghost" data-back>Назад</button><button type="button" class="btn" data-next>Далее</button></div>
+    </section>
+
+    <!-- 6 · Завершение -->
+    <section class="step" data-step="6" data-name="Завершение" aria-labelledby="t6">
+      <div class="step__head">
+        <p class="eyebrow">06 · Завершение</p>
+        <h2 class="step__title" id="t6" tabindex="-1">Последний шаг</h2>
+      </div>
+      <div class="step__body">
+        <fieldset data-group="source" data-required data-msg="Выберите вариант">
+          <legend class="legend">Как вы узнали о студии</legend>
+          <div class="tiles">
+            <label class="tile"><input type="radio" name="source" value="yandex_maps"><span>Яндекс Карты</span></label>
+            <label class="tile"><input type="radio" name="source" value="instagram"><span>Instagram</span></label>
+            <label class="tile"><input type="radio" name="source" value="friend"><span>Рекомендация</span></label>
+            <label class="tile"><input type="radio" name="source" value="ads"><span>Реклама</span></label>
+            <label class="tile"><input type="radio" name="source" value="other"><span>Другое</span></label>
+          </div>
+          <p class="error" hidden></p>
+        </fieldset>
+        <div class="field">
+          <label class="label" for="notes">Дополнительные пожелания<span class="opt">по желанию</span></label>
+          <textarea class="input" id="notes" name="extra_notes" maxlength="1000" rows="3" placeholder="Всё, что нам важно знать перед визитом"></textarea>
+        </div>
+        <fieldset data-group="privacy_consent" data-required data-msg="Для отправки анкеты необходимо согласие">
+          <legend class="sr-only">Согласие</legend>
+          <label class="check check--consent"><input type="checkbox" name="privacy_consent" value="on"><span class="box" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span><span>Даю согласие на&nbsp;обработку персональных данных, включая сведения о&nbsp;состоянии здоровья, в&nbsp;целях подготовки и&nbsp;проведения процедуры. С&nbsp;<a href="/privacy" target="_blank">Политикой конфиденциальности</a> ознакомлен(а).</span></label>
+          <p class="error" hidden></p>
+        </fieldset>
+      </div>
+      <div class="nav"><button type="button" class="btn btn--ghost" data-back>Назад</button><button type="submit" class="btn">Отправить анкету</button></div>
+    </section>
+
+  </form>
+
+  <!-- Финал -->
+  <section class="thanks" data-thanks aria-labelledby="t7">
+    <div class="step__head">
+      <div class="mark" aria-hidden="true"></div>
+      <h2 class="step__title" id="t7" tabindex="-1">Благодарим вас<span data-thanks-name></span></h2>
+      <p class="step__lead">Анкета получена. Мы подготовимся к&nbsp;вашему визиту с&nbsp;учётом всех пожеланий. Если планы изменятся, пожалуйста, сообщите нам&nbsp;заранее.</p>
+    </div>
+    <div class="thanks__card">
+      <div><p class="eyebrow">Адрес</p><p>просп. Соколова, 68/118Вс1, этаж&nbsp;1<br>Ростов-на-Дону</p></div>
+      <div><p class="eyebrow">Часы работы</p><p>Ежедневно, 10:00 — 21:00<br><a href="tel:+79770169775">+7 977 016-97-75</a></p></div>
+    </div>
+    <div class="thanks__actions">
+      <a class="btn" href="https://yandex.ru/maps/org/lucovica/72594546932/" target="_blank" rel="noopener">Построить маршрут</a>
+      <a class="btn btn--outline" href="https://wa.me/79770169775" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn--outline" href="https://t.me/lucovica_pro_epil" target="_blank" rel="noopener">Telegram</a>
+    </div>
+  </section>
+  </div>
+</main>
+</div>
+
+<script>
+(() => {
+  const form = document.querySelector('[data-form]');
+  const steps = [...form.querySelectorAll('.step')];
+  const total = steps.length - 1;
+  const counter = document.querySelector('[data-counter]');
+  const progress = document.querySelector('[data-progress]');
+  const list = document.querySelector('[data-steps]');
+  let cur = 0, maxReached = 0;
+
+  steps.slice(1).forEach((s, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<button type="button"><span class="n">0${i + 1}</span><span>${s.dataset.name}</span></button>`;
+    li.querySelector('button').addEventListener('click', () => { if (i + 1 <= maxReached) go(i + 1); });
+    list.append(li);
+  });
+
+  function render() {
+    steps.forEach((s, i) => s.classList.toggle('is-active', i === cur));
+    counter.textContent = cur === 0 ? 'Анкета гостя' : `Шаг ${cur} из ${total}`;
+    progress.style.width = (cur / total * 100) + '%';
+    [...list.children].forEach((li, i) => {
+      const n = i + 1;
+      li.dataset.state = n === cur ? 'current' : n <= maxReached ? 'done' : 'todo';
+      li.querySelector('button').disabled = n > maxReached;
+    });
+  }
+  function go(n) {
+    cur = n; maxReached = Math.max(maxReached, n); render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    steps[n].querySelector('.step__title').focus({ preventScroll: true });
+  }
+
+  function setErr(el, msg) {
+    const err = el.parentElement.querySelector(':scope > .error') || el.querySelector(':scope > .error');
+    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    if (err) { err.textContent = msg || ''; err.hidden = !msg; }
+  }
+  function validate(step) {
+    let first = null;
+    step.querySelectorAll('input[required]').forEach(inp => {
+      let bad = !inp.value.trim();
+      if (inp.hasAttribute('data-phone')) bad = inp.value.replace(/\D/g, '').length < 11;
+      setErr(inp, bad ? inp.dataset.msg : '');
+      if (bad && !first) first = inp;
+    });
+    step.querySelectorAll('fieldset[data-required]').forEach(fs => {
+      const bad = !fs.querySelector('input:checked');
+      setErr(fs, bad ? fs.dataset.msg : '');
+      if (bad && !first) first = fs.querySelector('input');
+    });
+    if (first) first.focus();
+    return !first;
+  }
+
+  form.addEventListener('click', e => {
+    if (e.target.closest('[data-next]')) { if (validate(steps[cur])) go(cur + 1); }
+    if (e.target.closest('[data-back]')) go(cur - 1);
+  });
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate(steps[cur])) return;
+    const name = form.elements.namedItem('name').value.trim();
+    document.querySelector('[data-thanks-name]').textContent = name ? `, ${name}` : '';
+    form.hidden = true;
+    const t = document.querySelector('[data-thanks]');
+    t.classList.add('is-active');
+    counter.textContent = 'Анкета отправлена';
+    progress.style.width = '100%';
+    maxReached = 0; [...list.children].forEach(li => { li.dataset.state = 'done'; li.querySelector('button').disabled = true; });
+    t.querySelector('.step__title').focus();
+  });
+
+  // Зависимые поля
+  const MILK = ['cappuccino', 'americano', 'matcha'], COFFEE = ['cappuccino', 'americano'];
+  const dep = (k, on) => form.querySelector(`[data-dep="${k}"]`).hidden = !on;
+  form.addEventListener('change', e => {
+    const t = e.target;
+    if (t.name === 'drink') { dep('milk', MILK.includes(t.value)); dep('coffee', COFFEE.includes(t.value)); }
+    if (t.name === 'car') dep('car', t.value === 'yes');
+    if (t.name === 'with_kid') dep('kid', t.value === 'yes');
+    if (t.name === 'contraindications' && t.checked) {
+      form.querySelectorAll('input[name=contraindications]').forEach(o => {
+        if (o !== t && (t.dataset.exclusive !== undefined || o.dataset.exclusive !== undefined)) o.checked = false;
+      });
+    }
+    const fs = t.closest('fieldset[data-required]');
+    if (fs && fs.getAttribute('aria-invalid') === 'true' && fs.querySelector('input:checked')) setErr(fs, '');
+  });
+  form.addEventListener('input', e => {
+    const t = e.target;
+    if (t.hasAttribute('data-phone')) {
+      let d = t.value.replace(/\D/g, '');
+      if (d.startsWith('8')) d = '7' + d.slice(1);
+      if (d && !d.startsWith('7')) d = '7' + d;
+      d = d.slice(0, 11);
+      const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)];
+      t.value = !d ? '' : '+7' + (p[0] ? ` (${p[0]}` : '') + (p[0].length === 3 ? ')' : '') + (p[1] ? ` ${p[1]}` : '') + (p[2] ? `-${p[2]}` : '') + (p[3] ? `-${p[3]}` : '');
+    }
+    if (t.getAttribute('aria-invalid') === 'true' && t.value.trim()) setErr(t, '');
+  });
+
+  // Имя из ссылки: /welcome?name=Анна
+  const q = new URLSearchParams(location.search).get('name');
+  if (q) form.elements.namedItem('name').value = q;
+
+  render();
+})();
+</script>
+</body>
+</html>

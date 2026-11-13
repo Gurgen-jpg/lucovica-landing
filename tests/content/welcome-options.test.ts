@@ -33,10 +33,11 @@ describe('welcome-options', () => {
       'Приём ретиноидов / Роаккутана (последние 6 месяцев)',
     ])
     expect(CONTRAINDICATIONS_NEW.at(-1)!.label).toBe('Ничего из перечисленного')
+    expect(CONTRAINDICATIONS_NEW.at(-1)!.formLabel).toBe('Противопоказаний нет')
   })
 
   it('молоко — полные и верные подписи', () => {
-    expect(MILK_OPTIONS.map((m) => m.label)).toEqual(['Обычное', 'Кокосовое', 'Банановое', 'Миндальное', 'Фисташковое', 'Без молока'])
+    expect(MILK_OPTIONS.map((m) => m.label)).toEqual(['Обычное', 'Кокосовое', 'Миндальное', 'Банановое', 'Фисташковое', 'Без молока'])
     expect(labelOf(MILK_OPTIONS, 'banana')).toBe('Банановое')
   })
 
