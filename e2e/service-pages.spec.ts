@@ -21,7 +21,7 @@ const PAGES = [
     title: 'Электроэпиляция в Ростове-на-Дону — студия LUCOVICA',
     sections: ['why', 'how', 'zones', 'method', 'contraindications', 'results', 'reviews', 'prices', 'faq', 'cta'],
     goals: ['electro_epil_cta_click', 'electro_epil_phone_click'],
-    faq: true,
+    faq: 9, // 8 перенесённых + «Сколько стоит сеанс, если волосков мало?»
   },
   {
     path: '/complex',
@@ -88,12 +88,13 @@ for (const p of PAGES) {
     })
 
     if (p.faq) {
-      test('FAQ совпадает с JSON-LD FAQPage (8 вопросов)', async ({ page }) => {
+      const count = p.faq === true ? 8 : p.faq
+      test(`FAQ совпадает с JSON-LD FAQPage (${count} вопросов)`, async ({ page }) => {
         await page.goto(p.path)
         const questions = (await page.locator('#faq .ds-accordion__trigger').allTextContents()).map((q) => q.trim())
         const ld = await page.$$eval('script[type="application/ld+json"]', (els) => els.map((e) => JSON.parse(e.textContent!)))
         const faq = ld.find((d) => d['@type'] === 'FAQPage')
-        expect(questions).toHaveLength(8)
+        expect(questions).toHaveLength(count)
         expect(faq.mainEntity.map((q: { name: string }) => q.name)).toEqual(questions)
         expect(ld.map((d) => d['@type'])).toEqual(expect.arrayContaining(['Service', 'BreadcrumbList']))
       })

@@ -9,6 +9,11 @@ import { priceOf } from '../../src/content/services.ts'
 import { servicePage, type ServicePageDef } from '../../src/layout/service-page.ts'
 import type { ImageManifest } from '../../src/lib/images.ts'
 
+/** Вопросы, добавленные после переноса (их нет на старом сайте) — исключаются из посимвольного сравнения. */
+const ADDED_FAQ: Record<string, readonly string[]> = {
+  'electro-epil': ['Сколько стоит сеанс, если волосков мало?'],
+}
+
 const PAGES: [string, ServicePageDef, string, string][] = [
   ['laser-epil', laserEpilPage, 'LaserEpilFAQ.data.ts', 'LaserEpilReviews.tsx'],
   ['sugaring', sugaringPage, 'SugaringFAQ.data.ts', 'SugaringReviews.tsx'],
@@ -39,12 +44,16 @@ const hasGit = oldSource('src/components/laser-epil/LaserEpilFAQ.data.ts') !== n
 
 describe.skipIf(!hasGit)('совпадение FAQ и отзывов с текущим сайтом', () => {
   for (const [slug, def, faqFile, reviewsFile] of PAGES) {
-    it(`${slug}: 8 вопросов FAQ посимвольно`, () => {
+    it(`${slug}: 8 вопросов FAQ посимвольно (плюс добавленные позже)`, () => {
       const src = oldSource(`src/components/${slug}/${faqFile}`)!
       const name = src.match(/export const (\w+)/)![1]!
       const old = arrayLiteral(src, name) as { q: string; a: string }[]
-      expect(def.faq).toHaveLength(8)
-      expect(def.faq).toEqual(old.map((f) => ({ question: f.q, answer: f.a })))
+      const added = ADDED_FAQ[slug] ?? []
+      const faq = def.faq ?? []
+      expect(faq.filter((f) => added.includes(f.question))).toHaveLength(added.length)
+      const migrated = faq.filter((f) => !added.includes(f.question))
+      expect(migrated).toHaveLength(8)
+      expect(migrated).toEqual(old.map((f) => ({ question: f.q, answer: f.a })))
     })
 
     it(`${slug}: 6 отзывов посимвольно`, () => {

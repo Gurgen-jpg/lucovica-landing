@@ -176,8 +176,11 @@ export const SERVICES: readonly ServiceCategory[] = [
   },
 ]
 
-// Электроэпиляция — по времени работы: тело 40 ₽/мин, лицо 45 ₽/мин
-const ELECTRO_MINUTES = [15, 30, 45, 60] as const
+// Электроэпиляция — по времени работы: тело 40 ₽/мин, лицо 45 ₽/мин.
+// Минимальная стоимость сеанса — 1 000 ₽: первая строка тарифа — «короткий сеанс», в него входит
+// столько минут, сколько покрывает минимум по ставке зоны; дальше — поминутно.
+export const ELECTRO_MIN_SESSION = 1000
+const ELECTRO_MINUTES = [30, 45, 60] as const
 
 export interface ElectroGroup {
   key: 'body' | 'face'
@@ -191,8 +194,16 @@ const electro = (key: ElectroGroup['key'], label: string, rate: number, shorts: 
   key,
   label,
   rate,
-  items: ELECTRO_MINUTES.map((m, i) => ({ name: `${m} минут`, short: shorts[i]!, price: m * rate })),
+  items: [
+    { name: `до ${Math.floor(ELECTRO_MIN_SESSION / rate)} минут`, short: shorts[0]!, price: ELECTRO_MIN_SESSION },
+    ...ELECTRO_MINUTES.map((m, i) => ({ name: `${m} минут`, short: shorts[i + 1]!, price: m * rate })),
+  ],
 })
+
+/** Минуты, которые покрывает минимальный сеанс по каждой зоне: «до 25 минут для тела и до 22 минут для лица» */
+export function electroMinSessionMinutes(): string {
+  return ELECTRO_GROUPS.map((g) => `до ${Math.floor(ELECTRO_MIN_SESSION / g.rate)} минут для ${g.label === "Тело" ? "тела" : "лица"}`).join(" и ")
+}
 
 export const ELECTRO_GROUPS: readonly ElectroGroup[] = [
   electro('body', 'Тело', 40, [
@@ -209,7 +220,7 @@ export const ELECTRO_GROUPS: readonly ElectroGroup[] = [
   ]),
 ]
 
-/** Все тарифы одним списком: «Тело, 15 минут» … «Лицо, 60 минут» */
+/** Все тарифы одним списком: «Тело, до 25 минут» … «Лицо, 60 минут» */
 export const ELECTRO_PRICES: readonly ServiceItem[] = ELECTRO_GROUPS.flatMap((g) =>
   g.items.map((i) => ({ ...i, name: `${g.label}, ${i.name}` })),
 )

@@ -35,7 +35,7 @@ test.describe('главная', () => {
     const cards = page.locator('.home-services__card')
     await expect(cards).toHaveCount(5)
     for (const [i, href] of SERVICE_PAGES.entries()) await expect(cards.nth(i)).toHaveAttribute('href', href)
-    await expect(page.locator('.home-services__from')).toHaveText(['от 1 490 ₽', 'от 300 ₽', 'от 600 ₽', 'от 3 690 ₽', 'от 500 ₽'])
+    await expect(page.locator('.home-services__from')).toHaveText(['от 1 490 ₽', 'от 300 ₽', 'от 1 000 ₽', 'от 3 690 ₽', 'от 500 ₽'])
   })
 
   test('цены: во вкладке «Лазер» 29 строк, стрелки переключают вкладки', async ({ page }) => {

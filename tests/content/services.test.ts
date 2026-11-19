@@ -47,7 +47,7 @@ describe('services', () => {
   it('minPrice вычисляется из данных', () => {
     expect(minPrice('sugaring')).toBe(300)
     expect(minPrice('laser')).toBe(1490)
-    expect(minPrice('electro')).toBe(600)
+    expect(minPrice('electro')).toBe(1000)
     expect(minPrice('complex')).toBe(3690)
     expect(minPrice('cert')).toBe(500)
   })

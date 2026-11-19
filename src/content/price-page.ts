@@ -1,6 +1,7 @@
 // /price — короткий прайс популярных зон для ссылок из Telegram (перенесено из ../landing/src/components/price/price-list.config.ts).
 // Здесь только ссылки на позиции; цены берутся из services.ts.
-import { categoryById, ELECTRO_PRICES, type BookingService, type ServiceItem } from './services.ts'
+import { categoryById, ELECTRO_MIN_SESSION, ELECTRO_PRICES, type BookingService, type ServiceItem } from './services.ts'
+import { formatPrice } from '../lib/format.ts'
 
 export type Audience = 'women' | 'men'
 
@@ -105,7 +106,7 @@ export function priceCards(): PriceCardDef[] {
 
 export const ELECTRO_CARD = {
   title: 'Электроэпиляция',
-  note: 'Для девушек и мужчин · тело 40 ₽/мин, лицо 45 ₽/мин',
+  note: `Для девушек и мужчин · тело 40 ₽/мин, лицо 45 ₽/мин · сеанс от ${formatPrice(ELECTRO_MIN_SESSION)} ₽`,
   bookingService: 'Электроэпиляция' as BookingService,
   rows: [...ELECTRO_PRICES],
 }

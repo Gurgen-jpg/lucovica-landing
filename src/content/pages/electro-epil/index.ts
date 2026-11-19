@@ -1,8 +1,9 @@
 // /electro-epil — тексты перенесены из ../landing/src/components/electro-epil/* и (site)/electro-epil.
 import type { ServicePageDef } from '../../../layout/service-page.ts'
+import { formatPrice } from '../../../lib/format.ts'
 import { html } from '../../../lib/html.ts'
 import { featureList, results, steps, suitability } from '../../../sections/service/sections.ts'
-import { ELECTRO_GROUPS, ELECTRO_PRICES } from '../../services.ts'
+import { ELECTRO_GROUPS, ELECTRO_MIN_SESSION, ELECTRO_PRICES, electroMinSessionMinutes } from '../../services.ts'
 import { FAQ } from './faq.ts'
 import { REVIEWS } from './reviews.ts'
 
@@ -149,10 +150,10 @@ export const electroEpilPage: ServicePageDef = {
     head: {
       overline: 'Прейскурант',
       title: 'Цены на электроэпиляцию',
-      description: 'Стоимость зависит от времени процедуры: тело — 40 ₽ за минуту, лицо — 45 ₽ за минуту. Точное время назовёт мастер на консультации.',
+      description: 'Стоимость зависит от времени процедуры: тело — 40 ₽ за минуту, лицо — 45 ₽ за минуту. Сеанс от 1 000 ₽, далее поминутно. Точное время назовёт мастер на консультации.',
     },
     groups: ELECTRO_GROUPS.map((g) => ({ key: g.key, label: `${g.label} · ${g.rate} ₽/мин`, bookingService: 'Электроэпиляция' as const, items: g.items })),
-    options: { note: 'Электроэпиляция тарифицируется по времени — это честно: платите только за фактическую работу.' },
+    options: { note: `Сеанс от ${formatPrice(ELECTRO_MIN_SESSION)} ₽ покрывает ${electroMinSessionMinutes()}. Дальше стоимость считается по минутам.` },
   },
   faq: FAQ,
   cta: {
