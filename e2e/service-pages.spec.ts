@@ -24,6 +24,13 @@ const PAGES = [
     faq: 9, // 8 перенесённых + «Сколько стоит сеанс, если волосков мало?»
   },
   {
+    path: '/promo',
+    title: 'Подмышки в подарок при первом визите — акция студии LUCOVICA, Ростов-на-Дону',
+    sections: ['how', 'terms', 'prices', 'faq', 'cta'],
+    goals: ['promo_cta_click', 'promo_phone_click'],
+    faq: 5,
+  },
+  {
     path: '/complex',
     title: 'Комплексы лазерной эпиляции в Ростове-на-Дону — студия LUCOVICA',
     sections: ['prices', 'cta'],

@@ -143,7 +143,7 @@ test.describe('каркас', () => {
     await page.goto('/')
     const footer = page.locator('.site-footer')
     const hrefs = await footer.locator('a[href^="/"]').evaluateAll((els) => els.map((e) => e.getAttribute('href')!))
-    expect(hrefs).toEqual([...SERVICE_PAGES, '/privacy'])
+    expect(hrefs).toEqual([...SERVICE_PAGES, '/promo', '/privacy'])
     expect((await request.get('/privacy')).status()).toBe(200)
     await expect(footer).toContainText(`© 2014 — ${new Date().getFullYear()} · Студия эпиляции LUCOVICA`)
     await expect(footer.locator('a[href="/offer"]')).toHaveCount(0)

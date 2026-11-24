@@ -35,6 +35,8 @@ export interface PricingOptions {
   hideItemPrice?: boolean
   /** Примечание под ценами */
   note?: HtmlValue
+  /** Кнопки записи отмечают акцию первого визита (страница акции) */
+  promo?: boolean
 }
 
 function rows(g: PriceGroupDef, opts: PricingOptions): SafeHtml {
@@ -43,7 +45,7 @@ ${g.items.map(
   (item) => html`<li class="price-list__row svc-price-row">
 <span class="price-list__text"><span class="price-list__name">${item.name}</span><span class="price-list__short">${item.short}</span></span>
 ${opts.hideItemPrice ? null : html`<span class="ds-price price-list__price">${formatPrice(item.price)}<span class="ds-price__currency">₽</span></span>`}
-${bookingButton({ label: opts.itemLabel ?? 'Записаться', ariaLabel: `${opts.itemLabel ?? 'Записаться'}: ${item.name}`, variant: 'link', size: 2, service: g.bookingService, detail: item.name, goal: opts.goal, className: 'svc-price-row__book' })}
+${bookingButton({ label: opts.itemLabel ?? 'Записаться', ariaLabel: `${opts.itemLabel ?? 'Записаться'}: ${item.name}`, variant: 'link', size: 2, service: g.bookingService, detail: item.name, promo: opts.promo, goal: opts.goal, className: 'svc-price-row__book' })}
 </li>`,
 )}
 </ul>`
@@ -51,7 +53,7 @@ ${bookingButton({ label: opts.itemLabel ?? 'Записаться', ariaLabel: `$
 
 function panel(g: PriceGroupDef, opts: PricingOptions): SafeHtml {
   return html`${rows(g, opts)}
-${opts.itemLabel ? null : bookingButton({ label: 'Записаться на процедуру', variant: 'link', service: g.bookingService, goal: opts.goal, className: 'price-panel__cta' })}`
+${opts.itemLabel ? null : bookingButton({ label: 'Записаться на процедуру', variant: 'link', service: g.bookingService, promo: opts.promo, goal: opts.goal, className: 'price-panel__cta' })}`
 }
 
 export function servicePricing(head: SectionHead, groups: readonly PriceGroupDef[], opts: PricingOptions): SafeHtml {

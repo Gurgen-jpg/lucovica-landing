@@ -8,9 +8,9 @@ const LOGO = html`<img src="/brand/logo-black-44.png" alt="${site.name}" width="
 
 const MENU_ICON = html`<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true" focusable="false"><path d="M0 1h22M0 11h22" stroke="currentColor" stroke-width="1"/></svg>`
 
-/** Промо-плашка: текст акции из настроек; пустой текст — плашки нет. */
+/** Промо-плашка: текст акции из настроек, ссылка на страницу акции /promo; пустой текст — плашки нет. */
 export function promoBar(): SafeHtml | null {
-  return site.promo ? html`<aside class="site-promo ds-inverse" aria-label="Акция"><p>${site.promo}</p></aside>` : null
+  return site.promo ? html`<aside class="site-promo ds-inverse" aria-label="Акция"><p><a href="/promo">${site.promo}</a></p></aside>` : null
 }
 
 function mobileMenu(): SafeHtml {

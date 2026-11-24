@@ -13,4 +13,5 @@ export const SERVICE_PAGES = [
   { label: 'Электроэпиляция', href: '/electro-epil' },
   { label: 'Комплексы', href: '/complex' },
   { label: 'Подарочный сертификат', href: '/cert' },
+  { label: 'Акция: подмышки в подарок', href: '/promo' },
 ] as const
