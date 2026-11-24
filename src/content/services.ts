@@ -1,5 +1,6 @@
 // Единственный источник цен (перенесено из ../landing/src/lib/services-data.ts).
 // «от N ₽», вкладки прайса, JSON-LD и предвыбор услуги в форме вычисляются отсюда.
+import { formatPrice } from '../lib/format.ts'
 
 export type ServiceItem = {
   name: string
@@ -246,6 +247,19 @@ export const SERVICE_NAMES_FOR_FORM = [
 ] as const
 
 export type BookingService = (typeof SERVICE_NAMES_FOR_FORM)[number]
+
+/** Услуги, для которых действует акция первого визита (site.promo): галочка в форме видна только при их выборе */
+export const PROMO_SERVICES: readonly BookingService[] = [
+  'Лазерная эпиляция — Девушки',
+  'Комплекс лазерной эпиляции — Девушки',
+  'Мужская лазерная эпиляция',
+  'Комплекс лазерной эпиляции — Мужчины',
+]
+
+/** Подсказка под полем «Услуга» в форме записи — показывается при выборе услуги */
+export const SERVICE_FORM_HINTS: Partial<Record<BookingService, string>> = {
+  Электроэпиляция: `Сеанс от ${formatPrice(ELECTRO_MIN_SESSION)} ₽, далее поминутно. Точное время и стоимость мастер назовёт на бесплатной консультации.`,
+}
 
 export interface PriceTab {
   group: PriceGroup

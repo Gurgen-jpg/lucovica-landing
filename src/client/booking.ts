@@ -41,10 +41,18 @@ function parts(form: HTMLFormElement): Parts {
   }
 }
 
-/** Режим сертификата — на форме и на диалоге (заголовок диалога). */
+/** Режим сертификата — на форме и на диалоге (заголовок диалога); подсказки под услугой ([data-service-hint]). */
 function syncMode(p: Parts): void {
   const cert = p.service.value === CERTIFICATE
   for (const el of [p.form, p.form.closest('dialog')]) el?.toggleAttribute('data-cert', cert)
+  for (const hint of p.form.querySelectorAll<HTMLElement>('[data-service-hint]')) hint.hidden = hint.dataset.serviceHint !== p.service.value
+  // Акция первого визита — только для услуг из data-promo-for; при другой услуге блок скрыт и галочка снята
+  const promoBlock = p.form.querySelector<HTMLElement>('[data-promo-for]')
+  if (promoBlock) {
+    const off = p.service.value !== '' && !promoBlock.dataset.promoFor!.split('|').includes(p.service.value)
+    promoBlock.hidden = off
+    if (off && p.promo) p.promo.checked = false
+  }
 }
 
 function setDetail(p: Parts, detail: string): void {

@@ -70,6 +70,33 @@ test.describe('диалог записи', () => {
     await page.getByRole('tab', { name: 'Электро' }).click()
     await page.locator('#prices-panel-electro').getByRole('link', { name: 'Записаться на процедуру' }).click()
     await expect(page.locator('#booking-form-service')).toHaveValue('Электроэпиляция')
+    // Подсказка про минимальный сеанс — только для электроэпиляции
+    const hint = dialog(page).locator('[data-service-hint]')
+    await expect(hint).toBeVisible()
+    await expect(hint).toContainText('Сеанс от 1 000 ₽')
+    await page.selectOption('#booking-form-service', 'Шугаринг — Девушки')
+    await expect(hint).toBeHidden()
+  })
+
+  test('акция первого визита — только для лазерной эпиляции', async ({ page }) => {
+    const sent = await mockLead(page)
+    await page.goto('/laser-epil')
+    await page.locator('#cta').getByRole('link', { name: 'Записаться онлайн' }).click()
+    const promo = dialog(page).locator('[data-promo-for]')
+    await expect(promo).toBeVisible()
+    await expect(promo).toContainText('кроме подмышек')
+    await expect(page.locator('#booking-form-promo')).toBeChecked()
+    await page.selectOption('#booking-form-service', 'Шугаринг — Девушки')
+    await expect(promo).toBeHidden()
+    await page.fill('#booking-form-name', 'Анна')
+    await page.fill('#booking-form-phone', '9001234567')
+    await dialog(page).getByRole('button', { name: 'Отправить заявку' }).click()
+    await expect.poll(() => sent.length).toBe(1)
+    expect(sent[0]!.promo).toBe('')
+    await page.goto('/')
+    await page.locator('.home-hero').getByRole('link', { name: 'Записаться онлайн' }).click()
+    await page.selectOption('#booking-form-service', 'Мужская лазерная эпиляция')
+    await expect(dialog(page).locator('[data-promo-for]')).toBeVisible()
   })
 
   test('имя сохраняется между открытиями, услуга — от новой кнопки; Escape возвращает фокус', async ({ page }) => {

@@ -8,7 +8,7 @@ afterEach(() => {
 describe('promoBar', () => {
   it('выводит текст акции из настроек', async () => {
     const { promoBar } = await import('../../src/layout/header.ts')
-    expect(promoBar()?.value).toContain('Первый визит — подмышки бесплатно')
+    expect(promoBar()?.value).toContain('Первый визит — подмышки в подарок')
   })
 
   it('пустой текст акции — плашки нет', async () => {

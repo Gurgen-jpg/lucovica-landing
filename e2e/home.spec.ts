@@ -11,7 +11,7 @@ test.describe('главная', () => {
     await expect(page.locator('h1')).toHaveText('Лазерная эпиляция и шугаринг')
     const ids = await page.$$eval('main > section[id]', (els) => els.map((e) => e.id))
     expect(ids).toEqual(['services', 'prices', 'masters', 'reviews', 'faq', 'contacts'])
-    await expect(page.locator('.site-promo')).toHaveText('Первый визит — подмышки бесплатно')
+    await expect(page.locator('.site-promo')).toHaveText('Первый визит — подмышки в подарок')
   })
 
   test('без нарушений доступности (axe)', async ({ page }) => {

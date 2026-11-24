@@ -1,7 +1,7 @@
 // Форма записи (booking-form): один шаблон для диалога и для секции «Контакты» (booking-pipeline D1).
 // Без JS — обычный POST на /api/lead; с JS — fetch и состояния в src/client/booking.ts.
 import { links, site } from '../../../content/site.ts'
-import { SERVICE_NAMES_FOR_FORM } from '../../../content/services.ts'
+import { PROMO_SERVICES, SERVICE_FORM_HINTS, SERVICE_NAMES_FOR_FORM } from '../../../content/services.ts'
 import { html, type SafeHtml } from '../../../lib/html.ts'
 import { button } from '../../primitives/button/button.ts'
 import { checkbox } from '../../primitives/choice/choice.ts'
@@ -42,6 +42,7 @@ ${textField({ id: `${id}-phone`, name: 'phone', label: 'Телефон', type: '
 <div class="booking-form__service">
 ${selectField({ id: `${id}-service`, name: 'service', label: 'Услуга', placeholder: 'Выберите услугу', options: SERVICE_NAMES_FOR_FORM.map((s) => ({ value: s, label: s })) })}
 <p class="booking-form__detail" data-detail hidden>Зона: <span data-detail-text></span></p>
+${Object.entries(SERVICE_FORM_HINTS).map(([service, hint]) => html`<p class="booking-form__detail" data-service-hint="${service}" hidden>${hint}</p>`)}
 </div>
 <div class="booking-form__booking-only">
 ${options(id, 'time', 'Удобное время', TIME_SLOTS)}
@@ -50,7 +51,7 @@ ${options(id, 'contact_method', 'Способ связи', CONTACT_METHODS, 'З�
 <div class="booking-form__messenger">
 ${textField({ id: `${id}-messenger`, name: 'messenger', label: 'Ник или номер в мессенджере', placeholder: '@username или +7…', hint: 'Если оставить пустым — напишем на номер телефона выше.', autocomplete: 'off', maxlength: 100 })}
 </div>
-${site.promo ? html`<div class="booking-form__booking-only">${checkbox({ id: `${id}-promo`, name: 'promo', value: site.promo, label: html`Хочу акцию: <strong>${site.promo.toLowerCase()}</strong>` })}</div>` : null}
+${site.promo ? html`<div class="booking-form__booking-only" data-promo-for="${PROMO_SERVICES.join('|')}">${checkbox({ id: `${id}-promo`, name: 'promo', value: site.promo, label: html`Хочу акцию: <strong>${site.promo.toLowerCase()}</strong>` })}<p class="booking-form__detail">${site.promoTerms}.</p></div>` : null}
 <div class="booking-form__hp" aria-hidden="true"><label>Не заполняйте это поле <input type="text" name="_hp" tabindex="-1" autocomplete="off"></label></div>
 <p class="booking-form__error" role="alert" data-error hidden></p>
 ${button({ label: html`<span data-mode="booking">Отправить заявку</span><span data-mode="cert">Оформить</span><span data-sending>Отправка…</span>`, type: 'submit', className: 'booking-form__submit' })}

@@ -44,7 +44,7 @@ export const page: Page = {
 <p class="ds-overline">Студия эпиляции · ${site.address.city}</p>
 <h1 class="ds-h1">Прайс-лист</h1>
 <p class="ds-small">Популярные зоны. Цена за одну процедуру.</p>
-${site.promo ? html`<p>${badge(`🎁 ${site.promo}`, 'soft')}</p>` : null}
+${site.promo ? html`<p>${badge(`🎁 ${site.promo}`, 'soft')}</p><p class="ds-small">${site.promoTerms}.</p>` : null}
 </header>
 ${tabs({
   id: 'price',

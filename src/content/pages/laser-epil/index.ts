@@ -166,7 +166,7 @@ export const laserEpilPage: ServicePageDef = {
     head: {
       overline: 'Прейскурант',
       title: 'Цены на лазерную эпиляцию',
-      description: `Все цены за один сеанс.${site.promo ? ` ${site.promo}.` : ''}`,
+      description: `Все цены за один сеанс.${site.promo ? ` ${site.promo}. ${site.promoTerms}.` : ''}`,
     },
     groups: [
       groupFromCategory('laser-women', 'Девушки'),
@@ -178,8 +178,8 @@ export const laserEpilPage: ServicePageDef = {
   faq: FAQ,
   cta: {
     overline: 'Записаться на лазерную эпиляцию',
-    title: site.promo || 'Первый визит — подмышки бесплатно',
-    text: 'Студия LUCOVICA, Ростов-на-Дону, просп. Соколова, 68. Запись онлайн — удобно и без звонков. Ответим в Telegram.',
+    title: site.promo || 'Первый визит — подмышки в подарок',
+    text: `${site.promo ? `${site.promoTerms}. ` : ''}Студия LUCOVICA, Ростов-на-Дону, просп. Соколова, 68. Запись онлайн — удобно и без звонков. Ответим в Telegram.`,
     booking: { service: 'Лазерная эпиляция — Девушки', promo: true },
     phone: true,
     telegram: true,
